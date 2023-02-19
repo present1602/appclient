@@ -10,6 +10,7 @@ import PublicRoute from 'components/route/PublicRoute'
 import AuthorityGuard from 'components/route/AuthorityGuard'
 import AppRoute from 'components/route/AppRoute'
 const ModernLayout = React.lazy(() => import('components/layout/ModernLayout'))
+const AuthLayout = React.lazy(() => import('components/layout/AuthLayout'))
 
 const { authenticatedEntryPath } = appConfig
 
@@ -52,11 +53,13 @@ const AllRoutes = (props) => {
             key={route.path}
             path={route.path}
             element={
-              <AppRoute
-                routeKey={route.key}
-                component={route.component}
-                {...route.meta}
-              />
+              <AuthLayout>
+                <AppRoute
+                  routeKey={route.key}
+                  component={route.component}
+                  {...route.meta}
+                />
+              </AuthLayout>
             }
           />
         ))}
