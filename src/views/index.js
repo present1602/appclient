@@ -9,6 +9,7 @@ import ProtectedRoute from 'components/route/ProtectedRoute'
 import PublicRoute from 'components/route/PublicRoute'
 import AuthorityGuard from 'components/route/AuthorityGuard'
 import AppRoute from 'components/route/AppRoute'
+
 const ModernLayout = React.lazy(() => import('components/layout/ModernLayout'))
 const AuthLayout = React.lazy(() => import('components/layout/AuthLayout'))
 
@@ -19,17 +20,20 @@ const AllRoutes = (props) => {
 
   return (
     <Routes>
-
-      {protectedRoutes.map((route, index) => (
+      <Route path="/" element={<ProtectedRoute />}>
         <Route
-          key={route.key + index}
-          path={route.path}
-          element={
-            // <AuthorityGuard
-            //   userAuthority={userAuthority}
-            //   authority={route.authority}
-            // >
-            <ProtectedRoute>
+          path="/"
+          element={<Navigate replace to={authenticatedEntryPath} />}
+        />
+        {protectedRoutes.map((route, index) => (
+          <Route
+            key={route.key + index}
+            path={route.path}
+            element={
+              // <AuthorityGuard
+              //   userAuthority={userAuthority}
+              //   authority={route.authority}
+              // >
               <Suspense fallback={<></>}>
                 <ModernLayout>
                   <PageContainer {...props} {...route.meta}>
@@ -41,11 +45,11 @@ const AllRoutes = (props) => {
                   </PageContainer>
                 </ModernLayout>
               </Suspense>
-            </ProtectedRoute>
-            // </AuthorityGuard> 
-          }
-        />
-      ))}
+              // </AuthorityGuard> 
+            }
+          />
+        ))}
+      </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
       <Route path="/" element={<PublicRoute />}>
         {publicRoutes.map((route) => (

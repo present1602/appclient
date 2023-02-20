@@ -5,7 +5,7 @@ export const signInUserData = [
         userName: 'Carolyn Perkins',
         email: 'carolyn.p@elstar.com',
         authority: ['admin', 'user'],
-        password: '1234',
+        password: '123Qwe',
         accountUserName: 'admin',
     },
 ]
