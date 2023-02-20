@@ -14,6 +14,7 @@ import Home from './Home'
 import SingleMenuView from './demo/SingleMenuView'
 import SignIn from './auth/SignIn'
 import SignUp from './auth/SignUp'
+import UiTest from './UiTest'
 // const ModernLayout = React.lazy(() => import('components/layout/ModernLayout'))
 const AuthLayout = React.lazy(() => import('components/layout/AuthLayout'))
 
@@ -35,13 +36,14 @@ const AllRoutes = (props) => {
   // },
   return (
     <Routes>
-      <Route path={'/account'} element={<AuthLayout />}>
-        <Route path='sign-in' element={<PublicRoute><SignIn /></PublicRoute>} />
-        <Route path='sign-up' element={<PublicRoute><SignUp /></PublicRoute>} />
+      <Route path='/uitest' key={'test.ui'} element={<UiTest />} />
+      <Route path='/account' element={<AuthLayout />}>
+        <Route path='sign-in' key={'account.sign-in'} element={<PublicRoute><SignIn /></PublicRoute>} />
+        <Route path='sign-up' key={'account.sign-up'} element={<PublicRoute><SignUp /></PublicRoute>} />
       </Route>
       <Route path='/' element={<ModernLayout />}>
-        <Route path='home' element={<Home />} />
-        <Route path='single-menu-view' element={<SingleMenuView />} />
+        <Route path='home' key={'ui.home'} element={<Home />} />
+        <Route path='single-menu-view' key={'ui.single-menu-view'} element={<SingleMenuView />} />
       </Route>
     </Routes>
   )

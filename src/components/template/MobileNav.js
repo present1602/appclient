@@ -70,7 +70,7 @@ const MobileNav = () => {
             onRequestClose={onDrawerClose}
             bodyClass={classNames(navColor(), 'p-0')}
             width={330}
-            placement={''}
+            placement={'left'}
           >
             <Suspense fallback={<></>}>
               {isOpen && (
