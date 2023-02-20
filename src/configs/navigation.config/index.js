@@ -109,6 +109,17 @@ const navigationConfig = [
             },
         ],
     },
+
+    {
+        key: 'home',
+        path: '/auth/sign-up',
+        title: 'Home',
+        translateKey: 'nav.home',
+        icon: 'home',
+        type: NAV_ITEM_TYPE_ITEM,
+        authority: [],
+        subMenu: [],
+    },
 ]
 
 export default navigationConfig

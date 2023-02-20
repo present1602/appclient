@@ -8,6 +8,7 @@ const getRouteInfo = (navTree, key) => {
     let activedRoute
     let isIncludeActivedRoute = false
     for (let p in navTree) {
+        debugger;
         if (
             p !== 'icon' &&
             navTree.hasOwnProperty(p) &&

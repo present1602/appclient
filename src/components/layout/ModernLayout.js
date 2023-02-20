@@ -6,6 +6,8 @@ import SideNavToggle from 'components/template/SideNavToggle'
 import MobileNav from 'components/template/MobileNav'
 import SideNav from 'components/template/SideNav'
 import View from 'views'
+import { Outlet } from 'react-router-dom'
+import PageContainer from 'components/template/PageContainer'
 
 const HeaderActionsStart = () => {
     return (
@@ -37,7 +39,10 @@ const ModernLayout = (props) => {
                         headerStart={<HeaderActionsStart />}
                     />
                     {/* <View {...props} /> */}
-                    {props.children}
+                    {/* {props.children} */}
+                    <PageContainer >
+                        <Outlet />
+                    </PageContainer>
                 </div>
             </div>
         </div>

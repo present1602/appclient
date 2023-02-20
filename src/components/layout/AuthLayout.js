@@ -2,6 +2,7 @@ import React, { cloneElement } from 'react'
 import { Container } from 'components/shared'
 import { Card } from 'components/ui'
 import Logo from 'components/template/Logo'
+import { Outlet } from 'react-router-dom'
 
 const Simple = ({ children, content, ...rest }) => {
   return (
@@ -15,13 +16,14 @@ const Simple = ({ children, content, ...rest }) => {
             <Logo type="streamline" imgClass="mx-auto" />
           </div>
           <div className="text-center">
-            {content}
+            {/* {content}
             {children
               ? cloneElement(children, {
                 contentClassName: 'text-center',
                 ...rest,
               })
-              : null}
+              : null} */}
+            <Outlet />
           </div>
         </Card>
       </Container>
