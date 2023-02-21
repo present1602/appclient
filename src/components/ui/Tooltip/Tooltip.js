@@ -22,7 +22,7 @@ const Tooltip = (props) => {
         className,
         children,
         title,
-        placement,
+        placement = 'left',
         wrapperClass,
         isOpen,
         ...rest
@@ -60,60 +60,60 @@ const Tooltip = (props) => {
                     </span>
                 )}
             </Reference>
-            {tooltipOpen && (
-                <Portal>
-                    <Popper
-                        placement={placement}
-                        innerRef={(node) => (tooltipNode.current = node)}
-                        modifiers={[
-                            { name: 'arrow', options: { element: Arrow } },
-                            { name: 'offset', options: { offset: [0, 7] } },
-                        ]}
-                        strategy={'fixed'}
-                    >
-                        {({ ref, style, ...popperProps }) => (
-                            <AnimatePresence>
-                                <motion.div
-                                    className={defaultTooltipClass}
-                                    ref={ref}
-                                    style={style}
-                                    initial={{
-                                        opacity: 0,
-                                        visibility: 'hidden',
-                                    }}
-                                    animate={
-                                        tooltipOpen
-                                            ? {
-                                                opacity: 1,
-                                                visibility: 'visible',
-                                            }
-                                            : {
-                                                opacity: 0,
-                                                visibility: 'hidden',
-                                            }
-                                    }
-                                    transition={{
-                                        duration: 0.15,
-                                        type: 'tween',
-                                    }}
-                                >
-                                    <PopperElement
-                                        open={tooltipOpen}
-                                        title={title}
-                                        {...rest}
-                                        {...popperProps}
-                                    />
-                                    <Arrow
-                                        placement={placement}
-                                        color={tooltipBackground}
-                                        colorDark={tooltipDarkBackground}
-                                    />
-                                </motion.div>
-                            </AnimatePresence>
-                        )}
-                    </Popper>
-                </Portal>
-            )}
+            {/* {tooltipOpen && ( */}
+            <Portal>
+                <Popper
+                    placement={placement}
+                    innerRef={(node) => (tooltipNode.current = node)}
+                    modifiers={[
+                        { name: 'arrow', options: { element: Arrow } },
+                        { name: 'offset', options: { offset: [0, 7] } },
+                    ]}
+                    strategy={'fixed'}
+                >
+                    {({ ref, style, ...popperProps }) => (
+                        <AnimatePresence>
+                            <motion.div
+                                className={defaultTooltipClass}
+                                ref={ref}
+                                style={style}
+                                initial={{
+                                    opacity: 0,
+                                    visibility: 'hidden',
+                                }}
+                                animate={
+                                    tooltipOpen
+                                        ? {
+                                            opacity: 1,
+                                            visibility: 'visible',
+                                        }
+                                        : {
+                                            opacity: 0,
+                                            visibility: 'hidden',
+                                        }
+                                }
+                                transition={{
+                                    duration: 0.15,
+                                    type: 'tween',
+                                }}
+                            >
+                                <PopperElement
+                                    open={tooltipOpen}
+                                    title={title}
+                                    {...rest}
+                                    {...popperProps}
+                                />
+                                <Arrow
+                                    placement={placement}
+                                    color={tooltipBackground}
+                                    colorDark={tooltipDarkBackground}
+                                />
+                            </motion.div>
+                        </AnimatePresence>
+                    )}
+                </Popper>
+            </Portal>
+            {/* )} */}
         </Manager>
     )
 }

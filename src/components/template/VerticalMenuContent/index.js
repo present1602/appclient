@@ -42,6 +42,7 @@ const VerticalMenuContent = (props) => {
     }
 
     const getNavItem = (nav) => {
+
         if (nav.subMenu.length === 0 && nav.type === NAV_ITEM_TYPE_ITEM) {
             return (
                 <VerticalSingleMenuItem

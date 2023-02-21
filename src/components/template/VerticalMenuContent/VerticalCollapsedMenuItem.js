@@ -2,6 +2,7 @@ import React from 'react'
 import { Menu, Dropdown } from 'components/ui'
 import { Link } from 'react-router-dom'
 import VerticalMenuIcon from './VerticalMenuIcon'
+
 // import { Trans } from 'react-i18next'
 
 const { MenuItem, MenuCollapse } = Menu
@@ -12,7 +13,7 @@ const DefaultItem = ({ nav, onLinkClick, userAuthority }) => {
             label={
                 <>
                     <VerticalMenuIcon icon={nav.icon} />
-                    <span>
+                    <span key={nav.translateKey}>
                         {nav.title}
                         {/* <Trans
                             i18nKey={nav.translateKey}
@@ -40,7 +41,7 @@ const DefaultItem = ({ nav, onLinkClick, userAuthority }) => {
                             }
                             to={subNav.path}
                         >
-                            <span>{subNav.title}
+                            <span key={Math.random()}>{subNav.title}
                                 {/* <Trans
                                     i18nKey={subNav.translateKey}
                                     defaults={subNav.title}
@@ -48,7 +49,7 @@ const DefaultItem = ({ nav, onLinkClick, userAuthority }) => {
                             </span>
                         </Link>
                     ) : (
-                        <span>
+                        <span key={Math.random()}>
                             {subNav.title}
                             {/* <Trans
                                 i18nKey={subNav.translateKey}
@@ -91,7 +92,7 @@ const CollapsedItem = ({ nav, onLinkClick, userAuthority, direction }) => {
                             }
                             to={subNav.path}
                         >
-                            <span>
+                            <span key={Math.random()}>
                                 {subNav.title}
                                 {/* <Trans
                                             i18nKey={subNav.translateKey}
@@ -100,7 +101,7 @@ const CollapsedItem = ({ nav, onLinkClick, userAuthority, direction }) => {
                             </span>
                         </Link>
                     ) : (
-                        <span>
+                        <span key={Math.random()}>
                             {subNav.title}
                             {/* <Trans
                                         i18nKey={subNav.translateKey}

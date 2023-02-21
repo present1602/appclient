@@ -15,7 +15,7 @@ const Drawer = (props) => {
         isOpen,
         onClose,
         closeTimeoutMS,
-        placement = 'left',
+        placement,
         bodyOpenClassName,
         portalClassName,
         overlayClassName,
@@ -36,35 +36,27 @@ const Drawer = (props) => {
     const renderCloseButton = <CloseButton onClick={onCloseClick} />
 
     const getStyle = () => {
-        return {
-            dimensionClass: 'vertical',
-            contentStyle: { width },
-            motionStyle: {
-                [placement]: `-${width}${typeof width === 'number' && 'px'
-                    }`,
-            },
+        if (placement === 'left' || placement === 'right') {
+            return {
+                dimensionClass: 'vertical',
+                contentStyle: { width },
+                motionStyle: {
+                    [placement]: `-${width}${typeof width === 'number' && 'px'
+                        }`,
+                },
+            }
         }
-        // if (placement === 'left' || placement === 'right') {
-        //     return {
-        //         dimensionClass: 'vertical',
-        //         contentStyle: { width },
-        //         motionStyle: {
-        //             [placement]: `-${width}${typeof width === 'number' && 'px'
-        //                 }`,
-        //         },
-        //     }
-        // }
 
-        // if (placement === 'top' || placement === 'bottom') {
-        //     return {
-        //         dimensionClass: 'horizontal',
-        //         contentStyle: { height },
-        //         motionStyle: {
-        //             [placement]: `-${height}${typeof height === 'number' && 'px'
-        //                 }`,
-        //         },
-        //     }
-        // }
+        if (placement === 'top' || placement === 'bottom') {
+            return {
+                dimensionClass: 'horizontal',
+                contentStyle: { height },
+                motionStyle: {
+                    [placement]: `-${height}${typeof height === 'number' && 'px'
+                        }`,
+                },
+            }
+        }
     }
 
     const { dimensionClass, contentStyle, motionStyle } = getStyle()
