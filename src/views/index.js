@@ -42,7 +42,9 @@ const AllRoutes = (props) => {
         <Route path='sign-up' key={'account.sign-up'} element={<PublicRoute><SignUp /></PublicRoute>} />
       </Route>
       <Route path='/' element={<ModernLayout />}>
-        <Route path='home' key={'ui.home'} element={<Home />} />
+        <Route path='home' key={'ui.home'} element={
+          <Home />
+        } />
         <Route path='single-menu-view' key={'ui.single-menu-view'} element={<SingleMenuView />} />
       </Route>
     </Routes>

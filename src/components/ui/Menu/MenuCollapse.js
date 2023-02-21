@@ -15,7 +15,8 @@ const MenuCollapse = (props) => {
     const { menuItemHeight, variant, sideCollapsed, defaultExpandedKeys } =
         useContext(MenuContext)
 
-    const { direction } = useConfig()
+    const direction = 'ltr'
+    // const { direction } = useConfig()
 
     useEffect(() => {
         if (defaultExpandedKeys.includes(eventKey)) {
