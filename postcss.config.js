@@ -4,6 +4,5 @@ module.exports = {
         require('tailwindcss/nesting'),
         require('tailwindcss'),
         require('postcss-preset-env'),
-        require('cssnano'),
     ],
 }
