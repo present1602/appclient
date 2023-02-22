@@ -29,7 +29,7 @@ const DefaultItem = ({ nav, onLinkClick, userAuthority }) => {
             className="mb-2"
         >
             {nav.subMenu.map((subNav) => (
-                <MenuItem eventKey={subNav.key}>
+                <MenuItem eventKey={subNav.key} key={subNav.key}>
                     {subNav.path ? (
                         <Link
                             className="h-full w-full flex items-center"

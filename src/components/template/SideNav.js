@@ -38,6 +38,7 @@ const SideNav = () => {
     const currentRouteKey = useSelector(
         (state) => state.base.common.currentRouteKey
     )
+
     const sideNavCollapse = useSelector(
         (state) => state.theme.layout.sideNavCollapse
     )

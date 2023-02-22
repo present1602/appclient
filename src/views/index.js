@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react'
+import React, { Suspense, useMemo } from 'react'
 import { Loading } from 'components/shared'
 import { protectedRoutes, publicRoutes } from 'configs/routes.config'
 import appConfig from 'configs/app.config'
@@ -36,6 +36,10 @@ const AllRoutes = (props) => {
   //     component: React.lazy(() => import('views/demo/SingleMenuView')),
   //     authority: [],
   // },
+  const ModernLayout2 = useMemo(() => {
+    return <ModernLayout />
+  })
+
   return (
     <Routes>
       <Route path='/uitest' key={'test.ui'} element={<UiTest />} />
@@ -51,7 +55,7 @@ const AllRoutes = (props) => {
         <Route path='collapse-menu-item-view-2' key={'ui.single-menu-view'} element={<CollapseMenuItemView2 />} />
         <Route path='collapse-menu-item-view-1' key={'ui.single-menu-view'} element={<CollapseMenuItemView1 />} /> */}
 
-        {protectedRoutes.map(({ component: Component, key, path }) => {
+        {/* {protectedRoutes.map(({ component: Component, key, path }) => {
           return <Route
             key={key}
             path={path}
@@ -59,9 +63,9 @@ const AllRoutes = (props) => {
               <Component />
             }
           />
-        })}
+        })} */}
 
-        {/* {protectedRoutes.map((route) => {
+        {protectedRoutes.map((route) => {
           return <Route
             key={route.path}
             path={route.path}
@@ -73,7 +77,7 @@ const AllRoutes = (props) => {
               />
             }
           />
-        })} */}
+        })}
 
 
       </Route>
