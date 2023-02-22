@@ -5,6 +5,7 @@ import BizView from 'views/biz'
 import SingleMenuView from 'views/demo/SingleMenuView'
 import CollapseMenuItemView1 from 'views/demo/CollapseMenuItemView1'
 import CollapseMenuItemView2 from 'views/demo/CollapseMenuItemView2'
+import PromotionProgram from 'views/promotion'
 
 export const publicRoutes = [...authRoute]
 
@@ -22,6 +23,16 @@ export const protectedRoutes = [
         authority: [],
         meta: {
             header: '매장정보',
+            headerContainer: true,
+        }
+    },
+    {
+        key: 'promotion.program',
+        path: '/promotion/program',
+        component: PromotionProgram,
+        authority: [],
+        meta: {
+            header: '프로모션',
             headerContainer: true,
         }
     },
