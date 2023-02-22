@@ -9,10 +9,10 @@ const AppRoute = ({ component: Component, routeKey, ...props }) => {
 
     const dispatch = useDispatch()
 
-    const layoutType = useSelector((state) => state.theme.layout.type)
-    const previousLayout = useSelector(
-        (state) => state.theme.layout.previousType
-    )
+    // const layoutType = useSelector((state) => state.theme.layout.type)
+    // const previousLayout = useSelector(
+    //     (state) => state.theme.layout.previousType
+    // )
 
     // useEffect(() => {
     //     dispatch(setCurrentRouteKey(routeKey))
