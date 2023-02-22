@@ -16,7 +16,7 @@ const MenuItem = (props) => {
                         <CollapseContextConsumer>
                             {() => (
                                 <Item
-                                    onSelect={context.onSelect}
+                                    onSelect={context.onSelect} // onSelect 삭제?
                                     menuItemHeight={context.menuItemHeight}
                                     variant={context.variant}
                                     isActive={context.defaultActiveKeys.includes(

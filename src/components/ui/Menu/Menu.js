@@ -11,7 +11,7 @@ const Menu = React.forwardRef((props, ref) => {
         defaultActiveKeys,
         defaultExpandedKeys,
         menuItemHeight,
-        onSelect,
+        // onSelect,
         sideCollapsed,
         variant,
         ...rest
@@ -34,7 +34,7 @@ const Menu = React.forwardRef((props, ref) => {
         <nav ref={ref} className={menuClass} {...rest}>
             <MenuContextProvider
                 value={{
-                    onSelect,
+                    // onSelect,
                     menuItemHeight,
                     variant,
                     sideCollapsed,

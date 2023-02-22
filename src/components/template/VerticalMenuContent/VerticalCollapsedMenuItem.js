@@ -14,6 +14,7 @@ const DefaultItem = ({ nav, onLinkClick, userAuthority }) => {
                 <>
                     <VerticalMenuIcon icon={nav.icon} />
                     <span key={nav.translateKey}>
+                        {/* <span key={nav.key}> */}
                         {nav.title}
                         {/* <Trans
                             i18nKey={nav.translateKey}

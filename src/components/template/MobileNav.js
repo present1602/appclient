@@ -81,6 +81,7 @@ const MobileNav = () => {
                   routeKey={currentRouteKey}
                   userAuthority={userAuthority}
                   onMenuItemClick={onDrawerClose}
+                //onMenuItemClick: MobileNav에서 메뉴 선택 시 Drawer close(SideNav에서는 사용안함)
                 />
               )}
             </Suspense>

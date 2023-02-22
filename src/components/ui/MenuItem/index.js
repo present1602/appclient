@@ -40,7 +40,7 @@ const MenuItem = React.forwardRef((props, ref) => {
             ref={ref}
             className={menuItemClass}
             style={{ height: `${menuItemHeight}px`, ...style }}
-            onClick={hanldeOnClick}
+            // onClick={hanldeOnClick}
             {...rest}
         >
             {children}

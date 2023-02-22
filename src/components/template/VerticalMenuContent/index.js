@@ -57,6 +57,7 @@ const VerticalMenuContent = (props) => {
 
         if (nav.subMenu.length > 0 && nav.type === NAV_ITEM_TYPE_COLLAPSE) {
             return (
+                // VerticalCollapsedMenuItem  : return menuitem list
                 <VerticalCollapsedMenuItem
                     key={nav.key}
                     nav={nav}

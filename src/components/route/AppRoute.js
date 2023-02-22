@@ -14,6 +14,10 @@ const AppRoute = ({ component: Component, routeKey, ...props }) => {
         (state) => state.theme.layout.previousType
     )
 
+    // useEffect(() => {
+    //     dispatch(setCurrentRouteKey(routeKey))
+    // }, [location])
+
     const handleLayoutChange = useCallback(() => {
         dispatch(setCurrentRouteKey(routeKey))
 

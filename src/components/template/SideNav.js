@@ -34,7 +34,7 @@ const SideNav = () => {
     )
     const navMode = useSelector((state) => state.theme.navMode)
     const mode = useSelector((state) => state.theme.mode)
-    const direction = useSelector((state) => state.theme.direction)
+    // const direction = useSelector((state) => state.theme.direction)
     const currentRouteKey = useSelector(
         (state) => state.base.common.currentRouteKey
     )
@@ -71,7 +71,7 @@ const SideNav = () => {
             navigationTree={navigationConfig}
             routeKey={currentRouteKey}
             userAuthority={userAuthority}
-            direction={direction}
+        // direction={direction}
         />
     )
 
@@ -103,7 +103,8 @@ const SideNav = () => {
                         menuContent
                     ) : (
                         <div className="side-nav-content">
-                            <ScrollBar autoHide direction={direction}>
+                            {/* <ScrollBar autoHide direction={direction}> */}
+                            <ScrollBar autoHide>
                                 {menuContent}
                             </ScrollBar>
                         </div>

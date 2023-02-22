@@ -24,7 +24,6 @@ const DefaultItem = (props) => {
 
     return (
         <MenuItem key={nav.key} eventKey={nav.key} className="mb-2">
-            {/* <MenuItem key={nav.key} eventKey={nav.key} className="mb-2"> */}
             <Link
                 to={nav.path}
                 onClick={() =>

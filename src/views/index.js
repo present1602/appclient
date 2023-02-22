@@ -15,6 +15,8 @@ import SingleMenuView from './demo/SingleMenuView'
 import SignIn from './auth/SignIn'
 import SignUp from './auth/SignUp'
 import UiTest from './UiTest'
+import CollapseMenuItemView2 from './demo/CollapseMenuItemView2'
+import CollapseMenuItemView1 from './demo/CollapseMenuItemView1'
 // const ModernLayout = React.lazy(() => import('components/layout/ModernLayout'))
 const AuthLayout = React.lazy(() => import('components/layout/AuthLayout'))
 
@@ -42,13 +44,42 @@ const AllRoutes = (props) => {
         <Route path='sign-up' key={'account.sign-up'} element={<PublicRoute><SignUp /></PublicRoute>} />
       </Route>
       <Route path='/' element={<ModernLayout />}>
-        <Route path='home' key={'ui.home'} element={
+        {/* <Route path='home' key={'ui.home'} element={
           <Home />
         } />
         <Route path='single-menu-view' key={'ui.single-menu-view'} element={<SingleMenuView />} />
+        <Route path='collapse-menu-item-view-2' key={'ui.single-menu-view'} element={<CollapseMenuItemView2 />} />
+        <Route path='collapse-menu-item-view-1' key={'ui.single-menu-view'} element={<CollapseMenuItemView1 />} /> */}
+
+        {protectedRoutes.map(({ component: Component, key, path }) => {
+          return <Route
+            key={key}
+            path={path}
+            element={
+              <Component />
+            }
+          />
+        })}
+
+        {/* {protectedRoutes.map((route) => {
+          return <Route
+            key={route.path}
+            path={route.path}
+            element={
+              <AppRoute
+                routeKey={route.key}
+                component={route.component}
+                {...route.meta}
+              />
+            }
+          />
+        })} */}
+
+
       </Route>
     </Routes>
   )
+
 }
 
 const Views = (props) => {

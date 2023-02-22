@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react'
 import { Scrollbars } from 'react-custom-scrollbars-2'
 
 const ScrollBar = forwardRef((props, ref) => {
-    const { direction = 'ltr', ...rest } = props
+    const { ...rest } = props
 
     return (
         <Scrollbars
@@ -12,10 +12,6 @@ const ScrollBar = forwardRef((props, ref) => {
                     {...props}
                     style={{
                         ...props.style,
-                        ...(direction === 'rtl' && {
-                            marginLeft: props.style.marginRight,
-                            marginRight: 0,
-                        }),
                     }}
                 />
             )}
