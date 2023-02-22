@@ -30,10 +30,6 @@ const SignInForm = (props) => {
 
     const [message, setMessage] = useTimeOutMessage()
 
-    const rawPersistData = localStorage.getItem('admin')
-    const persistData = deepParseJson(rawPersistData)
-
-    const [accessToken, setAccessToken] = useState(persistData.auth.session.token)
 
     const { signIn } = useAuth()
 
@@ -128,7 +124,6 @@ const SignInForm = (props) => {
                     </Form>
                 )}
             </Formik>
-            <h4>token : {accessToken}</h4>
             <button onClick={() => localStorage.removeItem('admin')}  >로그아웃</button>
         </div>
     )
