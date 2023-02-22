@@ -7,14 +7,13 @@ import * as Yup from 'yup'
 import useAuth from 'utils/hooks/useAuth'
 
 const validationSchema = Yup.object().shape({
-    userName: Yup.string().required('Please enter your user name'),
+    user_id: Yup.string().required('아이디를 입력해주세요'),
     email: Yup.string()
-        .email('Invalid email')
-        .required('Please enter your email'),
-    password: Yup.string().required('Please enter your password'),
-    confirmPassword: Yup.string().oneOf(
+        .email('Invalid email'),
+    password: Yup.string().required('비밀번호를 입력해주세요'),
+    confirm_password: Yup.string().oneOf(
         [Yup.ref('password'), null],
-        'Your passwords do not match'
+        '비밀번호가 일치하지 않습니다'
     ),
 })
 
@@ -26,9 +25,9 @@ const SignUpForm = (props) => {
     const [message, setMessage] = useTimeOutMessage()
 
     const onSignUp = async (values, setSubmitting) => {
-        const { userName, password, email } = values
+        const { user_id, password, email } = values
         setSubmitting(true)
-        const result = await signUp({ userName, password, email })
+        const result = await signUp({ user_id, password, email })
 
         if (result.status === 'failed') {
             setMessage(result.message)
@@ -46,9 +45,9 @@ const SignUpForm = (props) => {
             )}
             <Formik
                 initialValues={{
-                    userName: 'admin1',
+                    user_id: 'admin1',
                     password: '123Qwe1',
-                    confirmPassword: '123Qwe1',
+                    confirm_password: '123Qwe1',
                     email: 'test@testmail.com',
                 }}
                 validationSchema={validationSchema}
@@ -64,20 +63,48 @@ const SignUpForm = (props) => {
                     <Form>
                         <FormContainer>
                             <FormItem
-                                label="User Name"
+                                label="아이디"
                                 invalid={errors.userName && touched.userName}
                                 errorMessage={errors.userName}
                             >
                                 <Field
                                     type="text"
                                     autoComplete="off"
-                                    name="userName"
-                                    placeholder="User Name"
+                                    name="user_id"
+                                    placeholder="아이디를 입력해주세요"
                                     component={Input}
                                 />
                             </FormItem>
                             <FormItem
-                                label="Email"
+                                label="비밀번호"
+                                invalid={errors.password && touched.password}
+                                errorMessage={errors.password}
+                            >
+                                <Field
+                                    autoComplete="off"
+                                    name="password"
+                                    placeholder="비밀번호를 입력해주세요"
+                                    component={PasswordInput}
+                                />
+                            </FormItem>
+                            <FormItem
+                                label="비밀번호 확인"
+                                invalid={
+                                    errors.confirm_password &&
+                                    touched.confirm_password
+                                }
+                                errorMessage={errors.confirm_password}
+                            >
+                                <Field
+                                    autoComplete="off"
+                                    name="confirm_password"
+                                    placeholder="비밀번호를 다시 입력해주세요 "
+                                    component={PasswordInput}
+                                />
+                            </FormItem>
+
+                            <FormItem
+                                label="이메일(선택)"
                                 invalid={errors.email && touched.email}
                                 errorMessage={errors.email}
                             >
@@ -85,50 +112,38 @@ const SignUpForm = (props) => {
                                     type="email"
                                     autoComplete="off"
                                     name="email"
-                                    placeholder="Email"
+                                    placeholder="이메일을 입력해주세요"
                                     component={Input}
                                 />
                             </FormItem>
+
                             <FormItem
-                                label="Password"
-                                invalid={errors.password && touched.password}
-                                errorMessage={errors.password}
+                                label="휴대폰번호"
+                                invalid={errors.email && touched.email}
+                                errorMessage={errors.email}
                             >
                                 <Field
+                                    type="email"
                                     autoComplete="off"
-                                    name="password"
-                                    placeholder="Password"
-                                    component={PasswordInput}
+                                    name="text"
+                                    placeholder="휴대폰번호를 입력해주세요"
+                                    component={Input}
                                 />
                             </FormItem>
-                            <FormItem
-                                label="Confirm Password"
-                                invalid={
-                                    errors.confirmPassword &&
-                                    touched.confirmPassword
-                                }
-                                errorMessage={errors.confirmPassword}
-                            >
-                                <Field
-                                    autoComplete="off"
-                                    name="confirmPassword"
-                                    placeholder="Confirm Password"
-                                    component={PasswordInput}
-                                />
-                            </FormItem>
+
                             <Button
                                 block
                                 loading={isSubmitting}
                                 variant="solid"
-                                type="submit"
+                                type="확인"
                             >
                                 {isSubmitting
                                     ? 'Creating Account...'
                                     : 'Sign Up'}
                             </Button>
                             <div className="mt-4 text-center">
-                                <span>Already have an account? </span>
-                                <ActionLink to={signInUrl}>Sign in</ActionLink>
+                                <span>이미 계정이 있으신가요?? </span>
+                                <ActionLink to={signInUrl}>로그인</ActionLink>
                             </div>
                         </FormContainer>
                     </Form>

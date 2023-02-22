@@ -44,8 +44,10 @@ const AllRoutes = (props) => {
     <Routes>
       <Route path='/uitest' key={'test.ui'} element={<UiTest />} />
       <Route path='/account' element={<AuthLayout />}>
-        <Route path='sign-in' key={'account.sign-in'} element={<PublicRoute><SignIn /></PublicRoute>} />
-        <Route path='sign-up' key={'account.sign-up'} element={<PublicRoute><SignUp /></PublicRoute>} />
+        <Route path='sign-in' key={'account.sign-in'} element={<SignIn />} />
+        <Route path='sign-up' key={'account.sign-up'} element={<SignUp />} />
+        {/* <Route path='sign-in' key={'account.sign-in'} element={<PublicRoute><SignIn /></PublicRoute>} />
+        <Route path='sign-up' key={'account.sign-up'} element={<PublicRoute><SignUp /></PublicRoute>} /> */}
       </Route>
       <Route path='/' element={<ModernLayout />}>
         {/* <Route path='home' key={'ui.home'} element={

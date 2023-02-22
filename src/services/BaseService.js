@@ -10,12 +10,13 @@ const unauthorizedCode = [401]
 
 const BaseService = axios.create({
     timeout: 60000,
-    baseURL: appConfig.apiPrefix,
+    baseURL: appConfig.API_BASE_URL,
 })
 
 BaseService.interceptors.request.use(
     (config) => {
         const rawPersistData = localStorage.getItem(PERSIST_STORE_NAME)
+
         const persistData = deepParseJson(rawPersistData)
 
         const accessToken = persistData.auth.session.token

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
     Input,
     Button,
@@ -12,10 +12,11 @@ import useTimeOutMessage from 'utils/hooks/useTimeOutMessage'
 import { Field, Form, Formik } from 'formik'
 import * as Yup from 'yup'
 import useAuth from 'utils/hooks/useAuth'
+import deepParseJson from 'utils/deepParseJson'
 
 const validationSchema = Yup.object().shape({
-    userName: Yup.string().required('Please enter your user name'),
-    password: Yup.string().required('Please enter your password'),
+    user_id: Yup.string().required('아이디를 입력해주세요'),
+    password: Yup.string().required('비밀번호를 입력해주세요'),
     rememberMe: Yup.bool(),
 })
 
@@ -29,13 +30,19 @@ const SignInForm = (props) => {
 
     const [message, setMessage] = useTimeOutMessage()
 
+    const rawPersistData = localStorage.getItem('admin')
+    const persistData = deepParseJson(rawPersistData)
+
+    const [accessToken, setAccessToken] = useState(persistData.auth.session.token)
+
     const { signIn } = useAuth()
 
     const onSignIn = async (values, setSubmitting) => {
-        const { userName, password } = values
+        const { user_id, password } = values
         setSubmitting(true)
 
-        const result = await signIn({ userName, password })
+        const result = await signIn({ user_id, password })
+
         if (result.status === 'failed') {
             setMessage(result.message)
         }
@@ -53,8 +60,8 @@ const SignInForm = (props) => {
             <Formik
                 // Remove this initial value
                 initialValues={{
-                    userName: 'admin',
-                    password: '123Qwe',
+                    user_id: 'bizuser13',
+                    password: 'bizuser13!',
                     rememberMe: true,
                 }}
                 validationSchema={validationSchema}
@@ -70,27 +77,27 @@ const SignInForm = (props) => {
                     <Form>
                         <FormContainer>
                             <FormItem
-                                label="User Name"
-                                invalid={errors.userName && touched.userName}
-                                errorMessage={errors.userName}
+                                label="아이디"
+                                invalid={errors.user_id && touched.user_id}
+                                errorMessage={errors.user_id}
                             >
                                 <Field
                                     type="text"
                                     autoComplete="off"
-                                    name="userName"
-                                    placeholder="User Name"
+                                    name="user_id"
+                                    placeholder="아이디"
                                     component={Input}
                                 />
                             </FormItem>
                             <FormItem
-                                label="Password"
+                                label="비밀번호"
                                 invalid={errors.password && touched.password}
                                 errorMessage={errors.password}
                             >
                                 <Field
                                     autoComplete="off"
                                     name="password"
-                                    placeholder="Password"
+                                    placeholder="비밀번호"
                                     component={PasswordInput}
                                 />
                             </FormItem>
@@ -99,28 +106,30 @@ const SignInForm = (props) => {
                                     className="mb-0"
                                     name="rememberMe"
                                     component={Checkbox}
-                                    children="Remember Me"
+                                    children="아이디 저장"
                                 />
                                 <ActionLink to={forgotPasswordUrl}>
-                                    Forgot Password?
+                                    비밀번호를 잊으셨나요?
                                 </ActionLink>
                             </div>
                             <Button
                                 block
                                 loading={isSubmitting}
                                 variant="solid"
-                                type="submit"
+                                type="로그인"
                             >
                                 {isSubmitting ? 'Signing in...' : 'Sign In'}
                             </Button>
                             <div className="mt-4 text-center">
-                                <span>Don't have an account yet? </span>
-                                <ActionLink to={signUpUrl}>Sign up</ActionLink>
+                                <span>이미 계정이 있으신가요? </span>
+                                <ActionLink to={signUpUrl}>회원가입</ActionLink>
                             </div>
                         </FormContainer>
                     </Form>
                 )}
             </Formik>
+            <h4>token : {accessToken}</h4>
+            <button onClick={() => localStorage.removeItem('admin')}  >로그아웃</button>
         </div>
     )
 }

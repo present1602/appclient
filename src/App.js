@@ -13,9 +13,9 @@ import Views from 'views'
 
 const environment = process.env.NODE_ENV
 
-if (appConfig.enableMock) {
-  mockServer({ environment })
-}
+// if (appConfig.enableMock) {
+//   mockServer({ environment })
+// }
 
 function App() {
 

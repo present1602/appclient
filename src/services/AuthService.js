@@ -1,8 +1,9 @@
 import ApiService from './ApiService'
+import appConfig from '../configs/app.config'
 
 export async function apiSignIn(data) {
     return ApiService.fetchData({
-        url: '/sign-in',
+        url: `${appConfig.apiPrefix}/biz_user/auth/login/`,
         method: 'post',
         data,
     })

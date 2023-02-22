@@ -62,8 +62,8 @@ function useAuth() {
                         setUser(
                             resp.data.user || {
                                 avatar: '',
-                                userName: 'Anonymous',
-                                authority: ['USER'],
+                                userName: '',
+                                authority: [],
                                 email: '',
                             }
                         )
