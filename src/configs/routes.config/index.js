@@ -2,7 +2,6 @@ import React from 'react'
 import authRoute from './authRoute'
 import Home from 'views/Home'
 import BizView from 'views/biz'
-import BizView1 from 'views/biz/Biz1'
 import SingleMenuView from 'views/demo/SingleMenuView'
 import CollapseMenuItemView1 from 'views/demo/CollapseMenuItemView1'
 import CollapseMenuItemView2 from 'views/demo/CollapseMenuItemView2'
@@ -16,18 +15,15 @@ export const protectedRoutes = [
         component: Home,
         authority: [],
     },
-    /** Example purpose only, please remove */
-    // {
-    //     key: 'biz',
-    //     path: '/biz/:tab',
-    //     component: BizView,
-    //     authority: [],
-    // },
     {
         key: 'biz',
         path: '/biz/:tab',
         component: BizView,
         authority: [],
+        meta: {
+            header: '매장정보',
+            headerContainer: true,
+        }
     },
     {
         key: 'collapseMenu.item1',

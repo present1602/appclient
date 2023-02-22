@@ -55,10 +55,10 @@ const ModernLayout = (props) => {
                         headerStart={<HeaderActionsStart />}
                     />
                     {/* <View {...props} /> */}
-                    <PageContainer >
-                        {/* {props.children} */}
-                        <Outlet />
-                    </PageContainer>
+                    {/* <PageContainer > */}
+                    {/* {props.children} */}
+                    <Outlet />
+                    {/* </PageContainer> */}
                 </div>
             </div>
         </div>

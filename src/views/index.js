@@ -70,11 +70,13 @@ const AllRoutes = (props) => {
             key={route.path}
             path={route.path}
             element={
-              <AppRoute
-                routeKey={route.key}
-                component={route.component}
-                {...route.meta}
-              />
+              <PageContainer {...props} {...route.meta}>
+                <AppRoute
+                  routeKey={route.key}
+                  component={route.component}
+                  {...route.meta}
+                />
+              </PageContainer>
             }
           />
         })}
