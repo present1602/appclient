@@ -15,6 +15,7 @@ export { default as FormContainer } from './Form/FormContainer'
 export { default as Button } from './Buttons'
 export { default as Checkbox } from './Checkbox'
 export { default as Tabs } from './Tabs'
+export { default as Select } from './Select'
 
 
 export {

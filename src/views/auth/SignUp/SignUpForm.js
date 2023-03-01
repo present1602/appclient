@@ -9,7 +9,7 @@ import useAuth from 'utils/hooks/useAuth'
 const validationSchema = Yup.object().shape({
     user_id: Yup.string().required('아이디를 입력해주세요'),
     email: Yup.string()
-        .email('Invalid email'),
+        .email('이메일주소를 올바르게 입력해주세요'),
     password: Yup.string().required('비밀번호를 입력해주세요'),
     confirm_password: Yup.string().oneOf(
         [Yup.ref('password'), null],
@@ -66,8 +66,8 @@ const SignUpForm = (props) => {
                         <FormContainer>
                             <FormItem
                                 label="아이디"
-                                invalid={errors.userName && touched.userName}
-                                errorMessage={errors.userName}
+                                invalid={errors.user_id && touched.user_id}
+                                errorMessage={errors.user_id}
                             >
                                 <Field
                                     type="text"
@@ -149,7 +149,7 @@ const SignUpForm = (props) => {
                                 block
                                 loading={isSubmitting}
                                 variant="solid"
-                                type="확인"
+                                type="submit"
                             >
                                 {isSubmitting
                                     ? 'Creating Account...'
