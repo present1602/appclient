@@ -20,13 +20,16 @@ BaseService.interceptors.request.use(
         const persistData = deepParseJson(rawPersistData)
 
         const accessToken = persistData.auth.session.token
-
-        if (accessToken) {
+        if (accessToken && accessToken.access) {
             config.headers[
                 REQUEST_HEADER_AUTH_KEY
-            ] = `${TOKEN_TYPE}${accessToken}`
+            ] = `${TOKEN_TYPE}${accessToken.access}`
         }
-
+        // if (accessToken) {
+        //     config.headers[
+        //         REQUEST_HEADER_AUTH_KEY
+        //     ] = `${TOKEN_TYPE}${accessToken}`
+        // }
         return config
     },
     (error) => {

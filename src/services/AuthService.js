@@ -11,7 +11,7 @@ export async function apiSignIn(data) {
 
 export async function apiSignUp(data) {
     return ApiService.fetchData({
-        url: '/sign-up',
+        url: `${appConfig.apiPrefix}/biz_user/auth/sign-up/`,
         method: 'post',
         data,
     })
@@ -19,9 +19,8 @@ export async function apiSignUp(data) {
 
 export async function apiSignOut(data) {
     return ApiService.fetchData({
-        url: '/sign-out',
+        url: `${appConfig.apiPrefix}/biz_user/auth/logout/`,
         method: 'post',
-        data,
     })
 }
 

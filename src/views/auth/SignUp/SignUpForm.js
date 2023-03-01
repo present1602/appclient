@@ -25,9 +25,9 @@ const SignUpForm = (props) => {
     const [message, setMessage] = useTimeOutMessage()
 
     const onSignUp = async (values, setSubmitting) => {
-        const { user_id, password, email } = values
+        const { user_id, password, email, phone, name } = values
         setSubmitting(true)
-        const result = await signUp({ user_id, password, email })
+        const result = await signUp({ user_id, password, email, phone, name })
 
         if (result.status === 'failed') {
             setMessage(result.message)
@@ -45,10 +45,12 @@ const SignUpForm = (props) => {
             )}
             <Formik
                 initialValues={{
-                    user_id: 'admin1',
-                    password: '123Qwe1',
-                    confirm_password: '123Qwe1',
-                    email: 'test@testmail.com',
+                    user_id: 'bizuser1',
+                    password: 'bizuser1',
+                    confirm_password: 'bizuser1',
+                    email: 'bizuser1@testmail.com',
+                    phone: '0109999001',
+                    name: '이일'
                 }}
                 validationSchema={validationSchema}
                 onSubmit={(values, { setSubmitting }) => {
@@ -123,10 +125,22 @@ const SignUpForm = (props) => {
                                 errorMessage={errors.email}
                             >
                                 <Field
-                                    type="email"
+                                    type="text"
                                     autoComplete="off"
-                                    name="text"
+                                    name="phone"
                                     placeholder="휴대폰번호를 입력해주세요"
+                                    component={Input}
+                                />
+                            </FormItem>
+
+                            <FormItem
+                                label="이름"
+                            >
+                                <Field
+                                    type="text"
+                                    autoComplete="off"
+                                    name="name"
+                                    placeholder="이름을 입력해주세요"
                                     component={Input}
                                 />
                             </FormItem>

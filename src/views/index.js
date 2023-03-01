@@ -49,7 +49,10 @@ const AllRoutes = (props) => {
         {/* <Route path='sign-in' key={'account.sign-in'} element={<PublicRoute><SignIn /></PublicRoute>} />
         <Route path='sign-up' key={'account.sign-up'} element={<PublicRoute><SignUp /></PublicRoute>} /> */}
       </Route>
-      <Route path='/' element={<ModernLayout />}>
+      <Route path='/biz_reg' element={<ProtectedRoute />}>
+
+      </Route>
+      <Route path='/' element={<ProtectedRoute />}>
         {/* <Route path='home' key={'ui.home'} element={
           <Home />
         } />
@@ -66,23 +69,25 @@ const AllRoutes = (props) => {
             }
           />
         })} */}
-
+        <Route path='/' element={<Navigate replace to={authenticatedEntryPath} />} />
         {protectedRoutes.map((route) => {
           return <Route
             key={route.path}
             path={route.path}
             element={
-              <PageContainer {...props} {...route.meta}>
-                <AppRoute
-                  routeKey={route.key}
-                  component={route.component}
-                  {...route.meta}
-                />
-              </PageContainer>
+              <ModernLayout>
+                <PageContainer {...props} {...route.meta}>
+                  <AppRoute
+                    routeKey={route.key}
+                    component={route.component}
+                    {...route.meta}
+                  />
+                </PageContainer>
+              </ModernLayout>
             }
           />
         })}
-
+        {/* <Route path='*' element={<Navigate to="/home" replace />} /> */}
 
       </Route>
     </Routes>

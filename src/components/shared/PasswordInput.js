@@ -23,11 +23,11 @@ const PasswordInput = (props) => {
                     className="cursor-pointer text-xl"
                     onClick={(e) => onPasswordVisibleClick(e)}
                 >
-                    {pwInputType === 'password' ? (
+                    {/* {pwInputType === 'password' ? (
                         <HiOutlineEyeOff />
                     ) : (
                         <HiOutlineEye />
-                    )}
+                    )} */}
                 </span>
             }
         />

@@ -87,6 +87,7 @@ function useAuth() {
     }
 
     const handleSignOut = () => {
+
         dispatch(onSignOutSuccess())
         dispatch(setUser(initialState))
         navigate(appConfig.unAuthenticatedEntryPath)

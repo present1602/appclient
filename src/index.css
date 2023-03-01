@@ -4254,6 +4254,9 @@ hr{
 .justify-between{
         justify-content: space-between;
 }
+.gap-2{
+        gap: 0.5rem;
+}
 .gap-y-2{
         row-gap: 0.5rem;
 }
@@ -6145,8 +6148,14 @@ hr{
         font-size: 0.75rem;
         line-height: 1rem;
 }
+.font-bold{
+        font-weight: 700;
+}
 .font-semibold{
         font-weight: 600;
+}
+.capitalize{
+        text-transform: capitalize;
 }
 .text-amber-100{
         --tw-text-opacity: 1;
@@ -19722,6 +19731,9 @@ hr{
         }
 }
 @media (min-width: 768px){
+        .md\:block{
+                display: block;
+        }
         .md\:min-w-\[340px\]{
                 min-width: 340px;
         }

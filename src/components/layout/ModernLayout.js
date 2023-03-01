@@ -1,7 +1,8 @@
 import React from 'react'
 import Header from 'components/template/Header'
 // import SidePanel from 'components/template/SidePanel'
-// import UserDropdown from 'components/template/UserDropdown'
+import useAuth from 'utils/hooks/useAuth';
+import UserDropdown from 'components/template/UserDropdown'
 import SideNavToggle from 'components/template/SideNavToggle'
 import MobileNav from 'components/template/MobileNav'
 import SideNav from 'components/template/SideNav'
@@ -18,8 +19,10 @@ const HeaderActionsStart = () => {
 }
 
 const HeaderActionsEnd = () => {
+    const { signOut } = useAuth()
     return (
         <>
+            <span onClick={signOut}>로그아웃</span>
             {/* <SidePanel /> */}
             {/* <UserDropdown hoverable={false} /> */}
         </>
@@ -44,6 +47,7 @@ const HeaderActionsEnd = () => {
 
 const ModernLayout = (props) => {
     return (
+
         <div className="app-layout-modern flex flex-auto flex-col">
             <div className="flex flex-auto min-w-0">
                 <SideNav />
@@ -56,8 +60,8 @@ const ModernLayout = (props) => {
                     />
                     {/* <View {...props} /> */}
                     {/* <PageContainer > */}
-                    {/* {props.children} */}
-                    <Outlet />
+                    {props.children}
+                    {/* <Outlet /> */}
                     {/* </PageContainer> */}
                 </div>
             </div>

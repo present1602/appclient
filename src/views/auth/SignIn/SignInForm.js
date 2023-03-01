@@ -12,7 +12,6 @@ import useTimeOutMessage from 'utils/hooks/useTimeOutMessage'
 import { Field, Form, Formik } from 'formik'
 import * as Yup from 'yup'
 import useAuth from 'utils/hooks/useAuth'
-import deepParseJson from 'utils/deepParseJson'
 
 const validationSchema = Yup.object().shape({
     user_id: Yup.string().required('아이디를 입력해주세요'),
@@ -31,7 +30,7 @@ const SignInForm = (props) => {
     const [message, setMessage] = useTimeOutMessage()
 
 
-    const { signIn } = useAuth()
+    const { signIn, signOut } = useAuth()
 
     const onSignIn = async (values, setSubmitting) => {
         const { user_id, password } = values
@@ -124,7 +123,8 @@ const SignInForm = (props) => {
                     </Form>
                 )}
             </Formik>
-            <button onClick={() => localStorage.removeItem('admin')}  >로그아웃</button>
+            {/* <button onClick={() => localStorage.removeItem('admin')}  >로그아웃</button> */}
+            <button onClick={signOut}  >로그아웃</button>
         </div>
     )
 }
