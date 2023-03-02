@@ -4183,6 +4183,9 @@ hr{
 .w-96{
         width: 24rem;
 }
+.w-\[320px\]{
+        width: 320px;
+}
 .w-auto{
         width: auto;
 }
@@ -4204,9 +4207,6 @@ hr{
 }
 .w-screen{
         width: 100vw;
-}
-.w-\[320px\]{
-        width: 320px;
 }
 .min-w-0{
         min-width: 0px;
@@ -19752,8 +19752,8 @@ hr{
         .md\:block{
                 display: block;
         }
-        .md\:w-\[450px\]{
-                width: 450px;
+        .md\:w-\[480px\]{
+                width: 480px;
         }
         .md\:min-w-\[340px\]{
                 min-width: 340px;

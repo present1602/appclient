@@ -33,13 +33,24 @@ const BizReg = () => {
 
         <Container className="flex flex-col items-center min-w-0 h-full" >
           <div
-            className="w-[320px] md:w-[450px] relative card card-border"
+            className="w-[320px] md:w-[480px] relative card card-border"
           // className="min-w-[320px] md:min-w-[450px] relative card card-border"
           // bodyClass="md:p-10"
           >
             {isAddressPopupOpen && (
-              <div id="popupDom" style={{ position: 'fixed', zIndex: 10, top: 0, width: 'inherit', maxWidth: 'inherit' }}>
-                <PopupPostCode onClose={closeAddressSearch} />
+              <div style={{
+                position: 'fixed', zIndex: 10, width: 'inherit',
+                backgroundColor: 'rgba(0,0,0,0.3)', maxWidth: 'inherit', height: '100%'
+              }}>
+                <div id="popupDom" style={{
+                  width: '100%',
+                  position: 'relative',
+                  top: '50%',
+                  transform: 'translate(0, -50%)'
+
+                }}>
+                  <PopupPostCode onClose={closeAddressSearch} />
+                </div>
               </div>
             )}
 
