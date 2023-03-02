@@ -11,7 +11,6 @@ import PopupPostCode from './PopupPostCode'
 import reducer from '../store'
 import { injectReducer } from 'store'
 import { useSelector } from 'react-redux'
-import { setFormData } from '../store/dataSlice'
 
 injectReducer('bizRegForm', reducer)
 
@@ -32,7 +31,7 @@ const ownerOptions = [
 ]
 
 const BizRegForm = (props) => {
-    const { disableSubmit = false, className, setIsAddressPopupOpen } = props
+    const { disableSubmit = false, className, setIsAddressPopupOpen, moveNext } = props
 
     // const { signUp } = useAuth()
 
@@ -61,10 +60,17 @@ const BizRegForm = (props) => {
             values['sigungu_code'] = formData.sigungu_code
 
             const result = await apiBizRegSave(values)
-
+            debugger;
             if (result.status === 'failed') {
                 setMessage(result.message)
             }
+            if (result.status == '200') {
+
+                moveNext()
+                // setMessage(result.message)
+            }
+
+
         } catch (err) {
             console.log("on save bizreg err : ", err)
         } finally {
@@ -112,7 +118,6 @@ const BizRegForm = (props) => {
                 validationSchema={validationSchema}
                 onSubmit={(values, { setSubmitting }) => {
                     if (!disableSubmit) {
-
                         onSaveBizReg(values, setSubmitting)
                     } else {
                         setSubmitting(false)

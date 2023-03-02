@@ -1,9 +1,10 @@
 import { Container } from 'components/shared'
 import React, { useState, lazy, Suspense } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { injectReducer } from 'store'
 import PopupPostCode from './components/PopupPostCode'
 import reducer from './store'
+import { setCurrentStep } from './store/stateSlice'
 
 const BizRegForm = lazy(() => import('./components/BizRegForm'))
 
@@ -11,9 +12,24 @@ injectReducer('bizRegForm', reducer)
 
 const BizReg = () => {
   const [isAddressPopupOpen, setIsAddressPopupOpen] = useState(false)
+  const dispatch = useDispatch()
+
+  const stepStatus = useSelector(
+    (state) => state.bizRegForm.state.stepStatus
+  )
   const currentStep = useSelector(
     (state) => state.bizRegForm.state.currentStep
   )
+
+  const moveNext = () => {
+    const nextStep = currentStep + 1
+    dispatch(setCurrentStep(nextStep))
+  }
+
+  const movePrev = () => {
+    const prevStep = currentStep - 1
+    dispatch(setCurrentStep(prevStep))
+  }
 
   // 팝업창 열기
   const openAddressSearch = () => {
@@ -59,7 +75,11 @@ const BizReg = () => {
               {
                 <Suspense fallback={<></>}>
                   {currentStep === 0 && (
-                    <BizRegForm disableSubmit={false} setIsAddressPopupOpen={setIsAddressPopupOpen} />
+                    <BizRegForm
+                      disableSubmit={false}
+                      setIsAddressPopupOpen={setIsAddressPopupOpen}
+                      moveNext={moveNext}
+                    />
                   )}
                   {currentStep === 1 && (
                     <div>step1</div>

@@ -38,18 +38,11 @@ const dataSlice = createSlice({
             //     postal_code: '',
             // },
         },
-        stepStatus: {
-            0: { status: 'pending' },
-            1: { status: 'pending' },
-            2: { status: 'pending' },
-        },
+
     },
     reducers: {
         setFormData: (state, action) => {
             state.formData = { ...state.formData, ...action.payload }
-        },
-        setStepStatus: (state, action) => {
-            state.stepStatus = { ...state.stepStatus, ...action.payload }
         },
     },
     extraReducers: {
