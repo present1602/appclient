@@ -3819,6 +3819,9 @@ hr{
 .inline-flex{
         display: inline-flex;
 }
+.grid{
+        display: grid;
+}
 .\!hidden{
         display: none !important;
 }
@@ -4201,6 +4204,9 @@ hr{
 }
 .w-screen{
         width: 100vw;
+}
+.w-\[320px\]{
+        width: 320px;
 }
 .min-w-0{
         min-width: 0px;
@@ -6093,6 +6099,9 @@ hr{
 .p-4{
         padding: 1rem;
 }
+.p-8{
+        padding: 2rem;
+}
 .px-3{
         padding-left: 0.75rem;
         padding-right: 0.75rem;
@@ -6120,10 +6129,6 @@ hr{
 .py-4{
         padding-top: 1rem;
         padding-bottom: 1rem;
-}
-.py-5{
-        padding-top: 1.25rem;
-        padding-bottom: 1.25rem;
 }
 .pb-4{
         padding-bottom: 1rem;
@@ -19746,6 +19751,9 @@ hr{
 @media (min-width: 768px){
         .md\:block{
                 display: block;
+        }
+        .md\:w-\[450px\]{
+                width: 450px;
         }
         .md\:min-w-\[340px\]{
                 min-width: 340px;

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  article {
+    display: grid;
+  }
+
+  .one {
+    grid-area: 1 / 1 / 2 / 2;
+  }
+
+  .two {
+    grid-area: 1 / 1 / 2 / 2;
+  }
+</style>
+
+<body>
+  I have some containers and their children are only absolute / relatively positioned. How to set containers height so
+  their children will be inside of them?
+
+  Here's the code:
+
+  HTML
+
+  <section id="foo">
+    <header>Foo</header>
+    <article>
+      <div class="one"></div>
+      <div class="two"></div>
+    </article>
+  </section>
+
+  <div style="clear:both">Clear won't do.</div>
+  <!-- I want to have a gap between sections here -->
+
+  <section id="bar">
+    <header>bar</header>
+    <article>
+      <div class="one"></div>
+      <div></div>
+      <div class="two"></div>
+    </article>
+  </section>
+</body>
+
+</html>

@@ -1,15 +1,73 @@
-import React from 'react'
-import BizRegForm from './BizRegForm'
+import { Container } from 'components/shared'
+import { Card } from 'components/ui'
+import React, { useState, lazy, Suspense } from 'react'
+import { useSelector } from 'react-redux'
+import { injectReducer } from 'store'
+import PopupDom from './components/PopupDom'
+import PopupPostCode from './components/PopupPostCode'
+import reducer from './store'
+
+const BizRegForm = lazy(() => import('./components/BizRegForm'))
+
+injectReducer('bizRegForm', reducer)
 
 const BizReg = () => {
+  const [isAddressPopupOpen, setIsAddressPopupOpen] = useState(false)
+  const currentStep = useSelector(
+    (state) => state.bizRegForm.state.currentStep
+  )
+
+  // 팝업창 열기
+  const openAddressSearch = () => {
+    setIsAddressPopupOpen(true)
+  }
+
+  // 팝업창 닫기
+  const closeAddressSearch = () => {
+    setIsAddressPopupOpen(false)
+  }
+
   return (
-    <>
-      <div className="mb-8">
-        <h3 className="mb-1">입점신청</h3>
-        {/* <p>And lets get started with your free trial</p> */}
+    <div className="app-layout-simple flex flex-auto flex-col h-[100vh]">
+      <div className="h-full">
+
+        <Container className="flex flex-col items-center min-w-0 h-full" >
+          <div
+            className="w-[320px] md:w-[450px] relative card card-border"
+          // className="min-w-[320px] md:min-w-[450px] relative card card-border"
+          // bodyClass="md:p-10"
+          >
+            {isAddressPopupOpen && (
+              <div id="popupDom" style={{ position: 'fixed', zIndex: 10, top: 0, width: 'inherit', maxWidth: 'inherit' }}>
+                <PopupPostCode onClose={closeAddressSearch} />
+              </div>
+            )}
+
+            <div className="mb-8 p-8">
+              <h3 className="mb-1">입점신청</h3>
+              {/* <p>And lets get started with your free trial</p> */}
+              {/* </div> */}
+              {
+                <Suspense fallback={<></>}>
+                  {currentStep === 0 && (
+                    <BizRegForm disableSubmit={false} setIsAddressPopupOpen={setIsAddressPopupOpen} />
+                  )}
+                  {currentStep === 1 && (
+                    <div>step1</div>
+                    // <Identification
+                    //     data={formData.identification}
+                    //     onNextChange={handleNextChange}
+                    //     onBackChange={handleBackChange}
+                    //     currentStepStatus={currentStepStatus}
+                    // />
+                  )
+                  }
+                </Suspense>
+              }</div>
+          </div>
+        </Container>
       </div>
-      <BizRegForm disableSubmit={false} />
-    </>
+    </div>
   )
 }
 

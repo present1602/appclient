@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Input, Button, FormItem, FormContainer, Alert, Select } from 'components/ui'
 import { ActionLink } from 'components/shared'
 import useTimeOutMessage from 'utils/hooks/useTimeOutMessage'
 import { Field, Form, Formik } from 'formik'
 import * as Yup from 'yup'
-import { bizRegSave } from 'services/BizRegService'
+import { apiBizRegSave } from 'services/BizRegService'
+import InputGroup from 'components/ui/InputGroup'
+import PopupDom from './PopupDom'
+import PopupPostCode from './PopupPostCode'
 
 const validationSchema = Yup.object().shape({
     company_name: Yup.string().required(' 입력해주세요'),
@@ -23,17 +26,29 @@ const ownerOptions = [
 ]
 
 const BizRegForm = (props) => {
-    const { disableSubmit = false, className } = props
+    const { disableSubmit = false, className, setIsAddressPopupOpen } = props
 
     // const { signUp } = useAuth()
 
     const [message, setMessage] = useTimeOutMessage()
 
+    // const [isAddressPopupOpen, setIsAddressPopupOpen] = useState(false)
+
+    // // 팝업창 열기
+    const openAddressSearch = () => {
+        setIsAddressPopupOpen(true)
+    }
+
+    // 팝업창 닫기
+    const closeAddressSearch = () => {
+        setIsAddressPopupOpen(false)
+    }
+
     const onSubmitBizReg = async (values, setSubmitting) => {
         // const { user_id, password, email, phone, name } = values
         setSubmitting(true)
 
-        const result = await bizRegSave(values)
+        const result = await apiBizRegSave(values)
 
         debugger;
 
@@ -51,6 +66,13 @@ const BizRegForm = (props) => {
                     {message}
                 </Alert>
             )}
+
+            {/* {isAddressPopupOpen && (
+                <PopupDom>
+                    <PopupPostCode onClose={closeAddressSearch} />
+                </PopupDom>
+            )} */}
+
             <Formik
                 initialValues={{
                     company_name: 'company1',
@@ -198,6 +220,30 @@ const BizRegForm = (props) => {
                                     autoComplete="off"
                                     name="name"
                                     placeholder="사업자등록증 상의 대표자 이름을 입력해주세요"
+                                    component={Input}
+                                />
+                            </FormItem>
+
+                            <FormItem
+                                label="사업장주소"
+                            >
+
+                                <InputGroup className="mb-4">
+                                    <Input placeholder="우편번호" />
+                                    <Button onClick={openAddressSearch} >주소 찾기</Button>
+                                </InputGroup>
+                                <Field
+                                    type="text"
+                                    autoComplete="off"
+                                    name="address1"
+                                    placeholder=""
+                                    component={Input}
+                                />
+                                <Field
+                                    type="text"
+                                    autoComplete="off"
+                                    name="address2"
+                                    placeholder=""
                                     component={Input}
                                 />
                             </FormItem>

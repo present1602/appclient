@@ -53,7 +53,7 @@ const AllRoutes = (props) => {
         <Route path='sign-in' key={'account.sign-in'} element={<PublicRoute><SignIn /></PublicRoute>} />
         <Route path='sign-up' key={'account.sign-up'} element={<PublicRoute><SignUp /></PublicRoute>} />
       </Route>
-      <Route path='/biz_reg' element={<SimpleLayout />}>
+      <Route path='/biz_reg'>
         <Route path='' key={'account.biz_reg'} element={<BizReg />} />
       </Route>
       <Route path='/' element={<ProtectedRoute />}>

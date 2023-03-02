@@ -1,6 +1,6 @@
 import InputGroup from './InputGroup'
-import Addon from './Addon'
+// import Addon from './Addon'
 
-InputGroup.Addon = Addon
+// InputGroup.Addon = Addon
 
 export default InputGroup
