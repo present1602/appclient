@@ -55,6 +55,11 @@ const BizRegForm = (props) => {
         // const { user_id, password, email, phone, name } = values
         setSubmitting(true)
         try {
+            values['address1'] = formData.address1
+            values['postal_code'] = formData.postal_code
+            values['address_type'] = formData.address_type
+            values['sigungu_code'] = formData.sigungu_code
+
             const result = await apiBizRegSave(values)
 
             if (result.status === 'failed') {
@@ -107,6 +112,7 @@ const BizRegForm = (props) => {
                 validationSchema={validationSchema}
                 onSubmit={(values, { setSubmitting }) => {
                     if (!disableSubmit) {
+
                         onSaveBizReg(values, setSubmitting)
                     } else {
                         setSubmitting(false)
@@ -148,7 +154,7 @@ const BizRegForm = (props) => {
                                 />
                             </FormItem>
                             <FormItem
-                                label="종목"
+                                label="종목"
                             >
                                 <Field
                                     autoComplete="off"
@@ -281,8 +287,8 @@ const BizRegForm = (props) => {
                                     placeholder=""
                                     value={formData.address1}
                                     component={Input}
-                                    onChange={() => { }}
                                 />
+                                {/* <input t소 */}
                                 <Field
                                     type="text"
                                     autoComplete="off"

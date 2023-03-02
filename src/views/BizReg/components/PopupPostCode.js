@@ -30,7 +30,6 @@ const PopupPostCode = (props) => {
     console.log(data)
     console.log(fullAddress)
     console.log(data.zonecode)
-    debugger;
 
     dispatch(
       setFormData({
