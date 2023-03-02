@@ -3,6 +3,7 @@ import React, { useState, lazy, Suspense } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { injectReducer } from 'store'
 import PopupPostCode from './components/PopupPostCode'
+import Progress from './components/Progress'
 import reducer from './store'
 import { setCurrentStep } from './store/stateSlice'
 
@@ -70,6 +71,9 @@ const BizReg = () => {
 
             <div className="mb-8 p-8">
               <h3 className="mb-1">입점신청</h3>
+              {
+                <Progress currentStep={currentStep} />
+              }
               {/* <p>And lets get started with your free trial</p> */}
               {/* </div> */}
               {
@@ -82,6 +86,7 @@ const BizReg = () => {
                     />
                   )}
                   {currentStep === 1 && (
+
                     <div>step1</div>
                     // <Identification
                     //     data={formData.identification}
