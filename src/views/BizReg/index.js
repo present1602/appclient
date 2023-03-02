@@ -43,65 +43,66 @@ const BizReg = () => {
   }
 
   return (
-    <div className="app-layout-simple flex flex-auto flex-col h-[100vh]">
-      <div className="h-full">
+    // <div className="app-layout-simple flex flex-auto flex-col h-[100vh]">
+    //   <div className="h-full">
 
-        <Container className="flex flex-col items-center min-w-0 h-full" >
-          <div
-            className="w-[320px] md:w-[480px] relative card card-border"
-          // className="min-w-[320px] md:min-w-[450px] relative card card-border"
-          // bodyClass="md:p-10"
-          >
-            {isAddressPopupOpen && (
-              <div style={{
-                position: 'fixed', zIndex: 100, width: 'inherit',
-                backgroundColor: 'rgba(0,0,0,0.3)', maxWidth: 'inherit', height: '100%'
-              }}>
-                <div id="popupDom" style={{
-                  width: '100%',
-                  position: 'relative',
-                  top: '50%',
-                  transform: 'translate(0, -50%)'
+    //     <Container className="flex flex-col items-center min-w-0 h-full" >
+    //       <div
+    //         className="w-[320px] md:w-[480px] relative card card-border"
+    //       // className="min-w-[320px] md:min-w-[450px] relative card card-border"
+    //       // bodyClass="md:p-10"
+    //       >
+    <>            {isAddressPopupOpen && (
+      <div style={{
+        position: 'fixed', zIndex: 100, width: 'inherit',
+        backgroundColor: 'rgba(0,0,0,0.3)', maxWidth: 'inherit', height: '100%'
+      }}>
+        <div id="popupDom" style={{
+          width: '100%',
+          position: 'relative',
+          top: '50%',
+          transform: 'translate(0, -50%)'
 
-                }}>
-                  <PopupPostCode onClose={closeAddressSearch} />
-                </div>
-              </div>
-            )}
-
-            <div className="mb-8 p-8">
-              <h3 className="mb-1">입점신청</h3>
-              {
-                <Progress currentStep={currentStep} />
-              }
-              {/* <p>And lets get started with your free trial</p> */}
-              {/* </div> */}
-              {
-                <Suspense fallback={<></>}>
-                  {currentStep === 0 && (
-                    <BizRegForm
-                      disableSubmit={false}
-                      setIsAddressPopupOpen={setIsAddressPopupOpen}
-                      moveNext={moveNext}
-                    />
-                  )}
-                  {currentStep === 1 && (
-
-                    <div>step1</div>
-                    // <Identification
-                    //     data={formData.identification}
-                    //     onNextChange={handleNextChange}
-                    //     onBackChange={handleBackChange}
-                    //     currentStepStatus={currentStepStatus}
-                    // />
-                  )
-                  }
-                </Suspense>
-              }</div>
-          </div>
-        </Container>
+        }}>
+          <PopupPostCode onClose={closeAddressSearch} />
+        </div>
       </div>
-    </div>
+    )}
+
+      <div className="mb-8 p-8">
+        <h3 className="mb-1">입점신청</h3>
+        {
+          <Progress currentStep={currentStep} />
+        }
+        {/* <p>And lets get started with your free trial</p> */}
+        {/* </div> */}
+        {
+          <Suspense fallback={<></>}>
+            {currentStep === 0 && (
+              <BizRegForm
+                disableSubmit={false}
+                setIsAddressPopupOpen={setIsAddressPopupOpen}
+                moveNext={moveNext}
+              />
+            )}
+            {currentStep === 1 && (
+
+              <div>step1</div>
+              // <Identification
+              //     data={formData.identification}
+              //     onNextChange={handleNextChange}
+              //     onBackChange={handleBackChange}
+              //     currentStepStatus={currentStepStatus}
+              // />
+            )
+            }
+          </Suspense>
+        }</div>
+      {/* </div> */}
+    </>
+    //     </Container>
+    //   </div>
+    // </div>
   )
 }
 
