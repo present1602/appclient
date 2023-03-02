@@ -1,9 +1,7 @@
 import { Container } from 'components/shared'
-import { Card } from 'components/ui'
 import React, { useState, lazy, Suspense } from 'react'
 import { useSelector } from 'react-redux'
 import { injectReducer } from 'store'
-import PopupDom from './components/PopupDom'
 import PopupPostCode from './components/PopupPostCode'
 import reducer from './store'
 
@@ -39,7 +37,7 @@ const BizReg = () => {
           >
             {isAddressPopupOpen && (
               <div style={{
-                position: 'fixed', zIndex: 10, width: 'inherit',
+                position: 'fixed', zIndex: 100, width: 'inherit',
                 backgroundColor: 'rgba(0,0,0,0.3)', maxWidth: 'inherit', height: '100%'
               }}>
                 <div id="popupDom" style={{

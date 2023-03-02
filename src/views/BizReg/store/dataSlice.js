@@ -13,13 +13,30 @@ const dataSlice = createSlice({
     name: 'bizRegForm/data',
     initialState: {
         formData: {
-            personalInformation: {
-                email: '',
-            },
-            addressInformation: {
-                address1: '',
-                address2: '',
-            },
+            biz_reg_id: '',
+            company_name: 'company01',
+            owner_name: '오일사',
+            official_biz_number: '9993335551',
+            official_biz_category1: '업종01',
+            official_biz_category2: '업종02',
+            comment: '',
+            biz_name: '포케원데이01',
+            owner_type: '10',
+            biz_tax_type: '10',
+            address1: 'addr1',
+            address2: 'addr2',
+            address_type: 'R',
+            postal_code: '0',
+            sigungu_code: '1',
+            // address: {
+            //     address1: 'add1',
+            //     address2: '',
+            //     jibun_address: '',
+            //     road_address: '',
+            //     address_type: 'R',
+            //     sigungu_code: '',
+            //     postal_code: '',
+            // },
         },
         stepStatus: {
             0: { status: 'pending' },

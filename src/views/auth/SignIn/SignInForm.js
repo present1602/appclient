@@ -23,8 +23,8 @@ const SignInForm = (props) => {
     const {
         disableSubmit = false,
         className,
-        forgotPasswordUrl = '/account/forgot-password',
-        signUpUrl = '/account/sign-up',
+        forgotPasswordUrl = '/auth/forgot-password',
+        signUpUrl = '/auth/sign-up',
     } = props
 
     const [message, setMessage] = useTimeOutMessage()

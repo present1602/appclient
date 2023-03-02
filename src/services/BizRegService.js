@@ -3,7 +3,7 @@ import appConfig from "configs/app.config";
 
 export async function apiBizRegSave(data) {
   return ApiService.fetchData({
-    url: `${appConfig.apiPrefix}/biz_reg/save`,
+    url: `${appConfig.apiPrefix}/biz_reg/save/`,
     method: 'post',
     data
   })
@@ -11,7 +11,7 @@ export async function apiBizRegSave(data) {
 
 export async function apiGetBizReg(data) {
   return ApiService.fetchData({
-    url: `${appConfig.apiPrefix}/biz_reg/`,
+    url: `${appConfig.apiPrefix}/biz_reg/save/`,
     method: 'get',
     data
   })

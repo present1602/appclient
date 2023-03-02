@@ -8,6 +8,12 @@ import { apiBizRegSave } from 'services/BizRegService'
 import InputGroup from 'components/ui/InputGroup'
 import PopupDom from './PopupDom'
 import PopupPostCode from './PopupPostCode'
+import reducer from '../store'
+import { injectReducer } from 'store'
+import { useSelector } from 'react-redux'
+import { setFormData } from '../store/dataSlice'
+
+injectReducer('bizRegForm', reducer)
 
 const validationSchema = Yup.object().shape({
     company_name: Yup.string().required(' 입력해주세요'),
@@ -32,6 +38,7 @@ const BizRegForm = (props) => {
 
     const [message, setMessage] = useTimeOutMessage()
 
+    const formData = useSelector((state) => state.bizRegForm.data.formData)
     // const [isAddressPopupOpen, setIsAddressPopupOpen] = useState(false)
 
     // // 팝업창 열기
@@ -44,19 +51,22 @@ const BizRegForm = (props) => {
         setIsAddressPopupOpen(false)
     }
 
-    const onSubmitBizReg = async (values, setSubmitting) => {
+    const onSaveBizReg = async (values, setSubmitting) => {
         // const { user_id, password, email, phone, name } = values
         setSubmitting(true)
+        try {
+            const result = await apiBizRegSave(values)
 
-        const result = await apiBizRegSave(values)
+            if (result.status === 'failed') {
+                setMessage(result.message)
+            }
+        } catch (err) {
+            console.log("on save bizreg err : ", err)
+        } finally {
 
-        debugger;
-
-        if (result.status === 'failed') {
-            setMessage(result.message)
+            setSubmitting(false)
         }
 
-        setSubmitting(false)
     }
 
     return (
@@ -74,22 +84,30 @@ const BizRegForm = (props) => {
             )} */}
 
             <Formik
-                initialValues={{
-                    company_name: 'company1',
-                    biz_name: '포케원데이1',
-                    official_biz_number: '1113335551',
-                    official_biz_category1: '업종1',
-                    official_biz_category2: '업종2',
-                    biz_tax_type: '10',
-                    owner_name: '이일',
-                    address1: '인천시 연수구 송도동',
-                    address2: '애비뉴상가 100-10',
-                    postal_code: '22001'
-                }}
+                initialValues={formData}
+                // initialValues={{
+                //     company_name: 'company1',
+                //     biz_name: '포케원데이1',
+                //     official_biz_number: '1113335551',
+                //     official_biz_category1: '업종1',
+                //     official_biz_category2: '업종2',
+                //     biz_tax_type: '10',
+                //     owner_type: '10',
+                //     owner_name: '이일',
+                //     address: {
+                //         address1: '인천시 연수구 송도동',
+                //         address2: '애비뉴상가 100-10',
+                //         jibun_address: '',
+                //         road_address: '',
+                //         address_type: 'R',
+                //         postal_code: '22001',
+                //         sigungu_code: '',
+                //     }
+                // }}
                 validationSchema={validationSchema}
                 onSubmit={(values, { setSubmitting }) => {
                     if (!disableSubmit) {
-                        onSubmitBizReg(values, setSubmitting)
+                        onSaveBizReg(values, setSubmitting)
                     } else {
                         setSubmitting(false)
                     }
@@ -218,7 +236,7 @@ const BizRegForm = (props) => {
                                 <Field
                                     type="text"
                                     autoComplete="off"
-                                    name="name"
+                                    name="owner_name"
                                     placeholder="사업자등록증 상의 대표자 이름을 입력해주세요"
                                     component={Input}
                                 />
@@ -229,21 +247,47 @@ const BizRegForm = (props) => {
                             >
 
                                 <InputGroup className="mb-4">
-                                    <Input placeholder="우편번호" />
-                                    <Button onClick={openAddressSearch} >주소 찾기</Button>
+                                    {/* <Input
+                                        name="postal_code"
+                                        // value={formData.postal_code}
+                                        placeholder="우편번호"
+                                    /> */}
+                                    {/* <Field
+                                        type="text"
+                                        autoComplete="off"
+                                        name="postal_code"
+                                        placeholder="우편번호"
+                                        component={Input}
+                                    /> */}
+                                    <Field
+                                        type="text"
+                                        autoComplete="off"
+                                        name="postal_code"
+                                        placeholder="우편번호"
+                                        component={Input}
+                                        value={formData.postal_code}
+                                        onChange={
+                                            () => { }
+                                        }
+                                    />
+                                    <Button
+                                        type="button"
+                                        onClick={openAddressSearch} >주소 찾기</Button>
                                 </InputGroup>
                                 <Field
                                     type="text"
                                     autoComplete="off"
                                     name="address1"
                                     placeholder=""
+                                    value={formData.address1}
                                     component={Input}
+                                    onChange={() => { }}
                                 />
                                 <Field
                                     type="text"
                                     autoComplete="off"
                                     name="address2"
-                                    placeholder=""
+                                    placeholder="상세주소를 입력해주세요"
                                     component={Input}
                                 />
                             </FormItem>
@@ -268,7 +312,7 @@ const BizRegForm = (props) => {
                                 >
                                     {isSubmitting
                                         ? '저장중입니다'
-                                        : '저장'}
+                                        : '임시저장'}
                                 </Button> */}
 
                                 <Button
@@ -279,7 +323,7 @@ const BizRegForm = (props) => {
                                 >
                                     {isSubmitting
                                         ? '저장중입니다'
-                                        : '다음'}
+                                        : '저장 후 다음 단계로 이동'}
                                 </Button>
                             </div>
                         </FormContainer>

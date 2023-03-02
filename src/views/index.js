@@ -20,8 +20,9 @@ import CollapseMenuItemView1 from './demo/CollapseMenuItemView1'
 import BizReg from './BizReg'
 import AddrTest from 'test/views/AddrTest'
 import SimpleLayout from 'components/layout/SimpleLayout'
+import AuthLayout from 'components/layout/AuthLayout'
 // const ModernLayout = React.lazy(() => import('components/layout/ModernLayout'))
-const AuthLayout = React.lazy(() => import('components/layout/AuthLayout'))
+// const AuthLayout = React.lazy(() => import('components/layout/AuthLayout'))
 
 const { authenticatedEntryPath } = appConfig
 
@@ -47,16 +48,22 @@ const AllRoutes = (props) => {
     <Routes>
       <Route path='/uitest' key={'test.ui'} element={<UiTest />} />
       <Route path='/addrtest' element={<AddrTest />} />
-      <Route path='/account' element={<AuthLayout />}>
-        {/* <Route path='sign-in' key={'account.sign-in'} element={<SignIn />} />
-        <Route path='sign-up' key={'account.sign-up'} element={<SignUp />} /> */}
+      <Route path='/auth' element={<PublicRoute><AuthLayout /></PublicRoute>}>
+        <Route path='sign-in' key={'account.sign-in'} element={<SignIn />} />
+        <Route path='sign-up' key={'account.sign-up'} element={<SignUp />} />
+        {/* <Route path='sign-in' key={'account.sign-in'} element={<PublicRoute><SignIn /></PublicRoute>} />
+        <Route path='sign-up' key={'account.sign-up'} element={<PublicRoute><SignUp /></PublicRoute>} /> */}
+      </Route>
+      {/* <Route path='/account' element={<AuthLayout><PublicRoute /></AuthLayout>}>
+        <Route path='sign-in' key={'account.sign-in'} element={<SignIn />} />
+        <Route path='sign-up' key={'account.sign-up'} element={<SignUp />} />
         <Route path='sign-in' key={'account.sign-in'} element={<PublicRoute><SignIn /></PublicRoute>} />
         <Route path='sign-up' key={'account.sign-up'} element={<PublicRoute><SignUp /></PublicRoute>} />
-      </Route>
+      </Route> */}
       <Route path='/biz_reg'>
         <Route path='' key={'account.biz_reg'} element={<BizReg />} />
       </Route>
-      <Route path='/' element={<ProtectedRoute />}>
+      <Route path='/' element={<ProtectedRoute><ModernLayout /></ProtectedRoute>}>
         {/* <Route path='home' key={'ui.home'} element={
           <Home />
         } />
@@ -79,15 +86,15 @@ const AllRoutes = (props) => {
             key={route.path}
             path={route.path}
             element={
-              <ModernLayout>
-                <PageContainer {...props} {...route.meta}>
-                  <AppRoute
-                    routeKey={route.key}
-                    component={route.component}
-                    {...route.meta}
-                  />
-                </PageContainer>
-              </ModernLayout>
+              // <ModernLayout>
+              <PageContainer {...props} {...route.meta}>
+                <AppRoute
+                  routeKey={route.key}
+                  component={route.component}
+                  {...route.meta}
+                />
+              </PageContainer>
+              // </ModernLayout>
             }
           />
         })}

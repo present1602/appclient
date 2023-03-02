@@ -17,8 +17,8 @@ const Simple = ({ children, content, ...rest }) => {
               <Logo type="streamline" imgClass="mx-auto" />
             </div>
             <div className="text-center">
-              {/* {content}
-              {children
+              {/* {content} */}
+              {/* {children
                 ? cloneElement(children, {
                   contentClassName: 'text-center',
                   ...rest,

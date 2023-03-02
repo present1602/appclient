@@ -5,10 +5,11 @@ import useAuth from 'utils/hooks/useAuth'
 
 const { authenticatedEntryPath } = appConfig
 
-const PublicRoute = () => {
+const PublicRoute = ({ children }) => {
     const { authenticated } = useAuth()
-        
-    return authenticated ? <Navigate to={authenticatedEntryPath} /> : <Outlet />
+
+    // return authenticated ? <Navigate to={authenticatedEntryPath} /> : <Outlet />
+    return authenticated ? <Navigate to={authenticatedEntryPath} /> : <>{children}</>
 }
 
 export default PublicRoute

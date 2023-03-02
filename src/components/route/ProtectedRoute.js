@@ -6,7 +6,7 @@ import useAuth from 'utils/hooks/useAuth'
 
 const { unAuthenticatedEntryPath } = appConfig
 
-const ProtectedRoute = () => {
+const ProtectedRoute = ({ children }) => {
     const { authenticated } = useAuth()
 
     const location = useLocation()
@@ -20,7 +20,8 @@ const ProtectedRoute = () => {
         )
     }
 
-    return <Outlet />
+    return <>{children}</>
+    // return <Outlet />
 }
 
 export default ProtectedRoute

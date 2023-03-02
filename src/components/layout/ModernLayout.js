@@ -46,6 +46,7 @@ const HeaderActionsEnd = () => {
 </div> */}
 
 const ModernLayout = (props) => {
+    console.log("modernlayout call")
     return (
 
         <div className="app-layout-modern flex flex-auto flex-col">
@@ -60,8 +61,8 @@ const ModernLayout = (props) => {
                     />
                     {/* <View {...props} /> */}
                     {/* <PageContainer > */}
-                    {props.children}
-                    {/* <Outlet /> */}
+                    {/* {props.children} */}
+                    <Outlet />
                     {/* </PageContainer> */}
                 </div>
             </div>
