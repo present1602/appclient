@@ -3733,6 +3733,9 @@ hr{
 .bottom-2{
         bottom: 0.5rem;
 }
+.bottom-full{
+        bottom: 100%;
+}
 .left-0{
         left: 0px;
 }
@@ -3750,6 +3753,9 @@ hr{
 }
 .top-4{
         top: 1rem;
+}
+.top-full{
+        top: 100%;
 }
 .z-10{
         z-index: 10;
@@ -3794,6 +3800,9 @@ hr{
 }
 .mr-3{
         margin-right: 0.75rem;
+}
+.mr-4{
+        margin-right: 1rem;
 }
 .mr-5{
         margin-right: 1.25rem;
@@ -6142,6 +6151,10 @@ hr{
 .text-2xl{
         font-size: 1.5rem;
         line-height: 2rem;
+}
+.text-4xl{
+        font-size: 2.25rem;
+        line-height: 2.5rem;
 }
 .text-base{
         font-size: 1rem;

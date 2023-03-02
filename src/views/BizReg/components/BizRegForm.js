@@ -15,8 +15,7 @@ import { useSelector } from 'react-redux'
 injectReducer('bizRegForm', reducer)
 
 const validationSchema = Yup.object().shape({
-    company_name: Yup.string().required(' 입력해주세요'),
-    biz_tax_type: Yup.string()
+    company_name: Yup.string().required('회사이름을 입력해주세요'),
 })
 
 const taxOptions = [
