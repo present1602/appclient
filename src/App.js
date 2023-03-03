@@ -23,6 +23,7 @@ function App() {
   //   return lazy(() => import('views'))
   // }, [])
 
+
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>

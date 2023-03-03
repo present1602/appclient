@@ -93,7 +93,7 @@ const ImageList = (props) => {
                 onConfirm={onDelete}
                 confirmButtonColor="red-600"
             >
-                <p> Are you sure you want to remove this image? </p>
+                <p> 파일을 삭제하시겠습니까? </p>
             </ConfirmDialog>
         </>
     )

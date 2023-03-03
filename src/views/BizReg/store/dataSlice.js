@@ -20,7 +20,6 @@ const dataSlice = createSlice({
             official_biz_category1: '업종01',
             official_biz_category2: '업종02',
             comment: '',
-            biz_name: '포케원데이01',
             owner_type: '10',
             biz_tax_type: '10',
             address1: 'addr1',
@@ -28,6 +27,7 @@ const dataSlice = createSlice({
             address_type: 'R',
             postal_code: '0',
             sigungu_code: '1',
+            biz_name: '포케원데이01',
             // address: {
             //     address1: 'add1',
             //     address2: '',
@@ -38,6 +38,11 @@ const dataSlice = createSlice({
             //     postal_code: '',
             // },
         },
+        fileData: {
+            bizfile1: '',
+            bizfile2: null,
+            attached_file_list: []
+        }
 
     },
     reducers: {
