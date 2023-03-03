@@ -2,6 +2,7 @@ import { FormContainer, FormItem } from 'components/ui';
 import Upload from 'components/ui/Upload';
 import SingleUpload from 'components/ui/Upload/SingleUpload';
 import React from 'react';
+import AttachedImages from './AttachedImages';
 
 
 const BizSubInfo = () => {
@@ -15,6 +16,8 @@ const BizSubInfo = () => {
 
       <FormItem label="메뉴이미지" />
       {/* <Upload /> */}
+
+      <AttachedImages />
 
     </FormContainer>
   );

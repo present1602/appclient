@@ -17,6 +17,9 @@ export { default as Checkbox } from './Checkbox'
 export { default as Tabs } from './Tabs'
 export { default as Select } from './Select'
 export { default as Steps } from './Steps'
+export { default as Upload } from './Upload'
+export { default as Dialog } from './Dialog'
+export { default as Avatar } from './Avatar'
 
 
 export {
