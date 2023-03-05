@@ -7,7 +7,7 @@ import { setFormData } from '../store/dataSlice'
 
 injectReducer('bizRegForm', reducer)
 
-const PopupPostCode = (props) => {
+const PopUpPostCode = (props) => {
   // 우편번호 검색 후 주소 클릭 시 실행될 함수, data callback 용
 
   const formData = useSelector((state) => state.bizRegForm.data.formData)
@@ -80,4 +80,4 @@ const PopupPostCode = (props) => {
   )
 }
 
-export default PopupPostCode;
+export default PopUpPostCode;

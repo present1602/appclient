@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PopupDom from './PopupDom';
-import PopupPostCode from './PopupPostCode';
+import PopUpPostCode from './PopUpPostCode';
 
 const AddrTest = () => {
   // 팝업창 상태 관리
@@ -22,7 +22,7 @@ const AddrTest = () => {
       <div id='popupDom'>
         {isPopupOpen && (
           <PopupDom>
-            <PopupPostCode onClose={closePostCode} />
+            <PopUpPostCode onClose={closePostCode} />
           </PopupDom>
         )}
       </div>

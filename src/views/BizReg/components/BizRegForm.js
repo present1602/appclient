@@ -7,7 +7,7 @@ import * as Yup from 'yup'
 import { apiBizRegSave } from 'services/BizRegService'
 import InputGroup from 'components/ui/InputGroup'
 import PopupDom from './PopupDom'
-import PopupPostCode from './PopupPostCode'
+import PopUpPostCode from './PopUpPostCode'
 import reducer from '../store'
 import { injectReducer } from 'store'
 import { useSelector } from 'react-redux'
@@ -89,7 +89,7 @@ const BizRegForm = (props) => {
 
             {/* {isAddressPopupOpen && (
                 <PopupDom>
-                    <PopupPostCode onClose={closeAddressSearch} />
+                    <PopUpPostCode onClose={closeAddressSearch} />
                 </PopupDom>
             )} */}
 

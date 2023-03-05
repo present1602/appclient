@@ -1,7 +1,7 @@
 import React from 'react';
 import DaumPostcode from "react-daum-postcode";
 
-const PopupPostCode = (props) => {
+const PopUpPostCode = (props) => {
   // 우편번호 검색 후 주소 클릭 시 실행될 함수, data callback 용
   const handlePostCode = (data) => {
     let fullAddress = data.address;
@@ -39,4 +39,4 @@ const PopupPostCode = (props) => {
   )
 }
 
-export default PopupPostCode;
+export default PopUpPostCode;

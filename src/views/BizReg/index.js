@@ -3,7 +3,7 @@ import React, { useState, lazy, Suspense } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { injectReducer } from 'store'
 import BizSubInfo from './components/BizSubInfo'
-import PopupPostCode from './components/PopupPostCode'
+import PopUpPostCode from './components/PopUpPostCode'
 import StepProgress from './components/StepProgress'
 import reducer from './store'
 import { setCurrentStep } from './store/stateSlice'
@@ -65,7 +65,7 @@ const BizReg = () => {
           transform: 'translate(0, -50%)'
 
         }}>
-          <PopupPostCode onClose={closeAddressSearch} />
+          <PopUpPostCode onClose={closeAddressSearch} />
         </div>
       </div>
     )}
