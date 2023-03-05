@@ -3,7 +3,7 @@ import React, { useState, lazy, Suspense } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { injectReducer } from 'store'
 import BizSubInfo from './components/BizSubInfo'
-import PopupPostCode from './components/PopupPostCode'
+import PopUpPostCode from './components/PopUpPostCode'
 import StepProgress from './components/StepProgress'
 import reducer from './store'
 import { setCurrentStep } from './store/stateSlice'
@@ -33,15 +33,6 @@ const BizReg = () => {
     dispatch(setCurrentStep(prevStep))
   }
 
-  // 팝업창 열기
-  const openAddressSearch = () => {
-    setIsAddressPopupOpen(true)
-  }
-
-  // 팝업창 닫기
-  const closeAddressSearch = () => {
-    setIsAddressPopupOpen(false)
-  }
 
   return (
     // <div className="app-layout-simple flex flex-auto flex-col h-[100vh]">
