@@ -69,10 +69,21 @@ const PopupPostCode = ({ onClose, updateFields }) => {
   };
 
   return (
-    <>
-      <button type='button' onClick={() => { onClose() }} className='postCode_btn'>닫기</button>
-      <DaumPostcode style={postCodeStyle} onComplete={handlePostCode} />
-    </>
+    <div style={{
+      position: 'fixed', zIndex: 100, width: 'inherit',
+      backgroundColor: 'rgba(0,0,0,0.3)', maxWidth: 'inherit', height: '100%'
+    }}>
+      <div id="popupDom" style={{
+        width: '100%',
+        position: 'relative',
+        top: '50%',
+        transform: 'translate(0, -50%)'
+
+      }}>
+        <button type='button' onClick={() => { onClose() }} className='postCode_btn'>닫기</button>
+        <DaumPostcode style={postCodeStyle} onComplete={handlePostCode} />
+      </div>
+    </div>
   )
 }
 

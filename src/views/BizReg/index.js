@@ -63,20 +63,20 @@ const BizReg = () => {
     //       >
     <>
       {isAddressPopupOpen && (
-        <div style={{
-          position: 'fixed', zIndex: 100, width: 'inherit',
-          backgroundColor: 'rgba(0,0,0,0.3)', maxWidth: 'inherit', height: '100%'
-        }}>
-          <div id="popupDom" style={{
-            width: '100%',
-            position: 'relative',
-            top: '50%',
-            transform: 'translate(0, -50%)'
+        // <div style={{
+        //   position: 'fixed', zIndex: 100, width: 'inherit',
+        //   backgroundColor: 'rgba(0,0,0,0.3)', maxWidth: 'inherit', height: '100%'
+        // }}>
+        //   <div id="popupDom" style={{
+        //     width: '100%',
+        //     position: 'relative',
+        //     top: '50%',
+        //     transform: 'translate(0, -50%)'
 
-          }}>
-            <PopupPostCode onClose={closeAddressSearch} updateFields={updateFields} />
-          </div>
-        </div>
+        //   }}>
+        <PopupPostCode onClose={closeAddressSearch} updateFields={updateFields} />
+        //   </div>
+        // </div>
       )}
       <div className="mb-8 p-8">
         <h3 className="mb-1">입점신청</h3>

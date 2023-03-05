@@ -66,10 +66,9 @@ const BizRegForm = (props) => {
             // values['postal_code'] = formData.postal_code
             // values['address_type'] = formData.address_type
             // values['sigungu_code'] = formData.sigungu_code
-
-            const result = await apiBizRegSave()
-
+            const result = await apiBizRegSave(formData)
             debugger;
+
             if (result.status === 'failed') {
                 setMessage(result.message)
             }
