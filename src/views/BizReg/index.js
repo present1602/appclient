@@ -22,6 +22,14 @@ const BizReg = () => {
   const currentStep = useSelector(
     (state) => state.bizRegForm.state.currentStep
   )
+  const persistData = useSelector((state) => state.bizRegForm.data.formData)
+  const [formData, setFormData] = useState(persistData)
+
+  function updateFields(fields) {
+    setFormData(prevData => {
+      return { ...prevData, ...fields }
+    })
+  }
 
   const moveNext = () => {
     const nextStep = currentStep + 1
@@ -53,7 +61,7 @@ const BizReg = () => {
     //       // className="min-w-[320px] md:min-w-[450px] relative card card-border"
     //       // bodyClass="md:p-10"
     //       >
-    <div>
+    <>
       {isAddressPopupOpen && (
         <div style={{
           position: 'fixed', zIndex: 100, width: 'inherit',
@@ -66,18 +74,15 @@ const BizReg = () => {
             transform: 'translate(0, -50%)'
 
           }}>
-            <PopupPostCode onClose={closeAddressSearch} />
+            <PopupPostCode onClose={closeAddressSearch} updateFields={updateFields} />
           </div>
         </div>
       )}
-
       <div className="mb-8 p-8">
         <h3 className="mb-1">입점신청</h3>
         {
           <StepProgress currentStep={currentStep} />
         }
-        {/* <p>And lets get started with your free trial</p> */}
-        {/* </div> */}
         {
           <Suspense fallback={<></>}>
             {currentStep === 0 && (
@@ -85,6 +90,8 @@ const BizReg = () => {
                 disableSubmit={false}
                 setIsAddressPopupOpen={setIsAddressPopupOpen}
                 moveNext={moveNext}
+                formData={formData}
+                updateFields={updateFields}
               />
             )}
             {currentStep === 1 && (
@@ -98,12 +105,10 @@ const BizReg = () => {
             )
             }
           </Suspense>
-        }</div>
-      {/* </div> */}
-    </div>
-    //     </Container>
-    //   </div>
-    // </div>
+        }
+
+      </div>
+    </>
   )
 }
 

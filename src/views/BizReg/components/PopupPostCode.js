@@ -7,7 +7,7 @@ import { setFormData } from '../store/dataSlice'
 
 injectReducer('bizRegForm', reducer)
 
-const PopupPostCode = (props) => {
+const PopupPostCode = ({ onClose, updateFields }) => {
   // 우편번호 검색 후 주소 클릭 시 실행될 함수, data callback 용
 
   // const formData = useSelector((state) => state.bizRegForm.data.formData)
@@ -27,27 +27,28 @@ const PopupPostCode = (props) => {
       }
       fullAddress += (extraAddress !== '' ? ` (${extraAddress})` : '');
     }
-    // console.log(data)
-    // console.log(fullAddress)
-    // console.log(data.zonecode)
+    console.log(data)
+    console.log(fullAddress)
+    console.log(data.zonecode)
 
-    dispatch(
-      setFormData({
-        address1: data.address,
-        address_type: data.addressType,
-        sigungu_code: data.sigunguCode,
-        postal_code: data.zonecode,
-      })
-    )
-    // dispatch(setFormData({
-    //   ...formData, address: {
+    updateFields({
+      address1: data.address,
+      address_type: data.addressType,
+      sigungu_code: data.sigunguCode,
+      postal_code: data.zonecode,
+    })
+
+    onClose()
+
+    // dispatch(
+    //   setFormData({
     //     address1: data.address,
-    //     address2: '',
     //     address_type: data.addressType,
     //     sigungu_code: data.sigunguCode,
-    //     postal_code: data.zonecode
-    //   }
-    // }))
+    //     postal_code: data.zonecode,
+    //   })
+    // )
+
 
     // ...state,
     // categories: {
@@ -57,11 +58,6 @@ const PopupPostCode = (props) => {
     //     active: true
     //   }
     // }
-
-
-
-
-    props.onClose()
   }
 
   const postCodeStyle = {
@@ -74,7 +70,7 @@ const PopupPostCode = (props) => {
 
   return (
     <>
-      <button type='button' onClick={() => { props.onClose() }} className='postCode_btn'>닫기</button>
+      <button type='button' onClick={() => { onClose() }} className='postCode_btn'>닫기</button>
       <DaumPostcode style={postCodeStyle} onComplete={handlePostCode} />
     </>
   )
