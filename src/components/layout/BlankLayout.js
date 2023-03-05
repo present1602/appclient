@@ -9,6 +9,7 @@ const BlankLayout = ({ children }) => {
 
         <Container className="flex flex-col items-center min-w-0 h-full" >
           <div
+            // className="min-w-[320px] md:min-w-[450px] relative card card-border"
             className="w-[320px] md:w-[480px] relative card card-border"
           // className="min-w-[320px] md:min-w-[450px] relative card card-border"
           // bodyClass="md:p-10"

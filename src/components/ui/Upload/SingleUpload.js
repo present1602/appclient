@@ -13,6 +13,7 @@ import S3 from 'react-aws-s3';
 import { ConfirmDialog } from 'components/shared'
 
 window.Buffer = window.Buffer || require("buffer").Buffer;
+// https://github.com/Namyalg/Upload-to-S3-from-React/blob/main/src/Upload.js
 
 const SingleUpload = React.forwardRef((props, ref) => {
     const {

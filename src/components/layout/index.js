@@ -33,6 +33,7 @@ const Layout = () => {
       return layouts[LAYOUT_TYPE_CLASSIC]
     }
     return lazy(() => import('./AuthLayout'))
+
   }, [layoutType, authenticated])
 
   return (
