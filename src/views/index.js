@@ -14,14 +14,15 @@ import Home from './Home'
 import SingleMenuView from './demo/SingleMenuView'
 import SignIn from './auth/SignIn'
 import SignUp from './auth/SignUp'
-import UiTest from './UiTest'
 import CollapseMenuItemView2 from './demo/CollapseMenuItemView2'
 import CollapseMenuItemView1 from './demo/CollapseMenuItemView1'
 import BizReg from './BizReg'
 import AddrTest from 'test/views/AddrTest'
+import AddrTest2 from 'test/views/AddrTest2'
 import SimpleLayout from 'components/layout/SimpleLayout'
 import AuthLayout from 'components/layout/AuthLayout'
 import BlankLayout from 'components/layout/BlankLayout'
+import UiTest from 'test/views/UiTest'
 // const ModernLayout = React.lazy(() => import('components/layout/ModernLayout'))
 // const AuthLayout = React.lazy(() => import('components/layout/AuthLayout'))
 
@@ -48,7 +49,9 @@ const AllRoutes = (props) => {
   return (
     <Routes>
       <Route path='/uitest' key={'test.ui'} element={<UiTest />} />
+
       <Route path='/addrtest' element={<AddrTest />} />
+      <Route path='/addrtest2' element={<AddrTest2 />} />
       <Route path='/auth' element={<PublicRoute><AuthLayout /></PublicRoute>}>
         <Route path='sign-in' key={'account.sign-in'} element={<SignIn />} />
         <Route path='sign-up' key={'account.sign-up'} element={<SignUp />} />

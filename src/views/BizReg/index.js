@@ -53,22 +53,23 @@ const BizReg = () => {
     //       // className="min-w-[320px] md:min-w-[450px] relative card card-border"
     //       // bodyClass="md:p-10"
     //       >
-    <>            {isAddressPopupOpen && (
-      <div style={{
-        position: 'fixed', zIndex: 100, width: 'inherit',
-        backgroundColor: 'rgba(0,0,0,0.3)', maxWidth: 'inherit', height: '100%'
-      }}>
-        <div id="popupDom" style={{
-          width: '100%',
-          position: 'relative',
-          top: '50%',
-          transform: 'translate(0, -50%)'
-
+    <div>
+      {isAddressPopupOpen && (
+        <div style={{
+          position: 'fixed', zIndex: 100, width: 'inherit',
+          backgroundColor: 'rgba(0,0,0,0.3)', maxWidth: 'inherit', height: '100%'
         }}>
-          <PopupPostCode onClose={closeAddressSearch} />
+          <div id="popupDom" style={{
+            width: '100%',
+            position: 'relative',
+            top: '50%',
+            transform: 'translate(0, -50%)'
+
+          }}>
+            <PopupPostCode onClose={closeAddressSearch} />
+          </div>
         </div>
-      </div>
-    )}
+      )}
 
       <div className="mb-8 p-8">
         <h3 className="mb-1">입점신청</h3>
@@ -99,7 +100,7 @@ const BizReg = () => {
           </Suspense>
         }</div>
       {/* </div> */}
-    </>
+    </div>
     //     </Container>
     //   </div>
     // </div>

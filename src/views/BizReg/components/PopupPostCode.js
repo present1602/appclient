@@ -10,7 +10,7 @@ injectReducer('bizRegForm', reducer)
 const PopupPostCode = (props) => {
   // 우편번호 검색 후 주소 클릭 시 실행될 함수, data callback 용
 
-  const formData = useSelector((state) => state.bizRegForm.data.formData)
+  // const formData = useSelector((state) => state.bizRegForm.data.formData)
 
   const dispatch = useDispatch()
 
@@ -27,9 +27,9 @@ const PopupPostCode = (props) => {
       }
       fullAddress += (extraAddress !== '' ? ` (${extraAddress})` : '');
     }
-    console.log(data)
-    console.log(fullAddress)
-    console.log(data.zonecode)
+    // console.log(data)
+    // console.log(fullAddress)
+    // console.log(data.zonecode)
 
     dispatch(
       setFormData({
