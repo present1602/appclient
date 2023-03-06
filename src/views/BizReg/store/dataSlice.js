@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { apiBizRegSave, apiGetBizReg } from 'services/BizRegService'
 
-export const getForm = createAsyncThunk(
-    'bizRegForm/data/getForm',
+export const getBizReg = createAsyncThunk(
+    'bizRegForm/data/getBizReg',
     async (data) => {
         const response = await apiGetBizReg(data)
         return response.data
@@ -22,11 +22,13 @@ const dataSlice = createSlice({
             comment: '',
             owner_type: '10',
             biz_tax_type: '10',
-            address1: 'addr1',
-            address2: 'addr2',
-            address_type: 'R',
-            postal_code: '0',
-            sigungu_code: '1',
+            company_address: {
+                address1: 'addr1',
+                address2: 'addr2',
+                address_type: 'R',
+                postal_code: '0',
+                sigungu_code: '1',
+            },
             biz_name: '포케원데이01',
             // address: {
             //     address1: 'add1',
@@ -51,7 +53,7 @@ const dataSlice = createSlice({
         },
     },
     extraReducers: {
-        [getForm.fulfilled]: (state, action) => {
+        [getBizReg.fulfilled]: (state, action) => {
             state.formData = action.payload.formData
             state.stepStatus = action.payload.formStatus
         },

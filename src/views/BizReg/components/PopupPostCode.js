@@ -32,11 +32,20 @@ const PopupPostCode = ({ onClose, updateFields }) => {
     console.log(data.zonecode)
 
     updateFields({
-      address1: data.address,
-      address_type: data.addressType,
-      sigungu_code: data.sigunguCode,
-      postal_code: data.zonecode,
+      'company_address': {
+        address1: data.address,
+        address_type: data.addressType,
+        sigungu_code: data.sigunguCode,
+        postal_code: data.zonecode,
+        address2: ''
+      }
     })
+    // updateFields({
+    // address1: data.address,
+    // address_type: data.addressType,
+    // sigungu_code: data.sigunguCode,
+    // postal_code: data.zonecode,
+    // })
 
     onClose()
 

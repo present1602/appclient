@@ -11,7 +11,7 @@ export async function apiBizRegSave(data) {
 
 export async function apiGetBizReg(data) {
   return ApiService.fetchData({
-    url: `${appConfig.apiPrefix}/biz_reg/save/`,
+    url: `${appConfig.apiPrefix}/biz_reg/`,
     method: 'get',
     data
   })

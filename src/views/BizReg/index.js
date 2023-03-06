@@ -51,6 +51,8 @@ const BizReg = () => {
     setIsAddressPopupOpen(false)
   }
 
+
+
   return (
     // <div className="app-layout-simple flex flex-auto flex-col h-[100vh]">
     //   <div className="h-full">

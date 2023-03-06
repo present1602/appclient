@@ -67,7 +67,6 @@ const BizRegForm = (props) => {
             // values['address_type'] = formData.address_type
             // values['sigungu_code'] = formData.sigungu_code
             const result = await apiBizRegSave(formData)
-            debugger;
 
             if (result.status === 'failed') {
                 setMessage(result.message)
@@ -272,7 +271,7 @@ const BizRegForm = (props) => {
                                 autoComplete="off"
                                 name="postal_code"
                                 placeholder="우편번호"
-                                value={formData.postal_code}
+                                value={formData.company_address.postal_code}
                                 onChange={
                                     () => { }
                                 }
@@ -286,11 +285,14 @@ const BizRegForm = (props) => {
                         <Input
                             type="text"
                             name="address1"
-                            value={formData.address1}
+                            value={formData.company_address.address1}
                             onChange={
                                 (e) => {
-                                    debugger;
-                                    updateFields({ address1: e.target.value }
+                                    updateFields(
+                                        {
+                                            'company_address':
+                                                { ...formData.company_address, address1: e.target.value }
+                                        }
                                     )
                                 }
                             }
@@ -300,9 +302,16 @@ const BizRegForm = (props) => {
                             type="text"
                             name="address2"
                             placeholder="상세주소를 입력해주세요"
-                            value={formData.address2}
+                            value={formData.company_address.address2}
                             onChange={
-                                (e) => updateFields({ address2: e.target.value })
+                                (e) => {
+                                    updateFields(
+                                        {
+                                            'company_address':
+                                                { ...formData.company_address, address2: e.target.value }
+                                        }
+                                    )
+                                }
                             }
                         />
                     </FormItem>
