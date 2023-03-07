@@ -151,7 +151,7 @@ const AttachedImages = (props) => {
 
     return (
         <AdaptableCard className="mb-4">
-            <h5>첨부 이미지들</h5>
+            <h5>첨부 이미지</h5>
             <p className="mb-6">메뉴이미지를  첨부해주세요</p>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-4">

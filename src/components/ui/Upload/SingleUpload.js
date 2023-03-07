@@ -175,7 +175,8 @@ const SingleUpload = React.forwardRef((props, ref) => {
                     // {...field}
                     {...rest}
                 ></input>
-                <Button disabled={false} onClick={(e) => e.preventDefault()}>
+                <Button disabled={false}
+                    onClick={(e) => e.preventDefault()}>
                     Upload
                 </Button>
             </div>

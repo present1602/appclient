@@ -5,7 +5,7 @@ import useTimeOutMessage from 'utils/hooks/useTimeOutMessage'
 import { Field, Form, Formik } from 'formik'
 import * as Yup from 'yup'
 import { apiBizRegSave } from 'services/BizRegService'
-import InputGroup from 'components/ui/InputGroup'
+import { InputGroup } from 'components/ui'
 import reducer from '../store'
 import { injectReducer } from 'store'
 import { useSelector } from 'react-redux'
@@ -33,7 +33,7 @@ const BizRegForm = (props) => {
     const {
         disableSubmit = false,
         className,
-        setIsAddressPopupOpen,
+        openAddressSearch,
         formData,
         updateFields,
         moveNext } = props
@@ -46,14 +46,14 @@ const BizRegForm = (props) => {
     // const [isAddressPopupOpen, setIsAddressPopupOpen] = useState(false)
 
     // // 팝업창 열기
-    const openAddressSearch = () => {
-        setIsAddressPopupOpen(true)
-    }
+    // const openAddressSearch = () => {
+    //     setIsAddressPopupOpen(true)
+    // }
 
-    // 팝업창 닫기
-    const closeAddressSearch = () => {
-        setIsAddressPopupOpen(false)
-    }
+    // // 팝업창 닫기
+    // const closeAddressSearch = () => {
+    //     setIsAddressPopupOpen(false)
+    // }
 
     const onSaveBizReg = async () => {
         // const { user_id, password, email, phone, name } = values
@@ -239,29 +239,6 @@ const BizRegForm = (props) => {
                     >
 
                         <InputGroup className="mb-4">
-                            {/* <Input
-                                        name="postal_code"
-                                        // value={formData.postal_code}
-                                        placeholder="우편번호"
-                                    /> */}
-                            {/* <Field
-                                        type="text"
-                                        autoComplete="off"
-                                        name="postal_code"
-                                        placeholder="우편번호"
-                                        component={Input}
-                                    /> */}
-                            {/* <Field
-                                    type="text"
-                                    autoComplete="off"
-                                    name="postal_code"
-                                    placeholder="우편번호"
-                                    component={Input}
-                                    value={formData.postal_code}
-                                    onChange={
-                                        () => { }
-                                    }
-                                /> */}
 
                             <Input
                                 type="text"
@@ -294,7 +271,6 @@ const BizRegForm = (props) => {
                                 }
                             }
                         />
-                        {/* <input t소 */}
                         <Input
                             type="text"
                             name="address2"

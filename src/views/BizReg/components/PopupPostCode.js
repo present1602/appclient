@@ -7,7 +7,7 @@ import { setFormData } from '../store/dataSlice'
 
 injectReducer('bizRegForm', reducer)
 
-const PopupPostCode = ({ onClose, updateFields }) => {
+const PopupPostCode = ({ onClose, updateFields, dataKey }) => {
   // 우편번호 검색 후 주소 클릭 시 실행될 함수, data callback 용
 
   // const formData = useSelector((state) => state.bizRegForm.data.formData)
@@ -31,15 +31,27 @@ const PopupPostCode = ({ onClose, updateFields }) => {
     console.log(fullAddress)
     console.log(data.zonecode)
 
-    updateFields({
-      'company_address': {
-        address1: data.address,
-        address_type: data.addressType,
-        sigungu_code: data.sigunguCode,
-        postal_code: data.zonecode,
-        address2: ''
-      }
-    })
+    if (dataKey === 'company') {
+      updateFields({
+        'company_address': {
+          address1: data.address,
+          address_type: data.addressType,
+          sigungu_code: data.sigunguCode,
+          postal_code: data.zonecode,
+          address2: ''
+        }
+      })
+    } else if (dataKey === 'biz') {
+      updateFields({
+        'biz_address': {
+          address1: data.address,
+          address_type: data.addressType,
+          sigungu_code: data.sigunguCode,
+          postal_code: data.zonecode,
+          address2: ''
+        }
+      })
+    }
     // updateFields({
     // address1: data.address,
     // address_type: data.addressType,

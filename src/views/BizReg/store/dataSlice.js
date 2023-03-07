@@ -30,16 +30,16 @@ const dataSlice = createSlice({
                 sigungu_code: '1',
             },
             biz_name: '포케원데이01',
-            // address: {
-            //     address1: 'add1',
-            //     address2: '',
-            //     jibun_address: '',
-            //     road_address: '',
-            //     address_type: 'R',
-            //     sigungu_code: '',
-            //     postal_code: '',
-            // },
+            biz_address: {
+                address1: 'bizaddr1',
+                address2: 'bizaddr2',
+                address_type: 'R',
+                postal_code: '0',
+                sigungu_code: '1',
+            },
+            comment: ''
         },
+
         fileData: {
             bizfile1: '',
             bizfile2: null,
@@ -49,14 +49,19 @@ const dataSlice = createSlice({
     },
     reducers: {
         setFormData: (state, action) => {
-            debugger;
             state.formData = { ...state.formData, ...action.payload }
+        },
+        setFileData: (state, action) => {
+            state.fileData = { ...state.fileData, ...action.payload }
         },
     },
     extraReducers: {
         [getBizReg.fulfilled]: (state, action) => {
             const payload = action.payload
-            if (payload.result === "success") {
+            if (payload.result.state === 'new') {
+                return;
+            }
+            else if (payload.result === "success") {
 
                 if (payload.state === "ongoing") {
                     state.formData = payload.data
@@ -73,6 +78,6 @@ const dataSlice = createSlice({
     },
 })
 
-export const { setFormData, setStepStatus } = dataSlice.actions
+export const { setFormData, setStepStatus, setFileData } = dataSlice.actions
 
 export default dataSlice.reducer

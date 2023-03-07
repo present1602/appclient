@@ -7,7 +7,7 @@ import PopupPostCode from './components/PopupPostCode'
 import StepProgress from './components/StepProgress'
 import reducer from './store'
 import { setCurrentStep } from './store/stateSlice'
-import { getBizReg, setFormData } from './store/dataSlice'
+import { getBizReg, setFormData, setFileData } from './store/dataSlice'
 
 
 const BizRegForm = lazy(() => import('./components/BizRegForm'))
@@ -16,6 +16,8 @@ injectReducer('bizRegForm', reducer)
 
 const BizReg = () => {
   const [isAddressPopupOpen, setIsAddressPopupOpen] = useState(false)
+  const [addrDataKey, setAddrDataKey] = useState('company')
+
   const dispatch = useDispatch()
 
   const stepStatus = useSelector(
@@ -25,6 +27,7 @@ const BizReg = () => {
     (state) => state.bizRegForm.state.currentStep
   )
   const formData = useSelector((state) => state.bizRegForm.data.formData)
+  const fileData = useSelector((state) => state.bizRegForm.data.fileData)
 
   function updateFields(fields) {
     dispatch(
@@ -32,6 +35,11 @@ const BizReg = () => {
       // setFormData(prevData => {
       //   return { ...prevData, ...fields }
       // })
+    )
+  }
+  function updatFileFields(fields) {
+    dispatch(
+      setFileData(fields)
     )
   }
 
@@ -46,8 +54,11 @@ const BizReg = () => {
   }
 
   // 팝업창 열기 
-  const openAddressSearch = () => {
+  const openAddressSearch = (addrKey) => {
+    debugger;
+    setAddrDataKey(addrKey)
     setIsAddressPopupOpen(true)
+
   }
 
   // 팝업창 닫기
@@ -82,7 +93,8 @@ const BizReg = () => {
         //     transform: 'translate(0, -50%)'
 
         //   }}>
-        <PopupPostCode onClose={closeAddressSearch} updateFields={updateFields} />
+        <PopupPostCode onClose={closeAddressSearch} updateFields={updateFields}
+          dataKey={addrDataKey} />
         //   </div>
         // </div>
       )}
@@ -96,7 +108,9 @@ const BizReg = () => {
             {currentStep === 0 && (
               <BizRegForm
                 disableSubmit={false}
-                setIsAddressPopupOpen={setIsAddressPopupOpen}
+                openAddressSearch={() => openAddressSearch('company')}
+                // setAddrDataKey={setAddrDataKey}
+                // setIsAddressPopupOpen={setIsAddressPopupOpen}
                 moveNext={moveNext}
                 formData={formData}
                 updateFields={updateFields}
@@ -104,6 +118,15 @@ const BizReg = () => {
             )}
             {currentStep === 1 && (
               <BizSubInfo
+                disableSubmit={false}
+                openAddressSearch={() => openAddressSearch('biz')}
+                // setAddrDataKey={setAddrDataKey}
+                // setIsAddressPopupOpen={setIsAddressPopupOpen}
+                moveNext={moveNext}
+                formData={formData}
+                fileData={fileData}
+                updateFields={updateFields}
+                updatFileFields={updatFileFields}
               />
               // <Identification
               //     data={formData.identification}
