@@ -7,7 +7,7 @@ import PopupPostCode from './components/PopupPostCode'
 import StepProgress from './components/StepProgress'
 import reducer from './store'
 import { setCurrentStep } from './store/stateSlice'
-import { getBizReg, setFormData, setFileData } from './store/dataSlice'
+import { getBizReg, setFormData } from './store/dataSlice'
 
 
 const BizRegForm = lazy(() => import('./components/BizRegForm'))
@@ -27,7 +27,6 @@ const BizReg = () => {
     (state) => state.bizRegForm.state.currentStep
   )
   const formData = useSelector((state) => state.bizRegForm.data.formData)
-  const fileData = useSelector((state) => state.bizRegForm.data.fileData)
 
   function updateFields(fields) {
     dispatch(
@@ -37,11 +36,11 @@ const BizReg = () => {
       // })
     )
   }
-  function updatFileFields(fields) {
-    dispatch(
-      setFileData(fields)
-    )
-  }
+  // function updatFileFields(fields) {
+  //   dispatch(
+  //     setFileData(fields)
+  //   )
+  // }
 
   const moveNext = () => {
     const nextStep = currentStep + 1
@@ -124,9 +123,9 @@ const BizReg = () => {
                 // setIsAddressPopupOpen={setIsAddressPopupOpen}
                 moveNext={moveNext}
                 formData={formData}
-                fileData={fileData}
+                // fileData={fileData}
                 updateFields={updateFields}
-                updatFileFields={updatFileFields}
+              // updatFileFields={updatFileFields}
               />
               // <Identification
               //     data={formData.identification}

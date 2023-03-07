@@ -1,20 +1,26 @@
 import { FormContainer, FormItem, Input, InputGroup, Button, Checkbox, SingleCheckbox } from 'components/ui';
 import Upload from 'components/ui/Upload';
-import SingleUpload from 'components/ui/Upload/SingleUpload';
 import React, { useRef } from 'react';
 import AttachedImages from './AttachedImages';
+import { setFileData } from '../store/dataSlice'
+import { useDispatch, useSelector } from 'react-redux';
+import DirectUpload from './DirectUpload';
 
 
 const BizSubInfo = ({
   openAddressSearch,
   formData,
+  // fileData,
   updateFields,
-  updatFileFields,
+  // updatFileFields,
   moveNext
 }) => {
 
   console.log("TEST11: " + process.env.REACT_APP_TEST1);
   console.log("REACT_APP_AWS_ACCESS_KEY_ID: " + process.env.REACT_APP_AWS_ACCESS_KEY_ID);
+
+  const fileFormData = useSelector((state) => state.bizRegForm.data.fileData)
+  const dispatch = useDispatch()
 
   const checkboxBizNameEqualRef = useRef()
 
@@ -27,12 +33,60 @@ const BizSubInfo = ({
     }
   }
 
+  // const uploadFileToStorage = async (file) => {
+  //   debugger;
+  //   const ReactS3Client = new S3(config);
+  //   // the name of the file uploaded is used to upload it to S3
+  //   ReactS3Client
+  //     .uploadFile(file, file.name)
+  //     .then((data) => {
+  //       console.log(data.location);
+  //     })
+  //     .catch(err => console.error(err))
+  // }
+
+  // function onBizFile1Change(e) {
+  //   const file = e.target.files[0]
+  //   uploadFileToStorage(file)
+  //   dispatch(
+  //     setFileData(fields)
+  //   )
+  // }
+
+  const onUploadCallback1 = (responseData, filename) => {
+    dispatch(
+      setFileData({
+        bizfile1: {
+          path: responseData.key,
+          full_path: responseData.location,
+          filename: filename
+        }
+      })
+    )
+  }
+  const onUploadCallback2 = (responseData, filename) => {
+    dispatch(
+      setFileData({
+        bizfile2: {
+          path: responseData.key,
+          full_path: responseData.location,
+          filename: filename
+        }
+      })
+    )
+  }
 
   function callCompanyAddress() {
     const companyAddress = formData.company_address
-    debugger;
+
     updateFields(
       { biz_address: companyAddress }
+    )
+  }
+
+  function updateFileFields(fields) {
+    dispatch(
+      setFileData(fields)
     )
   }
 
@@ -130,11 +184,17 @@ const BizSubInfo = ({
 
 
       <FormItem label="사업자등록증 singleupload" />
-      <SingleUpload />
+      <DirectUpload
+        fileData={fileFormData.bizfile1}
+        onUploadCallback={onUploadCallback1}
+      />
 
       <FormItem label="영업허가증(선택)" />
       {/* <SingleUpload updatFileFields={updatFileFields} /> */}
-
+      <DirectUpload
+        fileData={fileFormData.bizfile2}
+        onUploadCallback={onUploadCallback2}
+      />
       <FormItem label="메뉴이미지" />
       {/* <Upload /> */}
 
