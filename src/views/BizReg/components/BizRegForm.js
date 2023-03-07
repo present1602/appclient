@@ -46,9 +46,6 @@ const BizRegForm = (props) => {
     // const [isAddressPopupOpen, setIsAddressPopupOpen] = useState(false)
 
     // // 팝업창 열기
-
-
-
     const openAddressSearch = () => {
         setIsAddressPopupOpen(true)
     }
@@ -420,7 +417,6 @@ export default BizRegForm
 //             values['sigungu_code'] = formData.sigungu_code
 
 //             const result = await apiBizRegSave(values)
-//             debugger;
 //             if (result.status === 'failed') {
 //                 setMessage(result.message)
 //             }

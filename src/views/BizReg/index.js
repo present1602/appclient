@@ -1,5 +1,5 @@
 import { Container } from 'components/shared'
-import React, { useState, lazy, Suspense } from 'react'
+import React, { useState, lazy, Suspense, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { injectReducer } from 'store'
 import BizSubInfo from './components/BizSubInfo'
@@ -7,6 +7,8 @@ import PopupPostCode from './components/PopupPostCode'
 import StepProgress from './components/StepProgress'
 import reducer from './store'
 import { setCurrentStep } from './store/stateSlice'
+import { getBizReg, setFormData } from './store/dataSlice'
+
 
 const BizRegForm = lazy(() => import('./components/BizRegForm'))
 
@@ -22,13 +24,15 @@ const BizReg = () => {
   const currentStep = useSelector(
     (state) => state.bizRegForm.state.currentStep
   )
-  const persistData = useSelector((state) => state.bizRegForm.data.formData)
-  const [formData, setFormData] = useState(persistData)
+  const formData = useSelector((state) => state.bizRegForm.data.formData)
 
   function updateFields(fields) {
-    setFormData(prevData => {
-      return { ...prevData, ...fields }
-    })
+    dispatch(
+      setFormData(fields)
+      // setFormData(prevData => {
+      //   return { ...prevData, ...fields }
+      // })
+    )
   }
 
   const moveNext = () => {
@@ -41,7 +45,7 @@ const BizReg = () => {
     dispatch(setCurrentStep(prevStep))
   }
 
-  // 팝업창 열기
+  // 팝업창 열기 
   const openAddressSearch = () => {
     setIsAddressPopupOpen(true)
   }
@@ -51,7 +55,9 @@ const BizReg = () => {
     setIsAddressPopupOpen(false)
   }
 
-
+  useEffect(() => {
+    dispatch(getBizReg())
+  }, [])
 
   return (
     // <div className="app-layout-simple flex flex-auto flex-col h-[100vh]">
@@ -97,7 +103,8 @@ const BizReg = () => {
               />
             )}
             {currentStep === 1 && (
-              <BizSubInfo />
+              <BizSubInfo
+              />
               // <Identification
               //     data={formData.identification}
               //     onNextChange={handleNextChange}

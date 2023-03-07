@@ -9,10 +9,9 @@ export async function apiBizRegSave(data) {
   })
 }
 
-export async function apiGetBizReg(data) {
+export async function apiGetBizReg() {
   return ApiService.fetchData({
-    url: `${appConfig.apiPrefix}/biz_reg/`,
-    method: 'get',
-    data
+    url: `${appConfig.apiPrefix}/biz_reg/ongoing/`,
+    method: 'get'
   })
 }

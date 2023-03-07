@@ -61,7 +61,6 @@ const SingleUpload = React.forwardRef((props, ref) => {
         ReactS3Client
             .uploadFile(file, file.name)
             .then((data) => {
-                debugger;
                 console.log(data.location);
                 // setFile(data.location);
                 // setSelectedFile(data.location);

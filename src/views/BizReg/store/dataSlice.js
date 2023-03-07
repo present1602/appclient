@@ -3,8 +3,8 @@ import { apiBizRegSave, apiGetBizReg } from 'services/BizRegService'
 
 export const getBizReg = createAsyncThunk(
     'bizRegForm/data/getBizReg',
-    async (data) => {
-        const response = await apiGetBizReg(data)
+    async () => {
+        const response = await apiGetBizReg()
         return response.data
     }
 )
@@ -13,7 +13,7 @@ const dataSlice = createSlice({
     name: 'bizRegForm/data',
     initialState: {
         formData: {
-            biz_reg_id: '',
+            id: '',
             company_name: 'company01',
             owner_name: '오일사',
             official_biz_number: '9993335551',
@@ -44,18 +44,31 @@ const dataSlice = createSlice({
             bizfile1: '',
             bizfile2: null,
             attached_file_list: []
-        }
-
+        },
+        mode: 'new'
     },
     reducers: {
         setFormData: (state, action) => {
+            debugger;
             state.formData = { ...state.formData, ...action.payload }
         },
     },
     extraReducers: {
         [getBizReg.fulfilled]: (state, action) => {
-            state.formData = action.payload.formData
-            state.stepStatus = action.payload.formStatus
+            const payload = action.payload
+            if (payload.result === "success") {
+
+                if (payload.state === "ongoing") {
+                    state.formData = payload.data
+                    state.mode = payload.state
+                } else if (payload.state === "submitted") {
+                    alert("입점신청 제출이 완료된 상태입니다. 신청서 확인 후 연락드리겠습니다")
+                    return;
+                }
+
+            }
+
+            // state.stepStatus = action.payload.formStatus
         },
     },
 })
