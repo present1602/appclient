@@ -186,6 +186,7 @@ const BizSubInfo = ({
       <FormItem label="사업자등록증 singleupload" />
       <DirectUpload
         fileData={fileFormData.bizfile1}
+        fieldKey='bizfile1'
         onUploadCallback={onUploadCallback1}
       />
 
@@ -193,12 +194,20 @@ const BizSubInfo = ({
       {/* <SingleUpload updatFileFields={updatFileFields} /> */}
       <DirectUpload
         fileData={fileFormData.bizfile2}
+        fieldKey='bizfile2'
         onUploadCallback={onUploadCallback2}
       />
       <FormItem label="메뉴이미지" />
       {/* <Upload /> */}
 
-      <AttachedImages />
+      <AttachedImages
+
+      />
+
+      <Button
+        onClick={() => { }}>
+        완료
+      </Button>
 
     </FormContainer>
   );

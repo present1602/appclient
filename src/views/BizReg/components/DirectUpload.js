@@ -9,8 +9,9 @@ import toast from 'components/ui/toast'
 import AWS from 'aws-sdk';
 import S3 from 'react-aws-s3';
 import { ConfirmDialog } from 'components/shared'
-import { setFileData } from 'views/BizReg/store/dataSlice'
+import { setFileData, setFormData } from 'views/BizReg/store/dataSlice'
 import DirectUploadFileItem from './DirectUploadFileItem'
+import { useDispatch } from 'react-redux'
 
 window.Buffer = window.Buffer || require("buffer").Buffer;
 
@@ -19,6 +20,7 @@ const DirectUpload = React.forwardRef((props, ref) => {
         className,
         beforeUpload,
         fileData,
+        fieldKey,
         onFileChange,
         onUploadCallback,
         accept,
@@ -29,6 +31,8 @@ const DirectUpload = React.forwardRef((props, ref) => {
 
     const [fileState, setFileState] = useState(fileData)
     // const [selectedFile, setSelectedFile] = useState(null);
+
+    const dispatch = useDispatch()
 
     const fileInputField = useRef(null)
     // AWS.config.update(
@@ -65,16 +69,33 @@ const DirectUpload = React.forwardRef((props, ref) => {
             .uploadFile(file, file.name)
             .then((data) => {
                 debugger;
-                onUploadCallback(data, file.name)
-                setFileData(file)
-                console.log(data.location);
+                // onUploadCallback(data, file.name)
 
-                // setFile(data.location);
-                // setSelectedFile(data.location);
-
-                // setFile(file)
-
-                // setDisplay(false);
+                if (fieldKey === 'bizfile1') {
+                    dispatch(
+                        setFileData(
+                            {
+                                'bizfile1': {
+                                    filename: file.name,
+                                    path: data.key,
+                                    full_path: data.location,
+                                }
+                            }
+                        )
+                    )
+                } else if (fieldKey === 'bizfile2') {
+                    dispatch(
+                        setFileData(
+                            {
+                                'bizfile2': {
+                                    filename: file.name,
+                                    path: data.key,
+                                    full_path: data.location,
+                                }
+                            }
+                        )
+                    )
+                }
             })
             .catch(err => console.error(err))
     }
@@ -150,6 +171,20 @@ const DirectUpload = React.forwardRef((props, ref) => {
     }
     const onDelete = () => {
         // setFile(null)
+        debugger;
+        if (fieldKey === 'bizfile1') {
+            dispatch(
+                setFileData({
+                    'bizfile1': ''
+                })
+            )
+        } else if (fieldKey === 'bizfile2') {
+            dispatch(
+                setFileData({
+                    'bizfile2': ''
+                })
+            )
+        }
         setDeleteConfirmationOpen(false)
     }
     return (
