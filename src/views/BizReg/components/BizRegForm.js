@@ -4,7 +4,7 @@ import { ActionLink } from 'components/shared'
 import useTimeOutMessage from 'utils/hooks/useTimeOutMessage'
 import { Field, Form, Formik } from 'formik'
 import * as Yup from 'yup'
-import { apiBizRegSave } from 'services/BizRegService'
+import { apiBizRegSave, apiUpdateBizReg } from 'services/BizRegService'
 import { InputGroup } from 'components/ui'
 import reducer from '../store'
 import { injectReducer } from 'store'
@@ -45,6 +45,9 @@ const BizRegForm = (props) => {
 
     // const [isAddressPopupOpen, setIsAddressPopupOpen] = useState(false)
 
+    const persistData = useSelector((state) => state.bizRegForm.data.formData)
+
+
     // // 팝업창 열기
     // const openAddressSearch = () => {
     //     setIsAddressPopupOpen(true)
@@ -53,7 +56,7 @@ const BizRegForm = (props) => {
     // // 팝업창 닫기
     // const closeAddressSearch = () => {
     //     setIsAddressPopupOpen(false)
-    // }
+    // } // 
 
     const onSaveBizReg = async () => {
         // const { user_id, password, email, phone, name } = values
@@ -63,16 +66,31 @@ const BizRegForm = (props) => {
             // values['postal_code'] = formData.postal_code
             // values['address_type'] = formData.address_type
             // values['sigungu_code'] = formData.sigungu_code
-            const result = await apiBizRegSave(formData)
 
-            if (result.status === 'failed') {
-                setMessage(result.message)
-            }
-            if (result.status == '200') {
+            if (persistData.id === '') {
+                const result = await apiBizRegSave(formData)
 
-                moveNext()
-                // setMessage(result.message)
+                if (result.status == '200') {
+
+                    moveNext()
+                }
+                else {
+                    setMessage(result.message)
+
+                }
+            } else {
+                const result = await apiUpdateBizReg(formData)
+
+                if (result.status == '200') {
+                    moveNext()
+                }
+                else {
+                    setMessage(result.message)
+
+                }
             }
+
+
 
         } catch (err) {
             console.log("on save bizreg err : ", err)
@@ -103,7 +121,6 @@ const BizRegForm = (props) => {
                         {message}
                     </Alert>
                 )}
-
                 <FormContainer>
                     <FormItem
                         label="상호"
@@ -140,31 +157,19 @@ const BizRegForm = (props) => {
                     <FormItem
                         label="업태"
                     >
-                        {/* <Input
-                                name="official_biz_category1"
-                                placeholder="한글로만 입력해주세요"
-                                component={Input}
-                            /> */}
-                        {/* <Field
-                                autoComplete="off"
-                                name="official_biz_category1"
-                                placeholder="한글로만 입력해주세요"
-                                component={Input}
-                            /> */}
+                        <Input
+                            name="official_biz_category1"
+                            placeholder="한글로만 입력해주세요"
+                            component={Input}
+                        />
                     </FormItem>
                     <FormItem
                         label="종목"
                     >
-                        {/* <Field
-                                autoComplete="off"
-                                name="official_biz_category2"
-                                placeholder="한글로만 입력해주세요"
-                                component={Input}
-                            /> */}
-                        {/* <Input
-                                name="official_biz_category2"
-                                placeholder="한글로만 입력해주세요"
-                                component={Input} /> */}
+                        <Input
+                            name="official_biz_category2"
+                            placeholder="한글로만 입력해주세요"
+                            component={Input} />
                     </FormItem>
 
 

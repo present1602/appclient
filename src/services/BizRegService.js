@@ -9,6 +9,14 @@ export async function apiBizRegSave(data) {
   })
 }
 
+export async function apiUpdateBizReg(data) {
+  return ApiService.fetchData({
+    url: `${appConfig.apiPrefix}/biz_reg/save/`,
+    method: 'put',
+    data
+  })
+}
+
 
 export async function apiGetBizReg() {
   return ApiService.fetchData({

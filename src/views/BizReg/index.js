@@ -8,6 +8,7 @@ import StepProgress from './components/StepProgress'
 import reducer from './store'
 import { setCurrentStep } from './store/stateSlice'
 import { getBizReg, setFormData } from './store/dataSlice'
+import { apiGetBizReg } from 'services/BizRegService'
 
 
 const BizRegForm = lazy(() => import('./components/BizRegForm'))
@@ -26,15 +27,13 @@ const BizReg = () => {
   const currentStep = useSelector(
     (state) => state.bizRegForm.state.currentStep
   )
-  const formData = useSelector((state) => state.bizRegForm.data.formData)
+  const persistData = useSelector((state) => state.bizRegForm.data.formData)
+  const [formState, setFormState] = useState(persistData)
 
   function updateFields(fields) {
-    dispatch(
-      setFormData(fields)
-      // setFormData(prevData => {
-      //   return { ...prevData, ...fields }
-      // })
-    )
+    setFormState(prevData => {
+      return { ...prevData, ...fields }
+    })
   }
   // function updatFileFields(fields) {
   //   dispatch(
@@ -54,7 +53,6 @@ const BizReg = () => {
 
   // 팝업창 열기 
   const openAddressSearch = (addrKey) => {
-    debugger;
     setAddrDataKey(addrKey)
     setIsAddressPopupOpen(true)
 
@@ -65,9 +63,33 @@ const BizReg = () => {
     setIsAddressPopupOpen(false)
   }
 
+  const getRegData = async () => {
+    const response = await apiGetBizReg()
+    const resData = response.data
+    debugger
+    if (resData.result.state === 'new') {
+      console.log("new write")
+      return;
+    }
+    else if (resData.result === "success") {
+
+      if (resData.state === "ongoing") {
+        dispatch(setFormData(resData.data))
+
+      } else if (resData.state === "submitted") {
+        alert("입점신청 제출이 완료된 상태입니다. 신청서 확인 후 연락드리겠습니다")
+        return;
+      }
+    }
+  }
   useEffect(() => {
-    dispatch(getBizReg())
+    getRegData()
   }, [])
+
+  useEffect(() => {
+    setFormState(persistData)
+  }, [persistData, currentStep])
+
 
   return (
     // <div className="app-layout-simple flex flex-auto flex-col h-[100vh]">
@@ -111,7 +133,7 @@ const BizReg = () => {
                 // setAddrDataKey={setAddrDataKey}
                 // setIsAddressPopupOpen={setIsAddressPopupOpen}
                 moveNext={moveNext}
-                formData={formData}
+                formData={formState}
                 updateFields={updateFields}
               />
             )}
@@ -122,7 +144,7 @@ const BizReg = () => {
                 // setAddrDataKey={setAddrDataKey}
                 // setIsAddressPopupOpen={setIsAddressPopupOpen}
                 moveNext={moveNext}
-                formData={formData}
+                formData={formState}
                 // fileData={fileData}
                 updateFields={updateFields}
               // updatFileFields={updatFileFields}
