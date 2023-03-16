@@ -1,6 +1,6 @@
 import { FormContainer, FormItem, Input, InputGroup, Button, Checkbox, SingleCheckbox } from 'components/ui';
 import Upload from 'components/ui/Upload';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import AttachedImages from './AttachedImages';
 import { setFileData } from '../store/dataSlice'
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,8 +19,10 @@ const BizSubInfo = ({
   console.log("TEST11: " + process.env.REACT_APP_TEST1);
   console.log("REACT_APP_AWS_ACCESS_KEY_ID: " + process.env.REACT_APP_AWS_ACCESS_KEY_ID);
 
-  const fileFormData = useSelector((state) => state.bizRegForm.data.fileData)
+  const persistFileFormData = useSelector((state) => state.bizRegForm.data.fileData)
   const dispatch = useDispatch()
+
+  const [fileDataState, setFileDataState] = useState(persistFileFormData)
 
   const checkboxBizNameEqualRef = useRef()
 
@@ -54,26 +56,23 @@ const BizSubInfo = ({
   // }
 
   const onUploadCallback1 = (responseData, filename) => {
-    dispatch(
-      setFileData({
-        bizfile1: {
-          path: responseData.key,
-          full_path: responseData.location,
-          filename: filename
-        }
-      })
+    setFileDataState({
+      ...fileDataState, bizfile1: {
+        path: responseData.key,
+        full_path: responseData.location,
+        filename: filename
+      }
+    }
     )
   }
   const onUploadCallback2 = (responseData, filename) => {
-    dispatch(
-      setFileData({
-        bizfile2: {
-          path: responseData.key,
-          full_path: responseData.location,
-          filename: filename
-        }
-      })
-    )
+    setFileData({
+      ...fileDataState, bizfile2: {
+        path: responseData.key,
+        full_path: responseData.location,
+        filename: filename
+      }
+    })
   }
 
   function callCompanyAddress() {
@@ -88,6 +87,10 @@ const BizSubInfo = ({
     dispatch(
       setFileData(fields)
     )
+  }
+
+  const onSaveBizSubInfo = () => {
+    console.log("save sub info")
   }
 
   return (
@@ -183,29 +186,27 @@ const BizSubInfo = ({
       </FormItem>
 
 
-      <FormItem label="사업자등록증 singleupload" />
+      <FormItem label="사업자등록증" />
       <DirectUpload
-        fileData={fileFormData.bizfile1}
+        fileData={fileDataState.bizfile1}
         fieldKey='bizfile1'
+        setFileDataState={setFileDataState}
         onUploadCallback={onUploadCallback1}
       />
 
       <FormItem label="영업허가증(선택)" />
-      {/* <SingleUpload updatFileFields={updatFileFields} /> */}
       <DirectUpload
-        fileData={fileFormData.bizfile2}
+        fileData={fileDataState.bizfile2}
         fieldKey='bizfile2'
+        setFileDataState={setFileDataState}
         onUploadCallback={onUploadCallback2}
       />
       <FormItem label="메뉴이미지" />
-      {/* <Upload /> */}
-
       <AttachedImages
-
       />
 
       <Button
-        onClick={() => { }}>
+        onClick={onSaveBizSubInfo}>
         완료
       </Button>
 

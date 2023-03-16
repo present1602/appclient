@@ -160,7 +160,11 @@ const BizRegForm = (props) => {
                         <Input
                             name="official_biz_category1"
                             placeholder="한글로만 입력해주세요"
+                            value={formData.official_biz_category1}
                             component={Input}
+                            onChange={
+                                (e) => updateFields({ official_biz_category1: e.target.value })
+                            }
                         />
                     </FormItem>
                     <FormItem
@@ -169,7 +173,12 @@ const BizRegForm = (props) => {
                         <Input
                             name="official_biz_category2"
                             placeholder="한글로만 입력해주세요"
-                            component={Input} />
+                            value={formData.official_biz_category2}
+                            component={Input}
+                            onChange={
+                                (e) => updateFields({ official_biz_category2: e.target.value })
+                            }
+                        />
                     </FormItem>
 
 

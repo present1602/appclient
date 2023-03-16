@@ -20,6 +20,7 @@ const DirectUpload = React.forwardRef((props, ref) => {
         className,
         beforeUpload,
         fileData,
+        setFileDataState,
         fieldKey,
         onFileChange,
         onUploadCallback,
@@ -68,32 +69,31 @@ const DirectUpload = React.forwardRef((props, ref) => {
         ReactS3Client
             .uploadFile(file, file.name)
             .then((data) => {
-                debugger;
                 // onUploadCallback(data, file.name)
 
                 if (fieldKey === 'bizfile1') {
-                    dispatch(
-                        setFileData(
-                            {
-                                'bizfile1': {
+                    setFileDataState(
+                        prevData => {
+                            return {
+                                ...prevData, 'bizfile1': {
                                     filename: file.name,
                                     path: data.key,
                                     full_path: data.location,
                                 }
                             }
-                        )
+                        }
                     )
                 } else if (fieldKey === 'bizfile2') {
-                    dispatch(
-                        setFileData(
-                            {
-                                'bizfile2': {
+                    setFileDataState(
+                        prevData => {
+                            return {
+                                ...prevData, 'bizfile2': {
                                     filename: file.name,
                                     path: data.key,
                                     full_path: data.location,
                                 }
                             }
-                        )
+                        }
                     )
                 }
             })

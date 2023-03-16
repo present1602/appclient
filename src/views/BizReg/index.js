@@ -64,22 +64,26 @@ const BizReg = () => {
   }
 
   const getRegData = async () => {
-    const response = await apiGetBizReg()
-    const resData = response.data
-    debugger
-    if (resData.result.state === 'new') {
-      console.log("new write")
-      return;
-    }
-    else if (resData.result === "success") {
-
-      if (resData.state === "ongoing") {
-        dispatch(setFormData(resData.data))
-
-      } else if (resData.state === "submitted") {
-        alert("입점신청 제출이 완료된 상태입니다. 신청서 확인 후 연락드리겠습니다")
+    try {
+      const response = await apiGetBizReg()
+      const resData = response.data
+      if (resData.result.state === 'new') {
+        console.log("new write")
         return;
       }
+      else if (resData.result === "success") {
+
+        if (resData.state === "ongoing") {
+          dispatch(setFormData(resData.data))
+
+        } else if (resData.state === "submitted") {
+          alert("입점신청 제출이 완료된 상태입니다. 신청서 확인 후 연락드리겠습니다")
+          return;
+        }
+      }
+    } catch (err) {
+      alert("서버 요청 오류입니다.")
+      console.log(err)
     }
   }
   useEffect(() => {
