@@ -18,10 +18,14 @@ export const sessionSlice = createSlice({
         setToken: (state, action) => {
             state.token = action.payload
         },
+        setUpdatedToken: (state, action) => {
+            state.token.access = action.payload.access
+            state.token.access_token_expired_at = action.payload.access_token_expired_at
+        },
     },
 })
 
-export const { onSignInSuccess, onSignOutSuccess, setToken } =
+export const { onSignInSuccess, onSignOutSuccess, setToken, setUpdatedToken } =
     sessionSlice.actions
 
 export default sessionSlice.reducer
