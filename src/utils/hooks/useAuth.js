@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { setUser, initialState } from 'store/auth/userSlice'
 import { apiSignIn, apiSignOut, apiSignUp } from 'services/AuthService'
-import { onSignInSuccess, onSignOutSuccess } from 'store/auth/sessionSlice'
+import { onSignInSuccess, onSignOutSuccess, setBizId } from 'store/auth/sessionSlice'
 import appConfig from 'configs/app.config'
 import { REDIRECT_URL_KEY } from 'constants/app.constant'
 import { useNavigate } from 'react-router-dom'
@@ -32,6 +32,9 @@ function useAuth() {
                                 email: '',
                             }
                         )
+                    )
+                    resp.data.biz_id && dispatch(
+                        setBizId(resp.data.biz_id)
                     )
                 }
                 const redirectUrl = query.get(REDIRECT_URL_KEY)
