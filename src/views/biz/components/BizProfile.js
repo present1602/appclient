@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { AdaptableCard, RichTextEditor } from 'components/shared'
+import { AdaptableCard, RichTextEditor, StickyFooter } from 'components/shared'
 import { Input, FormItem, FormContainer, InputGroup, Button } from 'components/ui'
 import { Field } from 'formik'
 import GridImages from './GridImages'
@@ -27,12 +27,13 @@ export const categories = [
 const BizProfile = (props) => {
 
   const iformData = {
-    'biz_name': '',
-    'description': '',
+    'biz_name': '샐러드박스',
+    'description': '신선한 재료와 다양한 메뉴',
+    'phone': '032-555-1333',
     'biz_address': {
-      'adress1': '',
-      'adress2': '',
-      'postal_code': '',
+      'address1': '인천 연수구 센트럴로 229',
+      'address2': '삼일빌딩 333-11',
+      'postal_code': '22004',
     },
   }
   const [formData, setFormState] = useState(iformData)
@@ -44,6 +45,7 @@ const BizProfile = (props) => {
   }
 
   function openAddressSearch() { }
+
 
   return (
     <AdaptableCard className="mb-4" divider>
@@ -59,6 +61,7 @@ const BizProfile = (props) => {
         </div>
 
       </div> */}
+      <h5 className='mb-6 mt-5'>매장정보 수정</h5>
 
       <FormContainer>
         <FormItem
@@ -66,12 +69,33 @@ const BizProfile = (props) => {
         >
           <Input
             value={formData.biz_name}
-            name="company_name"
-            placeholder="사업자등록증 상의 상호를 입력해주세요"
+            name="biz_name"
+            placeholder="매장명을 입력해주세요"
             onChange={
               (e) => { }
             } />
         </FormItem>
+
+        <FormItem
+          label="전화번호">
+          <Input
+            value={formData.phone}
+            name="phone"
+            placeholder="매장 전화번호를 입력해주세요"
+            onChange={
+              (e) => { }
+            } />
+        </FormItem>
+        <FormItem
+          label="매장소개">
+          <RichTextEditor
+            value={formData.description}
+            onChange={(val) => { }
+              // updateFields({ 'description:': val })
+            }
+          />
+        </FormItem>
+
 
         <FormItem
           label="사업장주소"
@@ -129,56 +153,29 @@ const BizProfile = (props) => {
       </FormContainer>
 
       <GridImages />
-    </AdaptableCard>
-    // <AdaptableCard className="mb-4" divider>
-    //   <h5>Basic Information</h5>
-    //   <p className="mb-6">Section to config basic product information</p>
-    //   <FormItem
-    //     label="Product Name"
-    //   // invalid={errors.name && touched.name}
-    //   // errorMessage={errors.name}
-    //   >
-    //     <Field
-    //       type="text"
-    //       autoComplete="off"
-    //       name="name"
-    //       placeholder="Name"
-    //       component={Input}
-    //     />
-    //   </FormItem>
-    //   <FormItem
-    //     label="Code"
-    //   // invalid={errors.productCode && touched.productCode}
-    //   // errorMessage={errors.productCode}
-    //   >
-    //     <Field
-    //       type="text"
-    //       autoComplete="off"
-    //       name="productCode"
-    //       placeholder="Code"
-    //       component={Input}
-    //     />
-    //   </FormItem>
-    //   <FormItem
-    //     label="Description"
-    //     labelClass="!justify-start"
-    //   // invalid={errors.description && touched.description}
-    //   // errorMessage={errors.description}
-    //   >
-    //     <Field name="description">
-    //       {({ field, form }) => (
-    //         <RichTextEditor
-    //           value={field.value}
-    //           onChange={(val) =>
-    //             form.setFieldValue(field.name, val)
-    //           }
-    //         />
-    //       )}
-    //     </Field>
-    //   </FormItem>
 
-    //   <GridImages />
-    // </AdaptableCard>
+
+      <div className="md:flex items-center">
+        <Button
+          size="sm"
+          className="ltr:mr-3 rtl:ml-3"
+          onClick={() => { }}
+          type="button"
+
+        >
+          취소
+        </Button>
+        <Button
+          loading={false}
+          variant="solid"
+          type="submit"
+          className="mx-2"
+          onClick={() => { }}
+        >
+          수정완료
+        </Button>
+      </div>
+    </AdaptableCard>
   )
 }
 

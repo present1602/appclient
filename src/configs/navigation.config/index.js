@@ -29,7 +29,7 @@ const navigationConfig = [
                 path: `/biz/profile`,
                 title: '매장정보',
                 translateKey: 'nav.biz.profile',
-                icon: 'singleMenu',
+                icon: 'home',
                 type: NAV_ITEM_TYPE_ITEM,
                 authority: [],
                 subMenu: [],
