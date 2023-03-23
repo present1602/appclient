@@ -3825,6 +3825,9 @@ hr{
 .mt-4{
         margin-top: 1rem;
 }
+.mt-5{
+        margin-top: 1.25rem;
+}
 .block{
         display: block;
 }
@@ -15292,6 +15295,9 @@ hr{
 [dir="ltr"] .ltr\:mr-2{
         margin-right: 0.5rem;
 }
+[dir="ltr"] .ltr\:mr-3{
+        margin-right: 0.75rem;
+}
 [dir="ltr"] .ltr\:border-l-0{
         border-left-width: 0px;
 }
@@ -15312,6 +15318,9 @@ hr{
 }
 [dir="rtl"] .rtl\:ml-2{
         margin-left: 0.5rem;
+}
+[dir="rtl"] .rtl\:ml-3{
+        margin-left: 0.75rem;
 }
 [dir="rtl"] .rtl\:mr-1{
         margin-right: 0.25rem;
@@ -19892,6 +19901,9 @@ hr{
 @media (min-width: 768px){
         .md\:block{
                 display: block;
+        }
+        .md\:flex{
+                display: flex;
         }
         .md\:w-\[480px\]{
                 width: 480px;

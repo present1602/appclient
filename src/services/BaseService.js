@@ -25,7 +25,7 @@ const BaseService = axios.create({
 //             const exp = new Date(accessToken.access_token_expired_at)
 //             if (new Date() > exp && accessToken.refresh) {
 //                 const response = await axios(
-//                     `${appConfig.API_BASE_URL}${appConfig.apiPrefix}/biz_user/auth/token/refresh/`,
+//                     `${appConfig.API_BASE_URL}${appConfig.apiPrefix}/biz-user/auth/token/refresh/`,
 //                     {
 //                         method: 'post',
 //                         data: { 'refresh': accessToken.refresh }
@@ -61,7 +61,7 @@ const BaseService = axios.create({
 //                 const expDate = new Date(accessToken.access_token_expired_at)
 //                 if (new Date() > expDate) {
 //                     const refreshRes = await axios(
-//                         `${appConfig.API_BASE_URL}${appConfig.apiPrefix}/biz_user/auth/token/refresh/`,
+//                         `${appConfig.API_BASE_URL}${appConfig.apiPrefix}/biz-user/auth/token/refresh/`,
 //                         {
 //                             method: 'post',
 //                             data: { 'refresh': accessToken.refresh }
@@ -143,7 +143,7 @@ BaseService.interceptors.response.use(
 
                 // token refresh 요청
                 const { data } = await axios.post(
-                    `${appConfig.API_BASE_URL}${appConfig.apiPrefix}/biz_user/auth/token/refresh/`, // token refresh api
+                    `${appConfig.API_BASE_URL}${appConfig.apiPrefix}/biz-user/auth/token/refresh/`, // token refresh api
                     { 'refresh': refreshToken },
                     // { headers: { authorization: `Bearer ${refreshToken}` } }
                 );

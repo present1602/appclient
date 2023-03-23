@@ -3,7 +3,7 @@ import appConfig from '../configs/app.config'
 
 export async function apiSignIn(data) {
     return ApiService.fetchData({
-        url: `${appConfig.apiPrefix}/biz_user/auth/login/`,
+        url: `${appConfig.apiPrefix}/biz-user/auth/login/`,
         method: 'post',
         data,
     })
@@ -11,7 +11,7 @@ export async function apiSignIn(data) {
 
 export async function apiSignUp(data) {
     return ApiService.fetchData({
-        url: `${appConfig.apiPrefix}/biz_user/auth/sign-up/`,
+        url: `${appConfig.apiPrefix}/biz-user/auth/sign-up/`,
         method: 'post',
         data,
     })
@@ -19,7 +19,7 @@ export async function apiSignUp(data) {
 
 export async function apiSignOut(data) {
     return ApiService.fetchData({
-        url: `${appConfig.apiPrefix}/biz_user/auth/logout/`,
+        url: `${appConfig.apiPrefix}/biz-user/auth/logout/`,
         method: 'post',
     })
 }
