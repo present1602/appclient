@@ -1,9 +1,13 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AdaptableCard, RichTextEditor, StickyFooter } from 'components/shared'
 import { Input, FormItem, FormContainer, InputGroup, Button } from 'components/ui'
 import { Field } from 'formik'
 import GridImages from './GridImages'
 import classNames from 'classnames'
+import { injectReducer } from 'store'
+import reducer from '../store'
+import { useSelector } from 'react-redux'
+import { apiGetBizInfo } from 'services/BizService'
 
 export const categories = [
   { label: 'Bags', value: 'bags' },
@@ -24,13 +28,17 @@ export const categories = [
                 (e) => updateFields({ company_name: e.target.value })
             } />
     </FormItem> */}
+
+injectReducer('biz-data', reducer)
+
 const BizProfile = (props) => {
+  const bizId = useSelector((state) => state.biz.bizId)
 
   const iformData = {
-    'biz_name': '샐러드박스',
+    'name': '샐러드박스',
     'description': '신선한 재료와 다양한 메뉴',
     'phone': '032-555-1333',
-    'biz_address': {
+    'address': {
       'address1': '인천 연수구 센트럴로 229',
       'address2': '삼일빌딩 333-11',
       'postal_code': '22004',
@@ -46,6 +54,29 @@ const BizProfile = (props) => {
 
   function openAddressSearch() { }
 
+
+  // const fetchData = async () => {
+  //   const response = await apiGetAccountSettingData()
+  //   setData(response.data)
+  // }
+
+  // useEffect(() => {
+  //     setCurrentTab(path)
+  //     if (isEmpty(data)) {
+  //         fetchData()
+  //     }
+  //     // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [])
+
+  const fetchData = async () => {
+    if (bizId) {
+      const data = await apiGetBizInfo(bizId)
+    }
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
 
   return (
     <AdaptableCard className="mb-4" divider>
@@ -68,8 +99,8 @@ const BizProfile = (props) => {
           label="매장명"
         >
           <Input
-            value={formData.biz_name}
-            name="biz_name"
+            value={formData.name}
+            name="name"
             placeholder="매장명을 입력해주세요"
             onChange={
               (e) => { }
@@ -108,7 +139,7 @@ const BizProfile = (props) => {
               autoComplete="off"
               name="postal_code"
               placeholder="우편번호"
-              value={formData.biz_address.postal_code}
+              value={formData.address.postal_code}
               onChange={
                 () => { }
               }
@@ -120,13 +151,13 @@ const BizProfile = (props) => {
           <Input
             type="text"
             name="address1"
-            value={formData.biz_address.address1}
+            value={formData.address.address1}
             onChange={
               (e) => {
                 updateFields(
                   {
-                    'biz_address':
-                      { ...formData.biz_address, address1: e.target.value }
+                    'address':
+                      { ...formData.address, address1: e.target.value }
                   }
                 )
               }
@@ -136,13 +167,13 @@ const BizProfile = (props) => {
             type="text"
             name="address2"
             placeholder="상세주소를 입력해주세요"
-            value={formData.biz_address.address2}
+            value={formData.address.address2}
             onChange={
               (e) => {
                 updateFields(
                   {
-                    'biz_address':
-                      { ...formData.biz_address, address2: e.target.value }
+                    'address':
+                      { ...formData.address, address2: e.target.value }
                   }
                 )
               }

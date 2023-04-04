@@ -7,10 +7,10 @@ const Home = (props) => {
   // const [bizId] = useSelector((state)=> state. )
 
   useEffect(() => {
-    const tt = async () => {
-      const aa = await apiGetBizReg()
-    }
-    tt()
+    // const tt = async () => {
+    //   const aa = await apiGetBizReg()
+    // }
+    // tt()
   }, [])
 
 

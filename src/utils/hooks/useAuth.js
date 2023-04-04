@@ -71,24 +71,27 @@ function useAuth() {
         try {
             const resp = await apiSignUp(values)
             if (resp.data) {
-                const { token } = resp.data
-                dispatch(onSignInSuccess(token))
-                if (resp.data.user) {
-                    dispatch(
-                        setUser(
-                            resp.data.user || {
-                                avatar: '',
-                                userName: '',
-                                authority: [],
-                                email: '',
-                            }
-                        )
-                    )
-                }
+                // const { token } = resp.data
+                // dispatch(onSignInSuccess(token))
+
+                // if (resp.data.user) {
+                //     dispatch(
+                //         setUser(
+                //             resp.data.user || {
+                //                 avatar: '',
+                //                 userName: '',
+                //                 authority: [],
+                //                 email: '',
+                //             }
+                //         )
+                //     )
+                // }
                 const redirectUrl = query.get(REDIRECT_URL_KEY)
-                navigate(
-                    redirectUrl ? redirectUrl : appConfig.authenticatedEntryPath
-                )
+                navigate(appConfig.unAuthenticatedEntryPath)
+                // navigate(
+                //     redirectUrl ? redirectUrl : appConfig.unAuthenticatedEntryPath
+                // )
+
                 return {
                     status: 'success',
                     message: '',
