@@ -31,7 +31,6 @@ const BaseService = axios.create({
 //                         data: { 'refresh': accessToken.refresh }
 //                     }
 //                 )
-//                 debugger;
 //                 // return response
 //                 store.dispatch(setUpdatedToken({
 //                     'access': response.data.access,
@@ -57,7 +56,6 @@ const BaseService = axios.create({
 //         if (accessToken && accessToken.access) {
 
 //             if (accessToken.access_token_expired_at && accessToken.refresh) {
-//                 debugger;
 //                 const expDate = new Date(accessToken.access_token_expired_at)
 //                 if (new Date() > expDate) {
 //                     const refreshRes = await axios(
@@ -67,7 +65,6 @@ const BaseService = axios.create({
 //                             data: { 'refresh': accessToken.refresh }
 //                         }
 //                     )
-//                     debugger;
 //                     store.dispatch(
 //                         setUpdatedToken({
 //                             'access': refreshRes.data.access,
@@ -142,29 +139,36 @@ BaseService.interceptors.response.use(
                 const refreshToken = token.refresh
 
                 // token refresh 요청
-                const { data } = await axios.post(
-                    `${appConfig.API_BASE_URL}${appConfig.apiPrefix}/biz-user/auth/token/refresh/`, // token refresh api
-                    { 'refresh': refreshToken },
-                    // { headers: { authorization: `Bearer ${refreshToken}` } }
-                );
-                // 새로운 토큰 저장
-                // dispatch(userSlice.actions.setAccessToken(data.data.accessToken)); store에 저장
-                const { access: newAccessToken } = data;
-                // await localStorage.multiSet([
-                //     ["accessToken", newAccessToken],
-                // ]);
 
-                store.dispatch(
-                    setUpdatedToken(
-                        {
-                            'access': newAccessToken,
-                            'access_token_expired_at': moment().add(1, 'minute').format('yyyy-MM-DD HH:mm:ss')
-                        }
+                try {
+                    const { data } = await axios.post(
+                        `${appConfig.API_BASE_URL}${appConfig.apiPrefix}/biz-user/auth/token/refresh/`, // token refresh api
+                        { 'refresh': refreshToken },
+                        // { headers: { authorization: `Bearer ${refreshToken}` } }
+                    );
+                    // 새로운 토큰 저장
+                    // dispatch(userSlice.actions.setAccessToken(data.data.accessToken)); store에 저장
+                    const { access: newAccessToken } = data;
+                    // await localStorage.multiSet([
+                    //     ["accessToken", newAccessToken],
+                    // ]);
+
+                    store.dispatch(
+                        setUpdatedToken(
+                            {
+                                'access': newAccessToken,
+                                'access_token_expired_at': moment().add(1, 'minute').format('yyyy-MM-DD HH:mm:ss')
+                            }
+                        )
                     )
-                )
-                originalRequest.headers.authorization = `Bearer ${newAccessToken}`;
-                // 401로 요청 실패했던 요청 새로운 accessToken으로 재요청
-                return axios(originalRequest);
+                    originalRequest.headers.authorization = `Bearer ${newAccessToken}`;
+                    // 401로 요청 실패했던 요청 새로운 accessToken으로 재요청
+                    return axios(originalRequest);
+                } catch (err) {
+                    if (status === 401) {
+                        store.dispatch(onSignOutSuccess())
+                    }
+                }
             }
         }
 

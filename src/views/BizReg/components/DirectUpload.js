@@ -63,7 +63,6 @@ const DirectUpload = React.forwardRef((props, ref) => {
     //     uploadFile(file)
     // }, [file])
     const uploadFile = async (file) => {
-        debugger
         const ReactS3Client = new S3(config);
         // the name of the file uploaded is used to upload it to S3
         ReactS3Client
@@ -171,7 +170,6 @@ const DirectUpload = React.forwardRef((props, ref) => {
     }
     const onDelete = () => {
         // setFile(null)
-        debugger;
         if (fieldKey === 'bizfile1') {
             dispatch(
                 setFileData({

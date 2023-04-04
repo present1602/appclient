@@ -1,11 +1,12 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { setUser, initialState } from 'store/auth/userSlice'
+import { setUser, initialState, setBizId } from 'store/auth/userSlice'
 import { apiSignIn, apiSignOut, apiSignUp } from 'services/AuthService'
-import { onSignInSuccess, onSignOutSuccess, setBizId } from 'store/auth/sessionSlice'
+import { onSignInSuccess, onSignOutSuccess } from 'store/auth/sessionSlice'
 import appConfig from 'configs/app.config'
 import { REDIRECT_URL_KEY } from 'constants/app.constant'
 import { useNavigate } from 'react-router-dom'
 import useQuery from './useQuery'
+import { resetBizInfo, setBizInfo } from 'store/biz/bizSlice'
 
 function useAuth() {
     const dispatch = useDispatch()
@@ -15,6 +16,16 @@ function useAuth() {
     const query = useQuery()
 
     const { token, signedIn } = useSelector((state) => state.auth.session)
+
+    const checkToken = async () => {
+        try {
+
+
+        } catch (err) {
+            console.log("checktoken error")
+            console.log(err)
+        }
+    }
 
     const signIn = async (values) => {
         try {
@@ -33,9 +44,11 @@ function useAuth() {
                             }
                         )
                     )
-                    resp.data.biz_id && dispatch(
-                        setBizId(resp.data.biz_id)
-                    )
+                    if (resp.data.is_owner === 'Y' && resp.data.biz_info) {
+                        dispatch(
+                            setBizInfo(resp.data.biz_info)
+                        )
+                    }
                 }
                 const redirectUrl = query.get(REDIRECT_URL_KEY)
                 navigate(
@@ -93,6 +106,8 @@ function useAuth() {
 
         dispatch(onSignOutSuccess())
         dispatch(setUser(initialState))
+        dispatch(resetBizInfo())
+
         navigate(appConfig.unAuthenticatedEntryPath)
     }
 
@@ -102,7 +117,8 @@ function useAuth() {
     }
 
     return {
-        authenticated: token && signedIn,
+        // authenticated: signedIn && token && checkToken(),
+        authenticated: signedIn && token,
         signIn,
         signUp,
         signOut,

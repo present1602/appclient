@@ -36,7 +36,6 @@ const BizSubInfo = ({
   }
 
   // const uploadFileToStorage = async (file) => {
-  //   debugger;
   //   const ReactS3Client = new S3(config);
   //   // the name of the file uploaded is used to upload it to S3
   //   ReactS3Client
