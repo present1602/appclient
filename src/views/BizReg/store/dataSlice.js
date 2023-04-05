@@ -48,7 +48,7 @@ const dataSlice = createSlice({
         mode: 'new'
     },
     reducers: {
-        setFormData: (state, action) => {
+        setRegData: (state, action) => {
             state.formData = { ...state.formData, ...action.payload }
         },
         setFileData: (state, action) => {

@@ -7,7 +7,7 @@ import PopupPostCode from './components/PopupPostCode'
 import StepProgress from './components/StepProgress'
 import reducer from './store'
 import { setCurrentStep } from './store/stateSlice'
-import { getBizReg, setFormData } from './store/dataSlice'
+import { getBizReg, setRegData } from './store/dataSlice'
 import { apiGetBizReg } from 'services/BizRegService'
 
 
@@ -28,10 +28,10 @@ const BizReg = () => {
     (state) => state.bizRegForm.state.currentStep
   )
   const persistData = useSelector((state) => state.bizRegForm.data.formData)
-  const [formState, setFormState] = useState(persistData)
+  const [formData, setFormData] = useState(persistData)
 
   function updateFields(fields) {
-    setFormState(prevData => {
+    setFormData(prevData => {
       return { ...prevData, ...fields }
     })
   }
@@ -75,7 +75,7 @@ const BizReg = () => {
       else if (resData.result === "success") {
 
         if (resData.state === "ongoing") {
-          dispatch(setFormData(resData.data))
+          dispatch(setRegData(resData.data))
 
         } else if (resData.state === "submitted") {
           alert("입점신청 제출이 완료된 상태입니다. 신청서 확인 후 연락드리겠습니다")
@@ -100,7 +100,7 @@ const BizReg = () => {
   }, [])
 
   useEffect(() => {
-    setFormState(persistData)
+    setFormData(persistData)
   }, [persistData, currentStep])
 
 
@@ -146,7 +146,7 @@ const BizReg = () => {
                 // setAddrDataKey={setAddrDataKey}
                 // setIsAddressPopupOpen={setIsAddressPopupOpen}
                 moveNext={moveNext}
-                formState={formState}
+                formData={formData}
                 updateFields={updateFields}
               />
             )}
@@ -157,7 +157,7 @@ const BizReg = () => {
                 // setAddrDataKey={setAddrDataKey}
                 // setIsAddressPopupOpen={setIsAddressPopupOpen}
                 moveNext={moveNext}
-                formData={formState}
+                formData={formData}
                 // fileData={fileData}
                 updateFields={updateFields}
               // updatFileFields={updatFileFields}

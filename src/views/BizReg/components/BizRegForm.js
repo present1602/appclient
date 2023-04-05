@@ -10,7 +10,7 @@ import reducer from '../store'
 import { injectReducer } from 'store'
 import { useDispatch, useSelector } from 'react-redux'
 import { createRoot } from 'react-dom/client'
-import { setFormData } from '../store/dataSlice'
+import { setRegData } from '../store/dataSlice'
 
 
 injectReducer('bizRegForm', reducer)
@@ -35,7 +35,7 @@ const BizRegForm = (props) => {
         disableSubmit = false,
         className,
         openAddressSearch,
-        formState,
+        formData,
         updateFields,
         moveNext } = props
 
@@ -72,7 +72,7 @@ const BizRegForm = (props) => {
                 const result = await apiBizRegSave(formState)
                 if (result.status == '200') {
                     dispatch(
-                        setFormData(formState)
+                        setRegData(formState)
                     )
                     moveNext()
                 }
@@ -85,7 +85,7 @@ const BizRegForm = (props) => {
 
                 if (result.status == '200') {
                     dispatch(
-                        setFormData(formState)
+                        setRegData(formState)
                     )
                     moveNext()
                 }
@@ -131,7 +131,7 @@ const BizRegForm = (props) => {
                         label="상호"
                     >
                         <Input
-                            value={formState.company_name}
+                            value={formData.company_name}
                             name="company_name"
                             placeholder="사업자등록증 상의 상호를 입력해주세요"
                             onChange={
@@ -154,7 +154,7 @@ const BizRegForm = (props) => {
                         <Input
                             name="official_biz_number"
                             placeholder="사업자등록번호를 입력해주세요"
-                            value={formState.official_biz_number}
+                            value={formData.official_biz_number}
                             onChange={
                                 (e) => updateFields({ official_biz_number: e.target.value })
                             } />
@@ -165,7 +165,7 @@ const BizRegForm = (props) => {
                         <Input
                             name="official_biz_category1"
                             placeholder="한글로만 입력해주세요"
-                            value={formState.official_biz_category1}
+                            value={formData.official_biz_category1}
                             component={Input}
                             onChange={
                                 (e) => updateFields({ official_biz_category1: e.target.value })
@@ -178,7 +178,7 @@ const BizRegForm = (props) => {
                         <Input
                             name="official_biz_category2"
                             placeholder="한글로만 입력해주세요"
-                            value={formState.official_biz_category2}
+                            value={formData.official_biz_category2}
                             component={Input}
                             onChange={
                                 (e) => updateFields({ official_biz_category2: e.target.value })
@@ -195,7 +195,7 @@ const BizRegForm = (props) => {
                             placeholder="과세유형을 선택해주세요"
                             options={taxOptions}
                             value={taxOptions.filter(
-                                (option) => option.value == (formState.biz_tax_type || '10')
+                                (option) => option.value == (formData.biz_tax_type || '10')
                             )}
                             onChange={
                                 (e) => updateFields({ biz_tax_type: e.value })
@@ -224,7 +224,7 @@ const BizRegForm = (props) => {
                             placeholder="과세유형을 선택해주세요"
                             options={ownerOptions}
                             value={ownerOptions.filter(
-                                (option) => option.value == (formState.owner_type || '10')
+                                (option) => option.value == (formData.owner_type || '10')
                             )}
                             onChange={
                                 (e) => updateFields({ owner_type: e.value })
@@ -247,7 +247,7 @@ const BizRegForm = (props) => {
                             type="text"
                             name="owner_name"
                             placeholder="사업자등록증 상의 대표자 이름을 입력해주세요"
-                            value={formState.owner_name}
+                            value={formData.owner_name}
                             onChange={
                                 (e) => updateFields({ owner_name: e.target.value })
                             } />
@@ -264,7 +264,7 @@ const BizRegForm = (props) => {
                                 autoComplete="off"
                                 name="postal_code"
                                 placeholder="우편번호"
-                                value={formState.company_address.postal_code}
+                                value={formData.company_address.postal_code}
                                 onChange={
                                     () => { }
                                 }
@@ -278,13 +278,13 @@ const BizRegForm = (props) => {
                         <Input
                             type="text"
                             name="address1"
-                            value={formState.company_address.address1}
+                            value={formData.company_address.address1}
                             onChange={
                                 (e) => {
                                     updateFields(
                                         {
                                             'company_address':
-                                                { ...formState.company_address, address1: e.target.value }
+                                                { ...formData.company_address, address1: e.target.value }
                                         }
                                     )
                                 }
@@ -294,13 +294,13 @@ const BizRegForm = (props) => {
                             type="text"
                             name="address2"
                             placeholder="상세주소를 입력해주세요"
-                            value={formState.company_address.address2}
+                            value={formData.company_address.address2}
                             onChange={
                                 (e) => {
                                     updateFields(
                                         {
                                             'company_address':
-                                                { ...formState.company_address, address2: e.target.value }
+                                                { ...formData.company_address, address2: e.target.value }
                                         }
                                     )
                                 }

@@ -22,6 +22,7 @@ const BizSubInfo = ({
   const persistFileFormData = useSelector((state) => state.bizRegForm.data.fileData)
   const dispatch = useDispatch()
 
+
   const [fileDataState, setFileDataState] = useState(persistFileFormData)
 
   const checkboxBizNameEqualRef = useRef()
