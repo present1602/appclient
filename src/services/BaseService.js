@@ -153,6 +153,12 @@ BaseService.interceptors.response.use(
                     //     ["accessToken", newAccessToken],
                     // ]);
 
+                    if (!newAccessToken) {
+                        debugger;
+                        store.dispatch(onSignOutSuccess())
+                        return
+                    }
+
                     store.dispatch(
                         setUpdatedToken(
                             {
@@ -164,6 +170,7 @@ BaseService.interceptors.response.use(
                     originalRequest.headers.authorization = `Bearer ${newAccessToken}`;
                     // 401로 요청 실패했던 요청 새로운 accessToken으로 재요청
                     return axios(originalRequest);
+
                 } catch (err) {
                     if (status === 401) {
                         store.dispatch(onSignOutSuccess())
