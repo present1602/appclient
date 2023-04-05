@@ -35,6 +35,7 @@ const BizReg = () => {
       return { ...prevData, ...fields }
     })
   }
+
   // function updatFileFields(fields) {
   //   dispatch(
   //     setFileData(fields)
@@ -80,6 +81,14 @@ const BizReg = () => {
           alert("입점신청 제출이 완료된 상태입니다. 신청서 확인 후 연락드리겠습니다")
           return;
         }
+      }
+      else if (resData.result === 'fail' && resData.error_code) {
+        const msg = "서버에 요청 중 오류가 발생했습니다. \n에러코드 : " + resData.error_code
+        if (resData.message) {
+          msg += "\n" + resData.message
+        }
+        alert(msg)
+        console.log(resData)
       }
     } catch (err) {
       alert("서버 요청 오류입니다.")
@@ -137,7 +146,7 @@ const BizReg = () => {
                 // setAddrDataKey={setAddrDataKey}
                 // setIsAddressPopupOpen={setIsAddressPopupOpen}
                 moveNext={moveNext}
-                formData={formState}
+                formState={formState}
                 updateFields={updateFields}
               />
             )}

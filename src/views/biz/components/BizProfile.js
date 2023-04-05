@@ -71,6 +71,7 @@ const BizProfile = (props) => {
   const fetchData = async () => {
     if (bizId) {
       const data = await apiGetBizInfo(bizId)
+      debugger;
     }
   }
 

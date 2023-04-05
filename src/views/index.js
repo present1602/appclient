@@ -23,6 +23,7 @@ import SimpleLayout from 'components/layout/SimpleLayout'
 import AuthLayout from 'components/layout/AuthLayout'
 import BlankLayout from 'components/layout/BlankLayout'
 import UiTest from 'test/views/UiTest'
+import PrivateRoute from 'components/route/PrivateRoute'
 // const ModernLayout = React.lazy(() => import('components/layout/ModernLayout'))
 // const AuthLayout = React.lazy(() => import('components/layout/AuthLayout'))
 
@@ -64,7 +65,7 @@ const AllRoutes = (props) => {
         <Route path='sign-in' key={'account.sign-in'} element={<PublicRoute><SignIn /></PublicRoute>} />
         <Route path='sign-up' key={'account.sign-up'} element={<PublicRoute><SignUp /></PublicRoute>} />
       </Route> */}
-      <Route path='/biz-reg' element={<ProtectedRoute><BlankLayout /> </ProtectedRoute>} >
+      <Route path='/biz-reg' element={<PrivateRoute><BlankLayout /> </PrivateRoute>} >
         <Route path='' key={'account.biz-reg'} element={<BizReg />} />
       </Route>
       <Route path='/' element={<ProtectedRoute><ModernLayout /></ProtectedRoute>}>

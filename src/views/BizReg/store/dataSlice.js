@@ -16,7 +16,7 @@ const dataSlice = createSlice({
             id: '',
             company_name: 'company01',
             owner_name: '오일사',
-            official_biz_number: '9993335551',
+            official_biz_number: '999333001',
             official_biz_category1: 'c01',
             official_biz_category2: 'c02',
             comment: '',
