@@ -69,10 +69,10 @@ const BizRegForm = (props) => {
             // values['address_type'] = formData.address_type
             // values['sigungu_code'] = formData.sigungu_code
             if (persistData.id === '') {
-                const result = await apiBizRegSave(formState)
+                const result = await apiBizRegSave(formData)
                 if (result.status == '200') {
                     dispatch(
-                        setRegData(formState)
+                        setRegData(formData)
                     )
                     moveNext()
                 }
@@ -81,11 +81,11 @@ const BizRegForm = (props) => {
 
                 }
             } else {
-                const result = await apiUpdateBizReg(formState)
+                const result = await apiUpdateBizReg(formData)
 
                 if (result.status == '200') {
                     dispatch(
-                        setRegData(formState)
+                        setRegData(formData)
                     )
                     moveNext()
                 }

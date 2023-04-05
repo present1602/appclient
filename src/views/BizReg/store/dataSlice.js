@@ -78,6 +78,6 @@ const dataSlice = createSlice({
     },
 })
 
-export const { setFormData, setStepStatus, setFileData } = dataSlice.actions
+export const { setRegData, setStepStatus, setFileData } = dataSlice.actions
 
 export default dataSlice.reducer
