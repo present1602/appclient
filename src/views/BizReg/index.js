@@ -9,6 +9,7 @@ import reducer from './store'
 import { setCurrentStep } from './store/stateSlice'
 import { getBizReg, setRegData } from './store/dataSlice'
 import { apiGetBizReg } from 'services/BizRegService'
+import appConfig from 'configs/app.config'
 
 
 const BizRegForm = lazy(() => import('./components/BizRegForm'))
@@ -93,6 +94,7 @@ const BizReg = () => {
     } catch (err) {
       alert("서버 요청 오류입니다.")
       console.log(err)
+      window.location.href = appConfig.openEntryPath
     }
   }
   useEffect(() => {

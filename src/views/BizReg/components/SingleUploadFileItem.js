@@ -6,9 +6,9 @@ const FileIcon = ({ children }) => {
     return <span className="text-4xl">{children}</span>
 }
 
-const DirectUploadFileItem = (props) => {
+const SingleUploadFileItem = (props) => {
     const { type, fileData, children } = props
-    const { filename = 'a', path } = fileData
+    const { filename = 'a', path, full_path } = fileData
 
     const renderThumbnail = () => {
         const isImageFile = type === 'image'
@@ -17,7 +17,7 @@ const DirectUploadFileItem = (props) => {
             return (
                 <img
                     className="upload-file-image"
-                    src={path} // process.env.REACT_APP_ASSETS_BASE_URL + ..
+                    src={full_path}
                     alt={`file preview`}
                 />
             )
@@ -59,4 +59,4 @@ const DirectUploadFileItem = (props) => {
     )
 }
 
-export default DirectUploadFileItem
+export default SingleUploadFileItem

@@ -2,10 +2,13 @@ import { FormContainer, FormItem, Input, InputGroup, Button, Checkbox, SingleChe
 import Upload from 'components/ui/Upload';
 import React, { useRef, useState } from 'react';
 import AttachedImages from './AttachedImages';
-import { setFileData } from '../store/dataSlice'
+import { setFileData, setRegData } from '../store/dataSlice'
 import { useDispatch, useSelector } from 'react-redux';
+import AWS from 'aws-sdk'
 import DirectUpload from './DirectUpload';
-
+import SingleImageUpload from './SingleImageUpload';
+import S3 from 'react-aws-s3';
+import { apiUpdateBizReg, apiSaveBizFile } from 'services/BizRegService';
 
 const BizSubInfo = ({
   openAddressSearch,
@@ -20,12 +23,26 @@ const BizSubInfo = ({
   console.log("REACT_APP_AWS_ACCESS_KEY_ID: " + process.env.REACT_APP_AWS_ACCESS_KEY_ID);
 
   const persistFileFormData = useSelector((state) => state.bizRegForm.data.fileData)
+  const persistData = useSelector((state) => state.bizRegForm.data.formData)
+
   const dispatch = useDispatch()
 
 
-  const [fileDataState, setFileDataState] = useState(persistFileFormData)
+  const [fileDataState] = useState(persistFileFormData)
+
+  const [bizFile1, setBizFile1] = useState(null)
 
   const checkboxBizNameEqualRef = useRef()
+
+  const s3_config = {
+    bucketName: process.env.REACT_APP_AWS_S3_BUCKET,
+    dirName: 'bizfile',
+    region: process.env.REACT_APP_AWS_S3_REGION,
+    accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
+  }
+
+  const s3 = new AWS.S3()
 
   function onCheckBizNameEqual(value) {
     if (value === true) {
@@ -55,25 +72,6 @@ const BizSubInfo = ({
   //   )
   // }
 
-  const onUploadCallback1 = (responseData, filename) => {
-    setFileDataState({
-      ...fileDataState, bizfile1: {
-        path: responseData.key,
-        full_path: responseData.location,
-        filename: filename
-      }
-    }
-    )
-  }
-  const onUploadCallback2 = (responseData, filename) => {
-    setFileData({
-      ...fileDataState, bizfile2: {
-        path: responseData.key,
-        full_path: responseData.location,
-        filename: filename
-      }
-    })
-  }
 
   function callCompanyAddress() {
     const companyAddress = formData.company_address
@@ -89,10 +87,58 @@ const BizSubInfo = ({
     )
   }
 
-  const onSaveBizSubInfo = () => {
-    console.log("save sub info")
+  function uploadFile(file) {
+    const ReactS3Client = new S3(s3_config);
+    return new Promise(resolve => {
+      ReactS3Client
+        .uploadFile(file, Math.trunc(Math.random() * 100000) + file.name)
+        .then((data) => {
+          resolve(data)
+
+        })
+        .catch(err => console.error(err))
+    })
+  }
+  // if (fieldKey === 'bizfile1') {
+  //   debugger;
+  //   setFileData(
+  //     {
+  //       'bizfile1': {
+  //         'path': data.path,
+  //         'filename': data.filename
+  //       }
+  //     }
+  //   )
+  // }
+
+  const onSaveBizSubInfo = async () => {
+    if (!bizFile1) {
+      alert("사업자등록증을 첨부해주세요")
+      return;
+    }
+    const response1 = await apiUpdateBizReg(formData)
+
+    if (response1.status == '200') {
+      dispatch(
+        setRegData(formData)
+      )
+
+      const resData1 = await uploadFile(bizFile1)
+
+      const getFilename = resData1.location.split('/')[resData1.location.split('/').length - 1]
+
+      const params = {
+        'biz_reg_id': persistData.id,
+        'path': resData1.location,
+        'filename': getFilename,
+        'type': '10'
+      }
+      const response2 = await apiSaveBizFile(params)
+      debugger;
+    }
   }
 
+  console.log("save sub info")
   return (
     <FormContainer>
       <FormItem
@@ -187,24 +233,25 @@ const BizSubInfo = ({
 
 
       <FormItem label="사업자등록증" />
-      <DirectUpload
+      <SingleImageUpload
         fileData={fileDataState.bizfile1}
         fieldKey='bizfile1'
-        setFileDataState={setFileDataState}
-        onUploadCallback={onUploadCallback1}
+        file={bizFile1}
+        setFile={setBizFile1}
       />
 
-      <FormItem label="영업허가증(선택)" />
+      {/* <FormItem label="영업허가증(선택)" />
       <DirectUpload
         fileData={fileDataState.bizfile2}
         fieldKey='bizfile2'
         setFileDataState={setFileDataState}
         onUploadCallback={onUploadCallback2}
-      />
-      <FormItem label="메뉴이미지" />
-      <AttachedImages
-      />
+      /> */}
 
+      {/* <FormItem label="메뉴이미지" />
+      <AttachedImages
+      /> */}
+      <br />
       <Button
         onClick={onSaveBizSubInfo}>
         완료

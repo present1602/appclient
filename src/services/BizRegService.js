@@ -24,3 +24,10 @@ export async function apiGetBizReg() {
     method: 'get'
   })
 }
+export async function apiSaveBizFile(data) {
+  return ApiService.fetchData({
+    url: `${appConfig.apiPrefix}/biz-reg/bizfile/`,
+    method: 'post',
+    data
+  })
+}

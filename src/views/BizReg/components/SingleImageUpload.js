@@ -10,20 +10,19 @@ import AWS from 'aws-sdk';
 import S3 from 'react-aws-s3';
 import { ConfirmDialog } from 'components/shared'
 import { setFileData, setFormData } from 'views/BizReg/store/dataSlice'
-import DirectUploadFileItem from './DirectUploadFileItem'
 import { useDispatch } from 'react-redux'
+import SingleUploadFileItem from './SingleUploadFileItem'
 
 window.Buffer = window.Buffer || require("buffer").Buffer;
 
-const DirectUpload = React.forwardRef((props, ref) => {
+const SingleImageUpload = React.forwardRef((props, ref) => {
     const {
         className,
         beforeUpload,
         fileData,
-        setFileDataState,
         fieldKey,
-        onFileChange,
-        onUploadCallback,
+        file,
+        setFile,
         accept,
         ...rest
     } = props
@@ -31,7 +30,7 @@ const DirectUpload = React.forwardRef((props, ref) => {
     const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false)
 
     const [fileState, setFileState] = useState(fileData)
-    // const [selectedFile, setSelectedFile] = useState(null);
+    const [selectedFile, setSelectedFile] = useState(null);
 
     const dispatch = useDispatch()
 
@@ -52,50 +51,53 @@ const DirectUpload = React.forwardRef((props, ref) => {
     }
 
     const handleFileInput = (e) => {
-        // setSelectedFile(e.target.files[0]);
-        if (e.target.files[0].name.length > 0) {
-            uploadFile(e.target.files[0]);
-        };
+        setSelectedFile(e.target.files[0]);
+        setFile(e.target.files[0])
+        // if (e.target.files[0].name.length > 0) {
+        //     // uploadFile(e.target.files[0]);
+        // };
     }
 
     // useEffect(() => {
     //     alert("ue file")
     //     uploadFile(file)
     // }, [file])
-    const uploadFile = async (file) => {
-        const ReactS3Client = new S3(config);
-        // the name of the file uploaded is used to upload it to S3
-        ReactS3Client
-            .uploadFile(file, file.name)
-            .then((data) => {
-                // onUploadCallback(data, file.name)
 
-                if (fieldKey === 'bizfile1') {
-                    setFileDataState(
-                        prevData => {
-                            return {
-                                ...prevData, 'bizfile1': {
-                                    filename: file.name,
-                                    path: data.location,
-                                }
-                            }
-                        }
-                    )
-                } else if (fieldKey === 'bizfile2') {
-                    setFileDataState(
-                        prevData => {
-                            return {
-                                ...prevData, 'bizfile2': {
-                                    filename: file.name,
-                                    path: data.location,
-                                }
-                            }
-                        }
-                    )
-                }
-            })
-            .catch(err => console.error(err))
-    }
+    // const uploadFile = async (file) => {
+    // const ReactS3Client = new S3(config);
+    // ReactS3Client
+    //     .uploadFile(file, file.name)
+    //     .then((data) => {
+    //         // onUploadCallback(data, file.name)
+
+    //         if (fieldKey === 'bizfile1') {
+    //             setFileDataState(
+    //                 prevData => {
+    //                     return {
+    //                         ...prevData, 'bizfile1': {
+    //                             filename: file.name,
+    //                             path: data.key,
+    //                             full_path: data.location,
+    //                         }
+    //                     }
+    //                 }
+    //             )
+    //         } else if (fieldKey === 'bizfile2') {
+    //             setFileDataState(
+    //                 prevData => {
+    //                     return {
+    //                         ...prevData, 'bizfile2': {
+    //                             filename: file.name,
+    //                             path: data.key,
+    //                             path: data.location,
+    //                         }
+    //                     }
+    //                 }
+    //             )
+    //         }
+    //     })
+    //     .catch(err => console.error(err))
+    // }
 
 
 
@@ -183,6 +185,50 @@ const DirectUpload = React.forwardRef((props, ref) => {
         }
         setDeleteConfirmationOpen(false)
     }
+
+    function handleUploadClick() {
+
+    }
+
+
+    function renderFilePreview() {
+        if (file) {
+            return (
+                <div className="upload-file">
+                    <div className="flex">
+                        <div className="upload-file-thumbnail">
+                            <img
+                                className="upload-file-image"
+                                src={URL.createObjectURL(file)}
+                                alt={`file preview`}
+                            />
+                        </div>
+                        <div className="upload-file-info">
+                            <h6 className="upload-file-name">{file.name}</h6>
+                            {/* <span className="upload-file-size">kb</span> */}
+                        </div>
+                    </div>
+                </div>
+            )
+        } else if (fileData?.path) {
+            return (
+                <div className="upload-file">
+                    <div className="flex">
+                        <div className="upload-file-thumbnail">
+                            <img
+                                className="upload-file-image"
+                                src={`${process.env.REACT_APP_ASSETS_BASE_URL}/${fileData.path}`}
+                                alt={`file preview`}
+                            />
+                        </div>
+                        <div className="upload-file-info">
+                            <h6 className="upload-file-name">{fileData.path}</h6>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+    }
     return (
         <>
             <ConfirmDialog
@@ -215,34 +261,37 @@ const DirectUpload = React.forwardRef((props, ref) => {
                     // {...field}
                     {...rest}
                 ></input>
+
+                {renderFilePreview()}
+
                 <Button disabled={false}
                     onClick={(e) => e.preventDefault()}>
-                    Upload
+                    파일 찾기
                 </Button>
             </div>
-            <div className="upload-file-list">
-                {fileData?.path &&
+
+
+            {/* {fileData?.full_path &&
                     // <img src={fileData?.full_path} width={"100px"} height={"100px"}
                     // />
-                    <DirectUploadFileItem
+                    <SingleUploadFileItem
                         type='image'
                         fileData={fileData}
-                        key={`${fileData.path}`}>
+                        key={`${fileData.full_path}`}>
                         <CloseButton
                             onClick={onDeleteConfirmation}
                             className="upload-file-remove"
                         />
-                    </DirectUploadFileItem>
-                }
-            </div>
-            <input type="button" onClick={uploadFile} value="업로드" />
+                    </SingleUploadFileItem>
+                } */}
+            {/* <input type="button" onClick={handleUploadClick} value="업로드2" /> */}
         </>
     )
 })
 
-DirectUpload.propTypes = {
+SingleImageUpload.propTypes = {
     uploadLimit: PropTypes.number,
     accept: PropTypes.string,
 }
 
-export default DirectUpload
+export default SingleImageUpload

@@ -41,8 +41,12 @@ const dataSlice = createSlice({
         },
 
         fileData: {
-            bizfile1: '',
-            bizfile2: null,
+            bizfile1: {
+                'full_path': ''
+            },
+            bizfile2: {
+                'full_path': ''
+            },
             attached_file_list: []
         },
         mode: 'new'
