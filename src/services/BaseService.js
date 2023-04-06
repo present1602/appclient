@@ -119,16 +119,20 @@ BaseService.interceptors.request.use(
 BaseService.interceptors.response.use(
     (response) => response,
     async (error) => {
-        // const { response } = error
 
         // if (response && unauthorizedCode.includes(response.status)) {
         //     store.dispatch(onSignOutSuccess())
         // }
         const {
             config,
-            response: { status },
+            response,
         } = error;
-        if (status === 401) {
+
+        if (!response) {
+            console.log("error: ", error)
+            return alert("서버와의 통신중 에러가 발생했습니다.")
+        }
+        if (response.status === 401) {
             // if (error.response.data.message === "expired") {
             if (true) {
                 const originalRequest = config;
@@ -172,7 +176,7 @@ BaseService.interceptors.response.use(
                     return axios(originalRequest);
 
                 } catch (err) {
-                    if (status === 401) {
+                    if (response.status === 401) {
                         store.dispatch(onSignOutSuccess())
                     }
                 }

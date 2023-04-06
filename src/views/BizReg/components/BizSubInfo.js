@@ -99,26 +99,15 @@ const BizSubInfo = ({
         .catch(err => console.error(err))
     })
   }
-  // if (fieldKey === 'bizfile1') {
-  //   debugger;
-  //   setFileData(
-  //     {
-  //       'bizfile1': {
-  //         'path': data.path,
-  //         'filename': data.filename
-  //       }
-  //     }
-  //   )
-  // }
 
   const onSaveBizSubInfo = async () => {
     if (!bizFile1) {
       alert("사업자등록증을 첨부해주세요")
       return;
     }
-    const response1 = await apiUpdateBizReg(formData)
+    const response = await apiUpdateBizReg(formData)
 
-    if (response1.status == '200') {
+    if (response.status == '200') {
       dispatch(
         setRegData(formData)
       )
@@ -128,13 +117,21 @@ const BizSubInfo = ({
       const getFilename = resData1.location.split('/')[resData1.location.split('/').length - 1]
 
       const params = {
+        'original_filename': bizFile1.name,
         'biz_reg_id': persistData.id,
         'path': resData1.location,
         'filename': getFilename,
         'type': '10'
       }
-      const response2 = await apiSaveBizFile(params)
-      debugger;
+
+      const fileResponse = await apiSaveBizFile(params)
+
+      if (fileResponse.status == '200' && fileResponse.data) {
+        dispatch(
+          setFileData({ 'bizfile1': fileResponse.data })
+        )
+      }
+
     }
   }
 
