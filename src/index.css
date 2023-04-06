@@ -3828,6 +3828,12 @@ hr{
 .mt-5{
         margin-top: 1.25rem;
 }
+.mt-8{
+        margin-top: 2rem;
+}
+.mb-5{
+        margin-bottom: 1.25rem;
+}
 .block{
         display: block;
 }
@@ -4250,6 +4256,9 @@ hr{
 }
 .max-w-full{
         max-width: 100%;
+}
+.max-w-\[350px\]{
+        max-width: 350px;
 }
 .flex-auto{
         flex: 1 1 auto;

@@ -81,11 +81,6 @@ const BizSubInfo = ({
     )
   }
 
-  function updateFileFields(fields) {
-    dispatch(
-      setFileData(fields)
-    )
-  }
 
   function uploadFile(file) {
     const ReactS3Client = new S3(s3_config);
@@ -101,7 +96,8 @@ const BizSubInfo = ({
   }
 
   const onSaveBizSubInfo = async () => {
-    if (!bizFile1) {
+    debugger;
+    if (!bizFile1 && !fileDataState.bizfile1.full_path) {
       alert("사업자등록증을 첨부해주세요")
       return;
     }
@@ -248,11 +244,19 @@ const BizSubInfo = ({
       {/* <FormItem label="메뉴이미지" />
       <AttachedImages
       /> */}
-      <br />
-      <Button
-        onClick={onSaveBizSubInfo}>
-        완료
-      </Button>
+
+
+      <div className='text-center'>
+        <Button
+          onClick={onSaveBizSubInfo}
+          variant="solid"
+          type="submit"
+          className="mx-2"
+        >
+          완료
+        </Button>
+      </div>
+
 
     </FormContainer>
   );

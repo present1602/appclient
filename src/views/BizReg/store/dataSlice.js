@@ -42,10 +42,11 @@ const dataSlice = createSlice({
 
         fileData: {
             bizfile1: {
-                'full_path': ''
+                'full_path': '',
+                'filename': '',
             },
             bizfile2: {
-                'full_path': ''
+
             },
             attached_file_list: []
         },

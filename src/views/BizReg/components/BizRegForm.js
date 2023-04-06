@@ -320,16 +320,6 @@ const BizRegForm = (props) => {
                                 />
                             </FormItem> */}
                     <div className='text-center'>
-                        {/* <Button
-                                    loading={isSubmitting}
-                                    variant="solid"
-                                    type="submit"
-                                    className="mx-2"
-                                >
-                                    {isSubmitting
-                                        ? '저장중입니다'
-                                        : '임시저장'}
-                                </Button> */}
 
                         <Button
                             loading={isSubmitting}

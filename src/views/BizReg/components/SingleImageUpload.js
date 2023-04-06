@@ -29,9 +29,6 @@ const SingleImageUpload = React.forwardRef((props, ref) => {
 
     const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false)
 
-    const [fileState, setFileState] = useState(fileData)
-    const [selectedFile, setSelectedFile] = useState(null);
-
     const dispatch = useDispatch()
 
     const fileInputField = useRef(null)
@@ -51,11 +48,9 @@ const SingleImageUpload = React.forwardRef((props, ref) => {
     }
 
     const handleFileInput = (e) => {
-        setSelectedFile(e.target.files[0]);
-        setFile(e.target.files[0])
-        // if (e.target.files[0].name.length > 0) {
-        //     // uploadFile(e.target.files[0]);
-        // };
+        if (e.target.files[0].name.length > 0) {
+            setFile(e.target.files[0])
+        };
     }
 
     // useEffect(() => {
@@ -210,19 +205,19 @@ const SingleImageUpload = React.forwardRef((props, ref) => {
                     </div>
                 </div>
             )
-        } else if (fileData?.path) {
+        } else if (fileData?.full_path) {
             return (
                 <div className="upload-file">
                     <div className="flex">
                         <div className="upload-file-thumbnail">
                             <img
                                 className="upload-file-image"
-                                src={`${process.env.REACT_APP_ASSETS_BASE_URL}/${fileData.path}`}
+                                src={`${process.env.REACT_APP_ASSETS_BASE_URL}/${fileData.full_path}`}
                                 alt={`file preview`}
                             />
                         </div>
                         <div className="upload-file-info">
-                            <h6 className="upload-file-name">{fileData.path}</h6>
+                            <h6 className="upload-file-name">{fileData.filename}</h6>
                         </div>
                     </div>
                 </div>

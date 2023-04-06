@@ -7,9 +7,10 @@ import PopupPostCode from './components/PopupPostCode'
 import StepProgress from './components/StepProgress'
 import reducer from './store'
 import { setCurrentStep } from './store/stateSlice'
-import { getBizReg, setRegData } from './store/dataSlice'
+import { setRegData, setFileData } from './store/dataSlice'
 import { apiGetBizReg } from 'services/BizRegService'
 import appConfig from 'configs/app.config'
+import RegReview from './components/RegReview'
 
 
 const BizRegForm = lazy(() => import('./components/BizRegForm'))
@@ -76,7 +77,14 @@ const BizReg = () => {
       else if (resData.result === "success") {
 
         if (resData.state === "ongoing") {
+          debugger;
           dispatch(setRegData(resData.data))
+
+          if (resData.fileData && resData.fileData.bizfile1) {
+            dispatch(
+              setFileData(resData.fileData)
+            )
+          }
 
         } else if (resData.state === "submitted") {
           alert("입점신청 제출이 완료된 상태입니다. 신청서 확인 후 연락드리겠습니다")
@@ -92,8 +100,8 @@ const BizReg = () => {
         console.log(resData)
       }
     } catch (err) {
-      alert("서버 요청 오류입니다.")
-      console.log(err)
+      // alert("서버 요청 오류입니다.")
+      console.log('call apiGetBizReg err : ', err)
       window.location.href = appConfig.openEntryPath
     }
   }
@@ -162,15 +170,11 @@ const BizReg = () => {
                 formData={formData}
                 // fileData={fileData}
                 updateFields={updateFields}
-              // updatFileFields={updatFileFields}
               />
-              // <Identification
-              //     data={formData.identification}
-              //     onNextChange={handleNextChange}
-              //     onBackChange={handleBackChange}
-              //     currentStepStatus={currentStepStatus}
-              // />
             )
+            }
+            {currentStep === 2 &&
+              <RegReview />
             }
           </Suspense>
         }
