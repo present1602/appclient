@@ -3831,9 +3831,6 @@ hr{
 .mt-8{
         margin-top: 2rem;
 }
-.mb-5{
-        margin-bottom: 1.25rem;
-}
 .block{
         display: block;
 }
@@ -4254,11 +4251,11 @@ hr{
 .max-w-\[150px\]{
         max-width: 150px;
 }
-.max-w-full{
-        max-width: 100%;
-}
 .max-w-\[350px\]{
         max-width: 350px;
+}
+.max-w-full{
+        max-width: 100%;
 }
 .flex-auto{
         flex: 1 1 auto;

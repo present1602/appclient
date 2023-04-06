@@ -30,6 +30,7 @@ const BizReg = () => {
     (state) => state.bizRegForm.state.currentStep
   )
   const persistData = useSelector((state) => state.bizRegForm.data.formData)
+
   const [formData, setFormData] = useState(persistData)
 
   function updateFields(fields) {
@@ -65,8 +66,7 @@ const BizReg = () => {
   const closeAddressSearch = () => {
     setIsAddressPopupOpen(false)
   }
-
-  const getRegData = async () => {
+  async function getRegData() {
     try {
       const response = await apiGetBizReg()
       const resData = response.data
@@ -77,7 +77,7 @@ const BizReg = () => {
       else if (resData.result === "success") {
 
         if (resData.state === "ongoing") {
-          debugger;
+
           dispatch(setRegData(resData.data))
 
           if (resData.fileData && resData.fileData.bizfile1) {
@@ -105,7 +105,10 @@ const BizReg = () => {
       window.location.href = appConfig.openEntryPath
     }
   }
+
+
   useEffect(() => {
+    console.log("=====a==========")
     getRegData()
   }, [])
 

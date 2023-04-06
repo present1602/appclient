@@ -43,9 +43,6 @@ const AllRoutes = (props) => {
   //     component: React.lazy(() => import('views/demo/SingleMenuView')),
   //     authority: [],
   // },
-  const ModernLayout2 = useMemo(() => {
-    return <ModernLayout />
-  })
 
   return (
     <Routes>
