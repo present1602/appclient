@@ -4,13 +4,18 @@ import { Tabs } from 'components/ui'
 import { useLocation, useNavigate } from 'react-router-dom'
 import BizDetail from './components/Detail'
 import BizProfile from './components/BizProfile'
+import { useSelector } from 'react-redux'
+import { injectReducer } from 'store'
+import reducer from './store'
 
 const { TabNav, TabList, TabContent } = Tabs
+
 
 const BizView = () => {
   const [currentTab, setCurrentTab] = useState('profile')
 
   const navigate = useNavigate()
+  // const bizData = useSelector((state) => state.bizData.data.biz_info)
 
   const location = useLocation()
 

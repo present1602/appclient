@@ -6,8 +6,10 @@ import GridImages from './GridImages'
 import classNames from 'classnames'
 import { injectReducer } from 'store'
 import reducer from '../store'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { apiGetBizInfo } from 'services/BizService'
+import { setBizInfo } from '../store/dataSlice'
+
 
 export const categories = [
   { label: 'Bags', value: 'bags' },
@@ -29,10 +31,14 @@ export const categories = [
             } />
     </FormItem> */}
 
-injectReducer('biz-data', reducer)
+injectReducer('bizData1', reducer)
 
 const BizProfile = (props) => {
+  // const BizProfile = (props) => {
+
+  const dispatch = useDispatch()
   const bizId = useSelector((state) => state.biz.bizId)
+  const bizData = useSelector((state) => state.bizData1.data.biz_info)
 
   const iformData = {
     'name': '샐러드박스',
@@ -44,10 +50,10 @@ const BizProfile = (props) => {
       'postal_code': '22004',
     },
   }
-  const [formData, setFormState] = useState(iformData)
+  const [formData, setFormData] = useState(bizData)
 
   function updateFields(fields) {
-    setFormState(prevData => {
+    setFormData(prevData => {
       return { ...prevData, ...fields }
     })
   }
@@ -70,13 +76,26 @@ const BizProfile = (props) => {
 
   const fetchData = async () => {
     if (bizId) {
-      const data = await apiGetBizInfo(bizId)
+      try {
+        const response = await apiGetBizInfo(bizId)
+        if (response.status == '200' && response.data) {
+          dispatch(setBizInfo(response.data))
+        } else {
+          alert("매장정보 조회 중 에러가 발생했습니다.")
+        }
+      } catch (err) {
+        alert("서버와의 통신 중 에러가 발생했습니다.")
+      }
     }
   }
 
   useEffect(() => {
     fetchData()
   }, [])
+
+  useEffect(() => {
+    setFormData(bizData)
+  }, [bizData])
 
   return (
     <div className='max-w-[768px]'>
@@ -100,7 +119,7 @@ const BizProfile = (props) => {
             label="매장명"
           >
             <Input
-              value={formData.name}
+              value={formData.name || 'a'}
               name="name"
               placeholder="매장명을 입력해주세요"
               onChange={
@@ -111,7 +130,7 @@ const BizProfile = (props) => {
           <FormItem
             label="전화번호">
             <Input
-              value={formData.phone}
+              value={formData.phone || ''}
               name="phone"
               placeholder="매장 전화번호를 입력해주세요"
               onChange={
@@ -121,7 +140,7 @@ const BizProfile = (props) => {
           <FormItem
             label="매장소개">
             <RichTextEditor
-              value={formData.description}
+              value={formData.company || ''}
               onChange={(val) => { }
                 // updateFields({ 'description:': val })
               }
@@ -140,7 +159,7 @@ const BizProfile = (props) => {
                 autoComplete="off"
                 name="postal_code"
                 placeholder="우편번호"
-                value={formData.address.postal_code}
+                value={formData.address?.postal_code || ''}
                 onChange={
                   () => { }
                 }
@@ -152,7 +171,7 @@ const BizProfile = (props) => {
             <Input
               type="text"
               name="address1"
-              value={formData.address.address1}
+              value={formData.address?.address1 || ''}
               onChange={
                 (e) => {
                   updateFields(
@@ -168,7 +187,7 @@ const BizProfile = (props) => {
               type="text"
               name="address2"
               placeholder="상세주소를 입력해주세요"
-              value={formData.address.address2}
+              value={formData.address?.address2 || ''}
               onChange={
                 (e) => {
                   updateFields(

@@ -6,7 +6,8 @@ import appConfig from 'configs/app.config'
 import { REDIRECT_URL_KEY } from 'constants/app.constant'
 import { useNavigate } from 'react-router-dom'
 import useQuery from './useQuery'
-import { resetBizInfo, setBizInfo } from 'store/biz/bizSlice'
+import { resetBizKeyInfo, setBizPrimaryInfo } from 'store/biz/bizSlice'
+import { resetBizInfo } from 'views/biz/store/dataSlice'
 
 function useAuth() {
     const dispatch = useDispatch()
@@ -45,8 +46,9 @@ function useAuth() {
                         )
                     )
                     if (resp.data.is_owner === 'Y' && resp.data.biz_info) {
+                        debugger;
                         dispatch(
-                            setBizInfo(resp.data.biz_info)
+                            setBizPrimaryInfo(resp.data.biz_info)
                         )
                     }
                 }
@@ -109,6 +111,7 @@ function useAuth() {
 
         dispatch(onSignOutSuccess())
         dispatch(setUser(initialState))
+        dispatch(resetBizKeyInfo())
         dispatch(resetBizInfo())
 
         navigate(appConfig.unAuthenticatedEntryPath)

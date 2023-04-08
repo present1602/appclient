@@ -11,16 +11,16 @@ export const bizSlice = createSlice(
     initialState,
     reducers: {
       setBizId: (state, action) => { state.bizId = action.payload },
-      setBizInfo: (state, { payload }) => {
+      setBizPrimaryInfo: (state, { payload }) => {
         state.bizId = payload.bizId
         state.name = payload.name
       },
-      resetBizInfo: () => initialState
+      resetBizKeyInfo: () => initialState
     }
   }
 )
 
-export const { setBizId, setBizInfo, resetBizInfo } = bizSlice.actions
+export const { setBizId, setBizPrimaryInfo, resetBizKeyInfo } = bizSlice.actions
 
 export default bizSlice.reducer
 
