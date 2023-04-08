@@ -4254,6 +4254,9 @@ hr{
 .max-w-\[350px\]{
         max-width: 350px;
 }
+.max-w-\[768px\]{
+        max-width: 768px;
+}
 .max-w-full{
         max-width: 100%;
 }

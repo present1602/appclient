@@ -212,7 +212,7 @@ const SingleImageUpload = React.forwardRef((props, ref) => {
                         <div className="upload-file-thumbnail">
                             <img
                                 className="upload-file-image"
-                                src={`${process.env.REACT_APP_ASSETS_BASE_URL}/${fileData.full_path}`}
+                                src={`${fileData.full_path}`}
                                 alt={`file preview`}
                             />
                         </div>

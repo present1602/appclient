@@ -66,13 +66,6 @@ const AllRoutes = (props) => {
         <Route path='' key={'account.biz-reg'} element={<BizReg />} />
       </Route>
       <Route path='/' element={<ProtectedRoute><ModernLayout /></ProtectedRoute>}>
-        {/* <Route path='home' key={'ui.home'} element={
-          <Home />
-        } />
-        <Route path='single-menu-view' key={'ui.single-menu-view'} element={<SingleMenuView />} />
-        <Route path='collapse-menu-item-view-2' key={'ui.single-menu-view'} element={<CollapseMenuItemView2 />} />
-        <Route path='collapse-menu-item-view-1' key={'ui.single-menu-view'} element={<CollapseMenuItemView1 />} /> */}
-
         {/* {protectedRoutes.map(({ component: Component, key, path }) => {
           return <Route
             key={key}
@@ -88,15 +81,15 @@ const AllRoutes = (props) => {
             key={route.path}
             path={route.path}
             element={
-              // <ModernLayout>
+
               <PageContainer {...props} {...route.meta}>
                 <AppRoute
                   routeKey={route.key}
                   component={route.component}
                   {...route.meta}
                 />
+
               </PageContainer>
-              // </ModernLayout>
             }
           />
         })}

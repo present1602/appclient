@@ -108,25 +108,38 @@ const BizSubInfo = ({
         setRegData(formData)
       )
 
-      const resData1 = await uploadFile(bizFile1)
+      try {
+        const resData1 = await uploadFile(bizFile1)
 
-      const getFilename = resData1.location.split('/')[resData1.location.split('/').length - 1]
+        const getFilename = resData1.location.split('/')[resData1.location.split('/').length - 1]
 
-      const params = {
-        'original_filename': bizFile1.name,
-        'biz_reg_id': persistData.id,
-        'path': resData1.location,
-        'filename': getFilename,
-        'type': '10'
+        const params = {
+          'original_filename': bizFile1.name,
+          'biz_reg_id': persistData.id,
+          'path': resData1.location,
+          'filename': getFilename,
+          'type': '10'
+        }
+
+        const fileResponse = await apiSaveBizFile(params)
+
+        if (fileResponse.status == '200' && fileResponse.data) {
+          dispatch(
+            setFileData({ 'bizfile1': fileResponse.data })
+          )
+
+          alert("신청이 완료되었습니다.")
+          moveNext()
+
+        } else {
+          alert("파일 업로드에 실패했습니다.")
+        }
+      } catch (err) {
+        alert("오류입니다.")
+        console.log("error : ", err)
       }
 
-      const fileResponse = await apiSaveBizFile(params)
 
-      if (fileResponse.status == '200' && fileResponse.data) {
-        dispatch(
-          setFileData({ 'bizfile1': fileResponse.data })
-        )
-      }
 
     }
   }

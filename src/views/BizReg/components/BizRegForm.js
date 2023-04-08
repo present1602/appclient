@@ -70,9 +70,9 @@ const BizRegForm = (props) => {
             // values['sigungu_code'] = formData.sigungu_code
             if (persistData.id === '') {
                 const result = await apiBizRegSave(formData)
-                if (result.status == '200') {
+                if (result.status == '200' && result.data) {
                     dispatch(
-                        setRegData(formData)
+                        setRegData(result.data)
                     )
                     moveNext()
                 }

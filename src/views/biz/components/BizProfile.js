@@ -71,7 +71,6 @@ const BizProfile = (props) => {
   const fetchData = async () => {
     if (bizId) {
       const data = await apiGetBizInfo(bizId)
-      debugger;
     }
   }
 
@@ -80,8 +79,9 @@ const BizProfile = (props) => {
   }, [])
 
   return (
-    <AdaptableCard className="mb-4" divider>
-      {/* <h5>매장명</h5>
+    <div className='max-w-[768px]'>
+      <AdaptableCard className="mb-4" divider>
+        {/* <h5>매장명</h5>
 
       <div
         className={classNames(
@@ -93,121 +93,122 @@ const BizProfile = (props) => {
         </div>
 
       </div> */}
-      <h5 className='mb-6 mt-5'>매장정보 수정</h5>
+        <h5 className='mb-6 mt-5'>매장정보 수정</h5>
 
-      <FormContainer>
-        <FormItem
-          label="매장명"
-        >
-          <Input
-            value={formData.name}
-            name="name"
-            placeholder="매장명을 입력해주세요"
-            onChange={
-              (e) => { }
-            } />
-        </FormItem>
-
-        <FormItem
-          label="전화번호">
-          <Input
-            value={formData.phone}
-            name="phone"
-            placeholder="매장 전화번호를 입력해주세요"
-            onChange={
-              (e) => { }
-            } />
-        </FormItem>
-        <FormItem
-          label="매장소개">
-          <RichTextEditor
-            value={formData.description}
-            onChange={(val) => { }
-              // updateFields({ 'description:': val })
-            }
-          />
-        </FormItem>
-
-
-        <FormItem
-          label="사업장주소"
-        >
-
-          <InputGroup className="mb-4">
-
+        <FormContainer>
+          <FormItem
+            label="매장명"
+          >
             <Input
-              type="text"
-              autoComplete="off"
-              name="postal_code"
-              placeholder="우편번호"
-              value={formData.address.postal_code}
+              value={formData.name}
+              name="name"
+              placeholder="매장명을 입력해주세요"
               onChange={
-                () => { }
+                (e) => { }
+              } />
+          </FormItem>
+
+          <FormItem
+            label="전화번호">
+            <Input
+              value={formData.phone}
+              name="phone"
+              placeholder="매장 전화번호를 입력해주세요"
+              onChange={
+                (e) => { }
+              } />
+          </FormItem>
+          <FormItem
+            label="매장소개">
+            <RichTextEditor
+              value={formData.description}
+              onChange={(val) => { }
+                // updateFields({ 'description:': val })
               }
             />
-            <Button
-              type="button"
-              onClick={openAddressSearch} >주소 찾기</Button>
-          </InputGroup>
-          <Input
-            type="text"
-            name="address1"
-            value={formData.address.address1}
-            onChange={
-              (e) => {
-                updateFields(
-                  {
-                    'address':
-                      { ...formData.address, address1: e.target.value }
-                  }
-                )
+          </FormItem>
+
+
+          <FormItem
+            label="사업장주소"
+          >
+
+            <InputGroup className="mb-4">
+
+              <Input
+                type="text"
+                autoComplete="off"
+                name="postal_code"
+                placeholder="우편번호"
+                value={formData.address.postal_code}
+                onChange={
+                  () => { }
+                }
+              />
+              <Button
+                type="button"
+                onClick={openAddressSearch} >주소 찾기</Button>
+            </InputGroup>
+            <Input
+              type="text"
+              name="address1"
+              value={formData.address.address1}
+              onChange={
+                (e) => {
+                  updateFields(
+                    {
+                      'address':
+                        { ...formData.address, address1: e.target.value }
+                    }
+                  )
+                }
               }
-            }
-          />
-          <Input
-            type="text"
-            name="address2"
-            placeholder="상세주소를 입력해주세요"
-            value={formData.address.address2}
-            onChange={
-              (e) => {
-                updateFields(
-                  {
-                    'address':
-                      { ...formData.address, address2: e.target.value }
-                  }
-                )
+            />
+            <Input
+              type="text"
+              name="address2"
+              placeholder="상세주소를 입력해주세요"
+              value={formData.address.address2}
+              onChange={
+                (e) => {
+                  updateFields(
+                    {
+                      'address':
+                        { ...formData.address, address2: e.target.value }
+                    }
+                  )
+                }
               }
-            }
-          />
-        </FormItem>
+            />
+          </FormItem>
 
-      </FormContainer>
+        </FormContainer>
 
-      <GridImages />
+        <GridImages />
 
 
-      <div className="md:flex items-center">
-        <Button
-          size="sm"
-          className="ltr:mr-3 rtl:ml-3"
-          onClick={() => { }}
-          type="button"
+        <div className="md:flex items-center">
+          <Button
+            size="sm"
+            className="ltr:mr-3 rtl:ml-3"
+            onClick={() => { }}
+            type="button"
 
-        >
-          취소
-        </Button>
-        <Button
-          loading={false}
-          variant="solid"
-          type="submit"
-          className="mx-2"
-          onClick={() => { }}
-        >
-          수정완료
-        </Button>
-      </div>
-    </AdaptableCard>
+          >
+            취소
+          </Button>
+          <Button
+            loading={false}
+            variant="solid"
+            type="submit"
+            className="mx-2"
+            onClick={() => { }}
+          >
+            수정완료
+          </Button>
+        </div>
+      </AdaptableCard>
+    </div>
   )
 }
 
