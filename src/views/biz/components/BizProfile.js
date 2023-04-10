@@ -112,7 +112,7 @@ const BizProfile = (props) => {
         </div>
 
       </div> */}
-        <h5 className='mb-6 mt-5'>매장정보 수정</h5>
+        <h5 className='mb-5 mt-5'>매장정보 수정</h5>
 
         <FormContainer>
           <FormItem

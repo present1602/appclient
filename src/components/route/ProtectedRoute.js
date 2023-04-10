@@ -13,7 +13,7 @@ const ProtectedRoute = ({ children }) => {
     const { bizId } = useSelector((state) => state.biz)
 
     const location = useLocation()
-    debugger
+
     if (!authenticated) {
 
         return (

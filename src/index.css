@@ -3766,6 +3766,12 @@ hr{
 .z-10{
         z-index: 10;
 }
+.col-span-2{
+        grid-column: span 2 / span 2;
+}
+.col-span-3{
+        grid-column: span 3 / span 3;
+}
 .mx-2{
         margin-left: 0.5rem;
         margin-right: 0.5rem;
@@ -3785,6 +3791,9 @@ hr{
 }
 .mb-4{
         margin-bottom: 1rem;
+}
+.mb-5{
+        margin-bottom: 1.25rem;
 }
 .mb-6{
         margin-bottom: 1.5rem;
@@ -4253,6 +4262,9 @@ hr{
 }
 .max-w-\[350px\]{
         max-width: 350px;
+}
+.max-w-\[700px\]{
+        max-width: 700px;
 }
 .max-w-\[768px\]{
         max-width: 768px;
@@ -19922,6 +19934,9 @@ hr{
         }
         .md\:min-w-\[450px\]{
                 min-width: 450px;
+        }
+        .md\:grid-cols-4{
+                grid-template-columns: repeat(4, minmax(0, 1fr));
         }
         .md\:border-gray-200{
                 --tw-border-opacity: 1;

@@ -24,6 +24,7 @@ import AuthLayout from 'components/layout/AuthLayout'
 import BlankLayout from 'components/layout/BlankLayout'
 import UiTest from 'test/views/UiTest'
 import PrivateRoute from 'components/route/PrivateRoute'
+import ClassicLayout from 'components/layout/ClassicLayout'
 // const ModernLayout = React.lazy(() => import('components/layout/ModernLayout'))
 // const AuthLayout = React.lazy(() => import('components/layout/AuthLayout'))
 
@@ -66,15 +67,7 @@ const AllRoutes = (props) => {
         <Route path='' key={'account.biz-reg'} element={<BizReg />} />
       </Route>
       <Route path='/' element={<ProtectedRoute><ModernLayout /></ProtectedRoute>}>
-        {/* {protectedRoutes.map(({ component: Component, key, path }) => {
-          return <Route
-            key={key}
-            path={path}
-            element={
-              <Component />
-            }
-          />
-        })} */}
+        {/* <Route path='/' element={<ProtectedRoute><ClassicLayout /></ProtectedRoute>}> */}
         <Route path='/' element={<Navigate replace to={authenticatedEntryPath} />} />
         {protectedRoutes.map((route) => {
           return <Route

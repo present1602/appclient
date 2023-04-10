@@ -59,7 +59,6 @@ const BizReg = () => {
   const openAddressSearch = (addrKey) => {
     setAddrDataKey(addrKey)
     setIsAddressPopupOpen(true)
-
   }
 
   // 팝업창 닫기

@@ -46,10 +46,10 @@ const navigationConfig = [
         authority: [],
         subMenu: [
             {
-                key: 'promotion.program',
-                path: `/promotion/program`,
+                key: 'promotion',
+                path: `/promotion`,
                 title: '프로모션',
-                translateKey: 'nav.promotion.program',
+                translateKey: 'nav.promotion',
                 icon: 'singleMenu',
                 type: NAV_ITEM_TYPE_ITEM,
                 authority: [],

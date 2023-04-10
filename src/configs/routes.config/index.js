@@ -6,6 +6,9 @@ import SingleMenuView from 'views/demo/SingleMenuView'
 import CollapseMenuItemView1 from 'views/demo/CollapseMenuItemView1'
 import CollapseMenuItemView2 from 'views/demo/CollapseMenuItemView2'
 import PromotionProgram from 'views/promotion'
+// import PackageDcNew from 'views/promotion/PackageDc/components/PackageDcNew'
+import PromotionRegister from 'views/promotion/Register'
+import { PackageDcNew } from 'views/promotion/PackageDc'
 
 export const publicRoutes = [...authRoute]
 
@@ -27,12 +30,32 @@ export const protectedRoutes = [
         }
     },
     {
-        key: 'promotion.program',
-        path: '/promotion/program',
+        key: 'promotion',
+        path: '/promotion',
         component: PromotionProgram,
         authority: [],
         meta: {
-            header: '프로모션',
+            header: '프로모션2',
+            headerContainer: true,
+        }
+    },
+    {
+        key: 'promotion.new',
+        path: '/promotion/register',
+        component: PromotionRegister,
+        authority: [],
+        meta: {
+            header: '프로모션2',
+            headerContainer: true,
+        }
+    },
+    {
+        key: 'promotion.packageDc.new',
+        path: '/promotion/package-dc/new',
+        component: PackageDcNew,
+        authority: [],
+        meta: {
+            header: '프로모션2',
             headerContainer: true,
         }
     },
