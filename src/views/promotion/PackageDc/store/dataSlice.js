@@ -19,11 +19,9 @@ const dataSlice = createSlice({
   initialState,
   reducers: {
     setPackageDcData: (state, action) => {
-      debugger;
       state.packageDc = { ...state, ...action.payload }
     },
     setBundleMenu: (state, action) => {
-      debugger;
       state.packageDc.bundleMenu = action.payload
     },
     resetPackageDcData: (state, action) => {

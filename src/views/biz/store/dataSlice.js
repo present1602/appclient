@@ -4,7 +4,11 @@ import { bindActionCreators, createSlice } from "@reduxjs/toolkit"
 
 const initData = {
   biz_info: {
-    name: ''
+    name: '',
+    phone: '',
+    introduction: '',
+    description: '',
+    address: {},
   },
   company_info: {
 

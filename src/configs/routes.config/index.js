@@ -9,6 +9,7 @@ import PromotionProgram from 'views/promotion'
 // import PackageDcNew from 'views/promotion/PackageDc/components/PackageDcNew'
 import PromotionRegister from 'views/promotion/Register'
 import { PackageDcNew } from 'views/promotion/PackageDc'
+import BizProfileEdit from 'views/biz/components/BizProfileEdit'
 
 export const publicRoutes = [...authRoute]
 
@@ -26,6 +27,16 @@ export const protectedRoutes = [
         authority: [],
         meta: {
             header: '매장정보',
+            headerContainer: true,
+        }
+    },
+    {
+        key: 'biz',
+        path: '/biz/update',
+        component: BizProfileEdit,
+        authority: [],
+        meta: {
+            header: '매장정보 수정',
             headerContainer: true,
         }
     },

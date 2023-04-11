@@ -22,7 +22,11 @@ const ProtectedRoute = ({ children }) => {
             />
         )
     } else if (!bizKeyInfo || !bizKeyInfo.bizId) {
-        window.location.href = `${openEntryPath}`
+
+        // window.location.href = `${openEntryPath}`
+        // if (bizKeyInfo.status === '00') {
+
+        // }
     }
 
     return <>{children}</>

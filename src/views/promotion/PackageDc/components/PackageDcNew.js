@@ -24,7 +24,6 @@ const PackageDcNew = () => {
   }
 
   function updateBundleMenu(index, fields) {
-    // debugger;
     // const newData = { ...persistData.bundleMenu[index], ...fields }
     // setFormData(
     //   ...formData, ...formData.bundleMenu

@@ -101,6 +101,7 @@ const BizReg = () => {
     } catch (err) {
       // alert("서버 요청 오류입니다.")
       console.log('call apiGetBizReg err : ', err)
+
       window.location.href = appConfig.openEntryPath
     }
   }

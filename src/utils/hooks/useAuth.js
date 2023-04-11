@@ -45,14 +45,13 @@ function useAuth() {
                         )
                     )
                     // if (resp.data.is_owner === 'Y' && resp.data.biz_info) {
-                    //     debugger;
                     //     dispatch(
                     //         setBizKeyInfo(resp.data.biz_info)
                     //     )
                     // }
                 }
                 const redirectUrl = query.get(REDIRECT_URL_KEY)
-                debugger
+
                 navigate(
                     redirectUrl ? redirectUrl : appConfig.authenticatedEntryPath
                 )

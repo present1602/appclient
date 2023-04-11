@@ -96,7 +96,6 @@ const BizSubInfo = ({
   }
 
   const onSaveBizSubInfo = async () => {
-    debugger;
     if (!bizFile1 && !fileDataState.bizfile1.full_path) {
       alert("사업자등록증을 첨부해주세요")
       return;

@@ -12,6 +12,7 @@ const PrivateRoute = ({ children }) => {
     const { bizKeyInfo } = useSelector((state) => state.auth.session)
     // const { token, signedIn } = useSelector((state) => state.auth.session)
     const location = useLocation()
+
     debugger;
     if (!authenticated) {
         return (
