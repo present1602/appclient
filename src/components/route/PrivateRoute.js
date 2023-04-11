@@ -9,10 +9,10 @@ const { unAuthenticatedEntryPath, authenticatedEntryPath } = appConfig
 
 const PrivateRoute = ({ children }) => {
     const { authenticated } = useAuth()
-    const { bizId } = useSelector((state) => state.biz)
+    const { bizKeyInfo } = useSelector((state) => state.auth.session)
     // const { token, signedIn } = useSelector((state) => state.auth.session)
     const location = useLocation()
-
+    debugger;
     if (!authenticated) {
         return (
             <Navigate
@@ -21,7 +21,7 @@ const PrivateRoute = ({ children }) => {
             />
         )
     }
-    else if (bizId) {
+    else if (bizKeyInfo && bizKeyInfo.bizId) {
         return (
             <Navigate
                 to={`${authenticatedEntryPath}`}

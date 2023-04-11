@@ -1,13 +1,11 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { setUser, initialState, setBizId } from 'store/auth/userSlice'
 import { apiSignIn, apiSignOut, apiSignUp } from 'services/AuthService'
-import { onSignInSuccess, onSignOutSuccess } from 'store/auth/sessionSlice'
+import { onSignInSuccess, onSignOutSuccess, setBizKeyInfo } from 'store/auth/sessionSlice'
 import appConfig from 'configs/app.config'
 import { REDIRECT_URL_KEY } from 'constants/app.constant'
 import { useNavigate } from 'react-router-dom'
 import useQuery from './useQuery'
-import { resetBizKeyInfo, setBizPrimaryInfo } from 'store/biz/bizSlice'
-import { resetBizInfo } from 'views/biz/store/dataSlice'
 
 function useAuth() {
     const dispatch = useDispatch()
@@ -32,8 +30,9 @@ function useAuth() {
         try {
             const resp = await apiSignIn(values)
             if (resp.data) {
-                const { token } = resp.data
-                dispatch(onSignInSuccess(token))
+                const responseData = resp.data
+                dispatch(onSignInSuccess(responseData))
+
                 if (resp.data.user) {
                     dispatch(
                         setUser(
@@ -45,14 +44,15 @@ function useAuth() {
                             }
                         )
                     )
-                    if (resp.data.is_owner === 'Y' && resp.data.biz_info) {
-                        debugger;
-                        dispatch(
-                            setBizPrimaryInfo(resp.data.biz_info)
-                        )
-                    }
+                    // if (resp.data.is_owner === 'Y' && resp.data.biz_info) {
+                    //     debugger;
+                    //     dispatch(
+                    //         setBizKeyInfo(resp.data.biz_info)
+                    //     )
+                    // }
                 }
                 const redirectUrl = query.get(REDIRECT_URL_KEY)
+                debugger
                 navigate(
                     redirectUrl ? redirectUrl : appConfig.authenticatedEntryPath
                 )
@@ -111,8 +111,6 @@ function useAuth() {
 
         dispatch(onSignOutSuccess())
         dispatch(setUser(initialState))
-        dispatch(resetBizKeyInfo())
-        dispatch(resetBizInfo())
 
         navigate(appConfig.unAuthenticatedEntryPath)
     }

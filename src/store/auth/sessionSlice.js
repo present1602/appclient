@@ -5,15 +5,22 @@ export const sessionSlice = createSlice({
     initialState: {
         token: '',
         signedIn: false,
+        bizKeyInfo: null
     },
     reducers: {
-        onSignInSuccess: (state, action) => {
+        onSignInSuccess: (state, { payload }) => {
             state.signedIn = true
-            state.token = action.payload
+            state.token = payload.token
+            debugger;
+
+            if (payload.is_owner == 'Y' && payload.biz_info) {
+                state.bizKeyInfo = payload.biz_info
+            }
         },
         onSignOutSuccess: (state) => {
             state.signedIn = false
             state.token = ''
+            state.bizKeyInfo = null
         },
         setToken: (state, action) => {
             state.token = action.payload
@@ -26,11 +33,16 @@ export const sessionSlice = createSlice({
                 access: action.payload.access,
                 access_token_expired_at: action.payload.access_token_expired_at
             }
-        }
+        },
+        setBizId: (state, action) => { state.bizId = action.payload },
+        setBizKeyInfo: (state, { payload }) => {
+            state.bizKeyInfo = payload
+        },
+        // resetBizKeyInfo: (state) => { state.bizKeyInfo = null },
     },
 })
 
-export const { onSignInSuccess, onSignOutSuccess, setToken, setUpdatedToken } =
+export const { onSignInSuccess, onSignOutSuccess, setToken, setUpdatedToken, setBizKeyInfo } =
     sessionSlice.actions
 
 export default sessionSlice.reducer

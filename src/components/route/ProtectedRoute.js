@@ -9,8 +9,7 @@ const { unAuthenticatedEntryPath, openEntryPath } = appConfig
 
 const ProtectedRoute = ({ children }) => {
     const { authenticated } = useAuth()
-    const { token, signedIn } = useSelector((state) => state.auth.session)
-    const { bizId } = useSelector((state) => state.biz)
+    const { token, signedIn, bizKeyInfo } = useSelector((state) => state.auth.session)
 
     const location = useLocation()
 
@@ -22,7 +21,7 @@ const ProtectedRoute = ({ children }) => {
                 replace
             />
         )
-    } else if (!bizId) {
+    } else if (!bizKeyInfo || !bizKeyInfo.bizId) {
         window.location.href = `${openEntryPath}`
     }
 
