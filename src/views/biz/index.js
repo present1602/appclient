@@ -1,15 +1,104 @@
-import React, { useState, Suspense, useEffect } from 'react'
-import { Button, Tabs } from 'components/ui'
-import { useLocation, useNavigate } from 'react-router-dom'
+import React, { useState, Suspense, useEffect, Fragment } from 'react'
+import { Button, Drawer, Spinner, Tabs } from 'components/ui'
+import { NavLink, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import BizDetail from './components/Detail'
 import BizProfile from './components/BizProfile'
 import { useSelector } from 'react-redux'
 import { injectReducer } from 'store'
 import reducer from './store'
 import BizInfo from './components/BizInfo'
-import { AdaptableCard } from 'components/shared'
+import { AdaptableCard, NavToggle } from 'components/shared'
+import useThemeClass from 'utils/hooks/useThemeClass'
 
 const { TabNav, TabList, TabContent } = Tabs
+
+
+
+const routes = [
+  {
+    groupName: 'biz info',
+    nav: [
+      {
+        path: 'profile',
+        label: 'Profile',
+        component: React.lazy(() => import('./components/BizInfo')),
+      },
+      {
+        path: 'detail',
+        label: 'Detail',
+        component: React.lazy(() => import('./components/Detail')),
+      },
+    ]
+  }
+]
+
+
+const NavContent = ({ onLinkClick, routes }) => {
+  const { textTheme, borderTheme } = useThemeClass()
+
+  const activeClass = `${textTheme} hover:${textTheme} ${borderTheme}`
+
+  return (
+    <>
+      {routes.map((group) => (
+        <div className="mb-6" key={group.groupName}>
+          <h6 className="mb-4">{group.groupName}</h6>
+          <div className="ltr:border-l rtl:border-r border-gray-200 dark:border-gray-600">
+            {group.nav.map((menu) => (
+              <NavLink
+                key={menu.label}
+                className={({ isActive }) =>
+                  `cursor-pointer font-semibold ltr:border-l rtl:border-r px-4 h-6 mb-4 flex items-center gap-2 hover:text-gray-900 dark:hover:text-gray-100 ltr:-ml-px rtl:-mr-px ${isActive
+                    ? activeClass
+                    : 'border-transparent'
+                  }`
+                }
+                to={menu.path}
+                onClick={onLinkClick}
+              >
+                <span>{menu.label}</span>
+              </NavLink>
+            ))}
+          </div>
+        </div>
+      ))}
+    </>
+  )
+}
+
+const MobileNav = ({ routes }) => {
+  const [isOpen, setIsOpen] = useState(false)
+
+  const openDrawer = () => {
+    setIsOpen(true)
+  }
+
+  const onDrawerClose = () => {
+    setIsOpen(false)
+  }
+
+  return (
+    <>
+      <Button
+        className="lg:hidden"
+        shape="circle"
+        variant="plain"
+        icon={<NavToggle className="text-2xl" toggled={isOpen} />}
+        onClick={openDrawer}
+      />
+      <Drawer
+        title="Navigation"
+        isOpen={isOpen}
+        onClose={onDrawerClose}
+        onRequestClose={onDrawerClose}
+        width={300}
+        placement="left"
+      >
+        <NavContent onLinkClick={onDrawerClose} routes={routes} />
+      </Drawer>
+    </>
+  )
+}
 
 const BizView = () => {
   const [currentTab, setCurrentTab] = useState('profile')
@@ -23,15 +112,15 @@ const BizView = () => {
     location.pathname.lastIndexOf('/') + 1
   )
 
-  const bizMenu = {
-    profile: { label: '매장정보', path: 'profile' },
-    detail: { label: '상세정보', path: 'detail' },
-  }
+  // const bizMenu = {
+  //   profile: { label: '매장정보', path: 'profile' },
+  //   detail: { label: '상세정보', path: 'detail' },
+  // }
 
-  const onTabChange = (val) => {
-    setCurrentTab(val)
-    navigate(`/biz/${val}`)
-  }
+  // const onTabChange = (val) => {
+  //   setCurrentTab(val)
+  //   navigate(`/biz/${val}`)
+  // }
 
   useEffect(() => {
 
@@ -39,36 +128,74 @@ const BizView = () => {
     //   navigate('/biz/update')
     // }
 
-    setCurrentTab(path)
+    // setCurrentTab(path)
 
 
-    // if (isEmpty(data)) {
-    //     fetchData()
-    // }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
-    <AdaptableCard bodyClass="gap-8">
-      <Tabs value={currentTab} onChange={(val) => onTabChange(val)}>
-        <TabList>
-          {Object.keys(bizMenu).map((key) => (
-            <TabNav key={key} value={key}>
-              {bizMenu[key].label}
-            </TabNav>
-          ))}
-        </TabList>
-      </Tabs>
+    <AdaptableCard className="h-full" bodyClass="lg:flex h-full gap-8">
+      <div className="lg:w-[180px] py-2 lg-py-0 px-4 mb-4 border border-gray-200 dark:border-gray-700 rounded-md lg:border-0">
+        <div className="flex flex-col">
+          <div className="hidden lg:block">
+            <NavContent routes={routes} />
+          </div>
+          <MobileNav routes={routes} />
+        </div>
+      </div>
+      <div className='h-full'>
+        <Routes>
+          {routes.map((group) => (
+            <Fragment key={group.groupName}>
+              {group.nav.map(({ path, component: Component, label }) => (
+                <Route
+                  key={label}
+                  path={path}
+                  element={
+                    <Suspense
+                      fallback={
+                        <div className="h-full w-full flex items-center justify-center">
+                          <Spinner size={40} />
+                        </div>
+                      }
+                    >
+                      <div className="h-full w-full">
+                        <h5 className="mb-6">{label}</h5>
+                        <div className="prose dark:prose-invert max-w-[800px]">
+                          <Component />
+                        </div>
+                      </div>
 
-      <Suspense fallback={<></>}>
-        {currentTab === 'profile' && (
-          <BizInfo />
-        )}
-        {currentTab === 'detail' && (
-          <BizDetail />
-        )}
-      </Suspense>
+                    </Suspense>
+                  }
+                />
+              ))}
+            </Fragment>
+          ))}
+          {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
+        </Routes>
+      </div>
     </AdaptableCard>
+    // <AdaptableCard bodyClass="gap-8">
+    //   <Tabs value={currentTab} onChange={(val) => onTabChange(val)}>
+    //     <TabList>
+    //       {Object.keys(bizMenu).map((key) => (
+    //         <TabNav key={key} value={key}>
+    //           {bizMenu[key].label}
+    //         </TabNav>
+    //       ))}
+    //     </TabList>
+    //   </Tabs>
+
+    //   <Suspense fallback={<></>}>
+    //     {currentTab === 'profile' && (
+    //       <BizInfo />
+    //     )}
+    //     {currentTab === 'detail' && (
+    //       <BizDetail />
+    //     )}
+    //   </Suspense>
+    // </AdaptableCard>
   )
 }
 

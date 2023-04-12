@@ -22,7 +22,7 @@ export const protectedRoutes = [
     },
     {
         key: 'biz',
-        path: '/biz/:tab',
+        path: '/biz/*',
         component: BizView,
         authority: [],
         meta: {

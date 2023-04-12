@@ -25,10 +25,10 @@ const navigationConfig = [
         authority: [],
         subMenu: [
             {
-                key: 'biz.profile',
+                key: 'biz.info',
                 path: `/biz/profile`,
                 title: '매장정보',
-                translateKey: 'nav.biz.profile',
+                translateKey: 'nav.biz.info',
                 icon: 'home',
                 type: NAV_ITEM_TYPE_ITEM,
                 authority: [],
