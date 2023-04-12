@@ -66,8 +66,8 @@ const AllRoutes = (props) => {
       <Route path='/biz-reg' element={<PrivateRoute><BlankLayout /> </PrivateRoute>} >
         <Route path='' key={'account.biz-reg'} element={<BizReg />} />
       </Route>
-      <Route path='/' element={<ProtectedRoute><ModernLayout /></ProtectedRoute>}>
-        {/* <Route path='/' element={<ProtectedRoute><ClassicLayout /></ProtectedRoute>}> */}
+      {/* <Route path='/' element={<ProtectedRoute><ModernLayout /></ProtectedRoute>}> */}
+      <Route path='/' element={<ProtectedRoute><ClassicLayout /></ProtectedRoute>}>
         <Route path='/' element={<Navigate replace to={authenticatedEntryPath} />} />
         {protectedRoutes.map((route) => {
           return <Route

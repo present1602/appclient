@@ -13,7 +13,6 @@ const PrivateRoute = ({ children }) => {
     // const { token, signedIn } = useSelector((state) => state.auth.session)
     const location = useLocation()
 
-    debugger;
     if (!authenticated) {
         return (
             <Navigate

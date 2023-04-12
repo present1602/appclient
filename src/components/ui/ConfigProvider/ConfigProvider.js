@@ -2,12 +2,12 @@ import { createContext, useContext } from 'react'
 import { SIZES } from '../utils/constant'
 
 export const defaultConfig = {
-    themeColor: 'indigo',
+    themeColor: 'grey',
     mode: 'light',
-    primaryColorLevel: 600,
+    primaryColorLevel: 800,
     cardBordered: false,
     controlSize: SIZES.MD,
-    navMode: 'light',
+    navMode: 'themed',
 }
 // export const defaultConfig = {
 //     themeColor: 'indigo',

@@ -36,7 +36,7 @@ export const protectedRoutes = [
         component: BizProfileEdit,
         authority: [],
         meta: {
-            header: '매장정보 수정',
+            header: '매장정보 ',
             headerContainer: true,
         }
     },

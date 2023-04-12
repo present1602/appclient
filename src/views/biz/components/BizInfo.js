@@ -68,7 +68,6 @@ const BizInfo = (props) => {
   // }, [])
 
   const fetchData = async () => {
-    debugger;
     if (!bizKeyInfo.bizId) {
       alert("오류입니다.")
       return;
@@ -114,7 +113,8 @@ const BizInfo = (props) => {
 
   return (
     <div className='max-w-[768px]'>
-      <AdaptableCard className="mb-4" divider>
+      {/* <AdaptableCard className="mb-4" divider> */}
+      <div className='card card-border'>
         <h5 className='mb-5 mt-5'>매장정보</h5>
 
         <div className='flex flex-row'>
@@ -126,7 +126,8 @@ const BizInfo = (props) => {
 
         <BizProfile data={bizData} />
 
-      </AdaptableCard>
+      </div>
+      {/* </AdaptableCard> */}
     </div >
   )
 }

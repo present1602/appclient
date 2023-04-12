@@ -11,7 +11,6 @@ export const sessionSlice = createSlice({
         onSignInSuccess: (state, { payload }) => {
             state.signedIn = true
             state.token = payload.token
-            debugger;
             if (payload.is_owner == 'Y' && payload.biz_info) {
                 state.bizKeyInfo = payload.biz_info
             }
@@ -35,7 +34,6 @@ export const sessionSlice = createSlice({
         },
         setBizId: (state, action) => { state.bizId = action.payload },
         setBizKeyInfo: (state, { payload }) => {
-            debugger;
             state.bizKeyInfo = payload
         },
         // resetBizKeyInfo: (state) => { state.bizKeyInfo = null },

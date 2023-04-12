@@ -9,6 +9,7 @@ import reducer from '../store'
 import { useDispatch, useSelector } from 'react-redux'
 import { apiGetBizInfo } from 'services/BizService'
 import { setBizInfo } from '../store/dataSlice'
+import { setMode } from 'store/theme/themeSlice'
 
 
 export const categories = [
@@ -37,8 +38,9 @@ const BizProfileEdit = (props) => {
   // const BizProfileEdit = (props) => {
 
   const dispatch = useDispatch()
-  const bizId = useSelector((state) => state.biz.bizId)
   const bizData = useSelector((state) => state.bizData1.data.biz_info)
+  const bizSession = useSelector((state) => state.auth.session.bizKeyInfo)
+
 
   const iformData = {
     'name': '샐러드박스',
@@ -75,9 +77,9 @@ const BizProfileEdit = (props) => {
   // }, [])
 
   const fetchData = async () => {
-    if (bizId) {
+    if (bizSession.bizId) {
       try {
-        const response = await apiGetBizInfo(bizId)
+        const response = await apiGetBizInfo(bizSession.bizId)
         if (response.status == '200' && response.data) {
           dispatch(setBizInfo(response.data))
         } else {
@@ -90,6 +92,9 @@ const BizProfileEdit = (props) => {
   }
 
   useEffect(() => {
+    if (bizSession.status === '00') {
+      setMode('new')
+    }
     fetchData()
   }, [])
 
@@ -112,7 +117,9 @@ const BizProfileEdit = (props) => {
         </div>
 
       </div> */}
-        <h5 className='mb-5 mt-5'>매장정보 수정</h5>
+        <h5 className='mb-5 mt-5'>
+          {props.mode === 'new' ? '매장정보 등록' : '매장정보 수정'}
+        </h5>
 
         <FormContainer>
           <FormItem

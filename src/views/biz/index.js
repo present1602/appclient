@@ -1,4 +1,3 @@
-
 import React, { useState, Suspense, useEffect } from 'react'
 import { Button, Tabs } from 'components/ui'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -8,15 +7,15 @@ import { useSelector } from 'react-redux'
 import { injectReducer } from 'store'
 import reducer from './store'
 import BizInfo from './components/BizInfo'
+import { AdaptableCard } from 'components/shared'
 
 const { TabNav, TabList, TabContent } = Tabs
 
-injectReducer('bizData', reducer)
 const BizView = () => {
   const [currentTab, setCurrentTab] = useState('profile')
 
   const navigate = useNavigate()
-  const bizData = useSelector((state) => state.bizData.data.biz_info)
+  const bizSession = useSelector((state) => state.auth.session.bizKeyInfo)
 
   const location = useLocation()
 
@@ -36,9 +35,9 @@ const BizView = () => {
 
   useEffect(() => {
 
-    if (bizData.status === '00') {
-      navigate('/biz/update')
-    }
+    // if (bizSession.status === '00') {
+    //   navigate('/biz/update')
+    // }
 
     setCurrentTab(path)
 
@@ -50,7 +49,7 @@ const BizView = () => {
   }, [])
 
   return (
-    <div>
+    <AdaptableCard className="h-full" bodyClass="lg:flex h-full gap-8">
       <Tabs value={currentTab} onChange={(val) => onTabChange(val)}>
         <TabList>
           {Object.keys(bizMenu).map((key) => (
@@ -69,14 +68,13 @@ const BizView = () => {
           <BizDetail />
         )}
       </Suspense>
-    </div >
+    </AdaptableCard>
   )
 }
 
 // const BizView = () => {
 //   const bizKeyInfo = useSelector((state) => state.auth.session.bizKeyInfo)
 //   const navigate = useNavigate()
-//   debugger;
 //   const renderContent = () => {
 //     if (bizKeyInfo && bizKeyInfo.status && bizKeyInfo.status === '00') {
 //       return <Button onClick={

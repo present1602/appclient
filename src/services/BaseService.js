@@ -158,7 +158,6 @@ BaseService.interceptors.response.use(
                     // ]);
 
                     if (!newAccessToken) {
-                        debugger;
                         store.dispatch(onSignOutSuccess())
                         return
                     }

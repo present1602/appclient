@@ -64,7 +64,6 @@ const BizProfile = (props) => {
   // }, [])
 
   const fetchData = async () => {
-    debugger;
     if (!bizKeyInfo.bizId) {
       alert("오류입니다.")
       return;
