@@ -1,5 +1,5 @@
 import React, { Suspense, useMemo } from 'react'
-import { Loading } from 'components/shared'
+import { Container, Loading } from 'components/shared'
 import { protectedRoutes, publicRoutes } from 'configs/routes.config'
 import appConfig from 'configs/app.config'
 import PageContainer from 'components/template/PageContainer'
@@ -81,7 +81,6 @@ const AllRoutes = (props) => {
                   component={route.component}
                   {...route.meta}
                 />
-
               </PageContainer>
             }
           />

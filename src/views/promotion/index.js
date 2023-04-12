@@ -14,7 +14,7 @@ const PromotionProgram = () => {
     //   onClick={() => { navigate('/promotion/register') }}
     //   size="sm">+ 프로모션 등록</Button>
     // </div>
-    <AdaptableCard>
+    <AdaptableCard className="h-full">
       <Button
         onClick={() => { navigate('/promotion/register') }}
         size="sm">+ 프로모션 등록</Button>

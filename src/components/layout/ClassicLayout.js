@@ -6,6 +6,7 @@ import MobileNav from 'components/template/MobileNav'
 import SideNav from 'components/template/SideNav'
 import View from 'views'
 import { Outlet } from 'react-router-dom'
+import useAuth from 'utils/hooks/useAuth'
 
 const HeaderActionsStart = () => {
     return (
@@ -17,9 +18,12 @@ const HeaderActionsStart = () => {
 }
 
 const HeaderActionsEnd = () => {
+
+    const { signOut } = useAuth()
+
     return (
         <>
-            <p>nofi</p>
+            <p onClick={signOut}>nofi</p>
             {/* <Notification /> */}
         </>
     )

@@ -92,7 +92,6 @@ const BizInfo = (props) => {
     }
   }
 
-
   useEffect(() => {
     fetchData()
   }, [])
@@ -112,23 +111,18 @@ const BizInfo = (props) => {
 
 
   return (
-    <div className='max-w-[768px]'>
-      {/* <AdaptableCard className="mb-4" divider> */}
-      <div className='card card-border'>
-        <h5 className='mb-5 mt-5'>매장정보</h5>
+    <>
 
-        <div className='flex flex-row'>
-          <div className='font-semibold w-36'>매장명</div>
-          <p>{bizKeyInfo.name}</p>
-        </div>
-
-        {/* {renderProfile()} */}
-
-        <BizProfile data={bizData} />
-
+      <div className='flex flex-row'>
+        <div className='font-semibold w-36'>매장명</div>
+        <div>{bizData.name}</div>
       </div>
-      {/* </AdaptableCard> */}
-    </div >
+
+      {/* {renderProfile()} */}
+
+      <BizProfile data={bizData} />
+
+    </>
   )
 }
 

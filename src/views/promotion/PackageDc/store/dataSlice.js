@@ -1,16 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+
+const bundleMenuDefault = {
+  'period': {},
+  'name': '',
+  'price': 0,
+  'orignal_price': 0,
+}
+
 const initialState = {
   packageDc: {
     name: '3',
     description: '',
     bundleMenu: [
-      {
-        'period': { 'key': '4W' },
-        'name': '4주 10팩',
-        'price': 0,
-        'original_price': 0,
-      },
+      // {
+      //   'period': { 'key': '4W' },
+      //   'name': '4주 10팩',
+      //   'price': 0,
+      //   'original_price': 0,
+      // },
     ]
   }
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { AdaptableCard, RichTextEditor, StickyFooter } from 'components/shared'
+import { AdaptableCard, Container, RichTextEditor, StickyFooter } from 'components/shared'
 import { Input, h6, FormContainer, InputGroup, Button } from 'components/ui'
 import { Field } from 'formik'
 import GridImages from './GridImages'
@@ -22,7 +22,7 @@ export const categories = [
 
 injectReducer('bizData1', reducer)
 
-const BizProfile = ({ data }) => {
+const BizProfile = (props) => {
   // const BizProfile = (props) => {
 
   const dispatch = useDispatch()
@@ -30,39 +30,64 @@ const BizProfile = ({ data }) => {
   const bizData = useSelector((state) => state.bizData1.data.biz_info)
 
 
+  const fetchData = async () => {
+    if (!bizKeyInfo.bizId) {
+      alert("오류입니다.")
+      return;
+    }
+    try {
+      const response = await apiGetBizInfo(bizKeyInfo.bizId)
+      if (response.status == '200' && response.data) {
+        // dispatch(setBizKeyInfo(
+        //   {
+        //     'name': response.data.name,
+        //     'status': response.data.status,
+        //     'bizId': response.data.id
+        //   }
+        // )
+        // )
+        dispatch(setBizInfo(response.data))
+      } else {
+        alert("매장정보 조회 중 에러가 발생했습니다.")
+      }
+    } catch (err) {
+      alert("서버와의 통신 중 에러가 발생했습니다.")
+    }
+  }
+
+
   useEffect(() => {
+    fetchData()
   }, [])
 
 
 
   return (
-    <div className='max-w-[768px]'>
+    <Container>
+      <div className="h-full w-full">
+        <h5 className="mb-6">프로필</h5>
+        <div className="prose dark:prose-invert max-w-[800px]">
+          <div className='flex flex-row mb-8'>
+            <div className='font-semibold w-36'>매장명</div>
+            <div>{bizData.name}</div>
+          </div>
+          <div className='flex flex-row mb-8'>
+            <div className='font-semibold w-36'>전화번호</div>
+            <div>{bizData.phone}</div>
+          </div>
 
+          <div className='flex flex-row mb-8'>
+            <div className='font-semibold w-36'>매장주소</div>
+            <p>{''}</p>
+          </div>
 
-      <div className='flex flex-row'>
-        <div className='font-semibold w-36'>전화번호</div>
-        <p>{data.phone}</p>
+          <div className='flex flex-row'>
+            <div className='font-semibold w-36'>매장소개</div>
+            <p>{bizData.introduction}</p>
+          </div>
+        </div>
       </div>
-
-      <div className='flex flex-row'>
-        <div className='font-semibold w-36'>매장주소</div>
-        <p>{''}</p>
-      </div>
-
-      {/* <div className='flex flex-row'>
-        <div className='font-semibold w-36'>한줄소개</div>
-        <p>{data.introduction}</p>
-      </div>
-
-      <div className='flex flex-row'>
-        <div className='font-semibold w-36'>매장소개</div>
-        <p>{data.description}</p>
-      </div> */}
-
-      <GridImages />
-
-
-    </div >
+    </Container>
   )
 }
 

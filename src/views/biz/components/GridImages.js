@@ -151,8 +151,6 @@ const GridImages = (props) => {
 
     return (
         <AdaptableCard className="mb-4">
-            <h5>매장 이미지</h5>
-            <p className="mb-6">매장이미지를 등록해주세요</p>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-4">
                 <ImageList

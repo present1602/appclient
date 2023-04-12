@@ -16,16 +16,21 @@ const { TabNav, TabList, TabContent } = Tabs
 
 const routes = [
   {
-    groupName: 'biz info',
+    groupName: '매장정보',
     nav: [
       {
         path: 'profile',
-        label: 'Profile',
-        component: React.lazy(() => import('./components/BizInfo')),
+        label: '프로필',
+        component: React.lazy(() => import('./components/BizProfile')),
+      },
+      {
+        path: 'imgs',
+        label: '매장이미지',
+        component: React.lazy(() => import('./components/GridImages')),
       },
       {
         path: 'detail',
-        label: 'Detail',
+        label: '상세정보',
         component: React.lazy(() => import('./components/Detail')),
       },
     ]
@@ -43,12 +48,12 @@ const NavContent = ({ onLinkClick, routes }) => {
       {routes.map((group) => (
         <div className="mb-6" key={group.groupName}>
           <h6 className="mb-4">{group.groupName}</h6>
-          <div className="ltr:border-l rtl:border-r border-gray-200 dark:border-gray-600">
+          <div className="border-l border-gray-200 dark:border-gray-600">
             {group.nav.map((menu) => (
               <NavLink
                 key={menu.label}
                 className={({ isActive }) =>
-                  `cursor-pointer font-semibold ltr:border-l rtl:border-r px-4 h-6 mb-4 flex items-center gap-2 hover:text-gray-900 dark:hover:text-gray-100 ltr:-ml-px rtl:-mr-px ${isActive
+                  `cursor-pointer font-semibold border-l px-4 h-6 mb-4 flex items-center gap-2 hover:text-gray-900 dark:hover:text-gray-100 ltr:-ml-px rtl:-mr-px ${isActive
                     ? activeClass
                     : 'border-transparent'
                   }`
@@ -159,12 +164,8 @@ const BizView = () => {
                         </div>
                       }
                     >
-                      <div className="h-full w-full">
-                        <h5 className="mb-6">{label}</h5>
-                        <div className="prose dark:prose-invert max-w-[800px]">
-                          <Component />
-                        </div>
-                      </div>
+
+                      <Component />
 
                     </Suspense>
                   }

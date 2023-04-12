@@ -35,7 +35,7 @@ const PackageDcNew = () => {
   }, [])
 
   return (
-    <div className='max-w-[768px]'>
+    <AdaptableCard className='h-full'>
       <h5 className='mb-5 mt-5'>패키지할인 등록</h5>
 
       <FormContainer>
@@ -68,7 +68,11 @@ const PackageDcNew = () => {
           />
         </FormItem>
 
-        <div className="mt-4 text-right">
+
+
+
+
+        <div className="my-5 text-right">
           <Button
             onClick={() => { }}
           >
@@ -76,13 +80,18 @@ const PackageDcNew = () => {
           </Button>
         </div>
 
+        <div className='border-b border-grey-300 w-full mb-8' />
 
+        <label className='form-label'>
+          메뉴등록
+        </label>
 
         {
           formData.bundleMenu.map((element, index) => {
             return <MenuCard data={element} index={index} updateBundleMenu={updateBundleMenu} />
           })
         }
+
 
 
         {/* 
@@ -123,7 +132,7 @@ const PackageDcNew = () => {
 
       </FormContainer>
 
-    </div>
+    </AdaptableCard>
   );
 }
 
