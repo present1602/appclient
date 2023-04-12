@@ -10,7 +10,6 @@ const PromotionRegister = () => {
     <div>
       <h5>프로모션 등록</h5>
       <Button onClick={() => navigate('/promotion/package-dc/new')}
-
       >
         패키지할인
       </Button>
@@ -18,4 +17,4 @@ const PromotionRegister = () => {
   );
 }
 
-export default PromotionRegister; 
+export default PromotionRegister;

@@ -28,7 +28,8 @@ const Menu = React.forwardRef((props, ref) => {
         return `${menuDefaultClass}-${variant}`
     }
 
-    const menuClass = classNames(menuDefaultClass, menuColor(), className)
+    // const menuClass = classNames(menuDefaultClass, menuColor(), className)
+    const menuClass = classNames(menuDefaultClass, 'bg-grey-800', className)
 
     return (
         <nav ref={ref} className={menuClass} {...rest}>

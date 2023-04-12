@@ -85,8 +85,8 @@ const SideNav = () => {
                     }
                     className={classNames(
                         'side-nav',
-                        sideNavColor(),
-                        // 'bg-gray-900',
+                        // sideNavColor(),
+                        'bg-gray-900',
                         !sideNavCollapse && 'side-nav-expand'
                     )}
                 >

@@ -49,7 +49,7 @@ const BizView = () => {
   }, [])
 
   return (
-    <AdaptableCard className="h-full" bodyClass="lg:flex h-full gap-8">
+    <AdaptableCard bodyClass="gap-8">
       <Tabs value={currentTab} onChange={(val) => onTabChange(val)}>
         <TabList>
           {Object.keys(bizMenu).map((key) => (
