@@ -4162,10 +4162,6 @@ hr{
         margin-top: 1.25rem;
         margin-bottom: 1.25rem;
 }
-.mx-6{
-        margin-left: 1.5rem;
-        margin-right: 1.5rem;
-}
 .my-6{
         margin-top: 1.5rem;
         margin-bottom: 1.5rem;
@@ -4426,9 +4422,6 @@ hr{
 .max-h-\[140px\]{
         max-height: 140px;
 }
-.max-h-\[7640px\]{
-        max-height: 7640px;
-}
 .max-h-\[640px\]{
         max-height: 640px;
 }
@@ -4643,6 +4636,12 @@ hr{
 }
 .w-screen{
         width: 100vw;
+}
+.w-\[100px\]{
+        width: 100px;
+}
+.w-\[120px\]{
+        width: 120px;
 }
 .min-w-0{
         min-width: 0px;

@@ -23,7 +23,6 @@ const PortlImages = () => {
   }
 
   useEffect(() => {
-    debugger
     if (bizKeyInfo.bizId) {
       dispatch(getPortalImageData(bizKeyInfo.bizId))
     }
@@ -31,47 +30,39 @@ const PortlImages = () => {
 
 
   return (
-    <div className='h-full w-full' >
+    <>
       <h5 className='my-6'>포털 이미지</h5>
       <div className='flex justify-end px-10'>
         <Button onClick={() => navigate('./edit')}>편집</Button>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 xl:grid-cols-4 gap-4">
+      <div className='flex flex-row'>
 
-        {persistImages.map((img) => (
-          <div
-            className="group relative rounded border p-2 flex"
-            key={img.full_path}
-          >
-            <img
-              onClick={() => { onViewOpen(img) }}
-              className="rounded max-h-[140px] max-w-full mx-auto"
-              src={img.full_path}
-              alt={img.filename}
-            />
-            {/* <div className="absolute inset-2 bg-gray-900/[.7] group-hover:flex hidden text-xl items-center justify-center">
-              <span
-                onClick={() => { onViewOpen(img) }}
-                className="text-gray-100 hover:text-gray-300 cursor-pointer p-1.5"
-              >
-                <HiEye />
-                {img.filename}
-              </span>
-              <span
-                onClick={() => { }}
-                className="text-gray-100 hover:text-gray-300 cursor-pointer p-1.5"
-              >
-              </span>
-            </div> */}
-          </div>
-        ))}
-      </div >
+        <div className='w-[120px]'>
+          {persistImages.map((img) => (
+            <div
+              className="rounded border p-2"
+              key={img.full_path}
+            >
+              <div>
+                <img
+                  onClick={() => { onViewOpen(img) }}
+                  className="rounded max-h-[140px] max-w-full mx-auto"
+                  src={img.full_path}
+                  alt={img.filename}
+                />
+              </div>
+            </div>))
+          }
+        </div>
 
-      <div className='w-full'>
-        <img src={selectedImg.full_path} className='max-h-[640px] max-w-full mx-auto' />
+        <div className='w-full'>
+          <img src={selectedImg.full_path} className='max-h-[640px] max-w-full mx-auto' />
+        </div>
+
       </div>
-    </div>
+
+    </>
 
   );
 }
