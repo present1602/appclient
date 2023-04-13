@@ -4166,6 +4166,14 @@ hr{
         margin-top: 1.5rem;
         margin-bottom: 1.5rem;
 }
+.mx-1{
+        margin-left: 0.25rem;
+        margin-right: 0.25rem;
+}
+.my-1{
+        margin-top: 0.25rem;
+        margin-bottom: 0.25rem;
+}
 .mb-0{
         margin-bottom: 0px;
 }
@@ -4419,6 +4427,9 @@ hr{
 .h-screen{
         height: 100vh;
 }
+.h-\[120px\]{
+        height: 120px;
+}
 .max-h-\[140px\]{
         max-height: 140px;
 }
@@ -4612,6 +4623,9 @@ hr{
 .w-96{
         width: 24rem;
 }
+.w-\[120px\]{
+        width: 120px;
+}
 .w-\[320px\]{
         width: 320px;
 }
@@ -4637,11 +4651,8 @@ hr{
 .w-screen{
         width: 100vw;
 }
-.w-\[100px\]{
-        width: 100px;
-}
-.w-\[120px\]{
-        width: 120px;
+.w-\[180px\]{
+        width: 180px;
 }
 .min-w-0{
         min-width: 0px;
@@ -6642,6 +6653,10 @@ hr{
 .py-4{
         padding-top: 1rem;
         padding-bottom: 1rem;
+}
+.px-1{
+        padding-left: 0.25rem;
+        padding-right: 0.25rem;
 }
 .pb-0{
         padding-bottom: 0px;
