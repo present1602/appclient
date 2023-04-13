@@ -23,7 +23,7 @@ export const categories = [
   { label: 'Watches', value: 'watches' },
 ]
 
-injectReducer('bizData1', reducer)
+// injectReducer('bizData1', reducer)
 
 const BizInfo = (props) => {
   // const BizInfo = (props) => {

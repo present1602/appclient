@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux'
 import { injectReducer } from 'store'
 import reducer from './store'
 import BizInfo from './components/BizInfo'
-import { AdaptableCard, NavToggle } from 'components/shared'
+import { AdaptableCard, Container, NavToggle } from 'components/shared'
 import useThemeClass from 'utils/hooks/useThemeClass'
 
 const { TabNav, TabList, TabContent } = Tabs
@@ -24,7 +24,7 @@ const routes = [
         component: React.lazy(() => import('./components/BizProfile')),
       },
       {
-        path: 'imgs',
+        path: 'portal-images',
         label: '매장이미지',
         component: React.lazy(() => import('./components/GridImages')),
       },
@@ -32,6 +32,49 @@ const routes = [
         path: 'detail',
         label: '상세정보',
         component: React.lazy(() => import('./components/Detail')),
+      },
+      {
+        path: 'grid',
+        label: '그리드',
+        component: React.lazy(() => import('./components/GridImages')),
+      },
+    ]
+  }
+]
+
+const bizRoutes = [
+  {
+    groupName: '매장정보',
+    nav: [
+      {
+        path: 'profile',
+        label: '프로필',
+        component: React.lazy(() => import('./components/BizProfile')),
+      },
+      {
+        path: 'profile/edit',
+        label: '기본정보 수정',
+        component: React.lazy(() => import('./components/BizProfileEdit')),
+      },
+      {
+        path: 'portal-images',
+        label: '매장이미지',
+        component: React.lazy(() => import('./components/PortalImages')),
+      },
+      {
+        path: 'portal-images/edit',
+        label: '매장이미지',
+        component: React.lazy(() => import('./components/PortalImagesEdit')),
+      },
+      {
+        path: 'detail',
+        label: '상세정보',
+        component: React.lazy(() => import('./components/Detail')),
+      },
+      {
+        path: 'grid',
+        label: '그리드',
+        component: React.lazy(() => import('./components/GridImages')),
       },
     ]
   }
@@ -105,6 +148,7 @@ const MobileNav = ({ routes }) => {
   )
 }
 
+injectReducer('bizPersistData', reducer)
 const BizView = () => {
   const [currentTab, setCurrentTab] = useState('profile')
 
@@ -139,44 +183,46 @@ const BizView = () => {
   }, [])
 
   return (
-    <AdaptableCard className="h-full" bodyClass="lg:flex h-full gap-8">
-      <div className="lg:w-[180px] py-2 lg-py-0 px-4 mb-4 border border-gray-200 dark:border-gray-700 rounded-md lg:border-0">
-        <div className="flex flex-col">
-          <div className="hidden lg:block">
-            <NavContent routes={routes} />
+    <Container className='h-full'>
+      <AdaptableCard className="h-full" bodyClass="lg:flex h-full gap-8">
+        <div className="lg:w-[180px] py-2 lg-py-0 px-4 mb-4 border border-gray-200 dark:border-gray-700 rounded-md lg:border-0">
+          <div className="flex flex-col">
+            <div className="hidden lg:block">
+              <NavContent routes={routes} />
+            </div>
+            <MobileNav routes={routes} />
           </div>
-          <MobileNav routes={routes} />
         </div>
-      </div>
-      <div className='h-full'>
-        <Routes>
-          {routes.map((group) => (
-            <Fragment key={group.groupName}>
-              {group.nav.map(({ path, component: Component, label }) => (
-                <Route
-                  key={label}
-                  path={path}
-                  element={
-                    <Suspense
-                      fallback={
-                        <div className="h-full w-full flex items-center justify-center">
-                          <Spinner size={40} />
-                        </div>
-                      }
-                    >
+        <div className='h-full w-full'> {/* *w-full 추가 */}
+          <Routes>
+            {bizRoutes.map((group) => (
+              <Fragment key={group.groupName}>
+                {group.nav.map(({ path, component: Component, label }) => (
+                  <Route
+                    key={label}
+                    path={path}
+                    element={
+                      <Suspense
+                        fallback={
+                          <div className="h-full w-full flex items-center justify-center">
+                            <Spinner size={40} />
+                          </div>
+                        }
+                      >
 
-                      <Component />
+                        <Component />
 
-                    </Suspense>
-                  }
-                />
-              ))}
-            </Fragment>
-          ))}
-          {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
-        </Routes>
-      </div>
-    </AdaptableCard>
+                      </Suspense>
+                    }
+                  />
+                ))}
+              </Fragment>
+            ))}
+            {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
+          </Routes>
+        </div>
+      </AdaptableCard>
+    </Container>
     // <AdaptableCard bodyClass="gap-8">
     //   <Tabs value={currentTab} onChange={(val) => onTabChange(val)}>
     //     <TabList>

@@ -7,3 +7,10 @@ export async function apiGetBizInfo(bizId) {
     method: 'GET',
   })
 }
+
+export async function apiGetPortalImages(bizId) {
+  return ApiService.fetchData({
+    url: `${appConfig.apiPrefix}/biz-info/portal-images/${bizId}`,
+    method: 'GET',
+  })
+}

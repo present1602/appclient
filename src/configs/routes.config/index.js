@@ -26,7 +26,8 @@ export const protectedRoutes = [
         component: BizView,
         authority: [],
         meta: {
-            header: '매장정보',
+            header: '매장정보1',
+            pageContainerType: 'contained',
             headerContainer: true,
         }
     },

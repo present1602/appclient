@@ -4,10 +4,11 @@ import {
     ConfirmDialog,
     DoubleSidedImage,
 } from 'components/shared'
-import { FormItem, Dialog, Upload } from 'components/ui'
+import { FormItem, Dialog, Upload, Button } from 'components/ui'
 import { HiEye, HiTrash } from 'react-icons/hi'
 import { Field } from 'formik'
 import cloneDeep from 'lodash/cloneDeep'
+import { useNavigate } from 'react-router-dom'
 
 const ImageList = (props) => {
     const { imgList, onImageDelete } = props
@@ -101,6 +102,7 @@ const ImageList = (props) => {
 
 const GridImages = (props) => {
     // const { values } = props
+    const navigate = useNavigate()
     const [imgList, setImgList] = useState([])
 
     const beforeUpload = (file) => {
@@ -150,9 +152,14 @@ const GridImages = (props) => {
     }
 
     return (
-        <AdaptableCard className="mb-4">
-
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-4">
+        <div className="h-full w-full">
+            <h5 className="mb-6">매장이미지</h5>
+            <div className='flex justify-end px-10'>
+                <Button onClick={() => { navigate('./edit') }}>
+                    편집
+                </Button>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 xl:grid-cols-4 gap-4">
                 <ImageList
                     imgList={imgList}
                     onImageDelete={(img) =>
@@ -180,7 +187,7 @@ const GridImages = (props) => {
                 </Upload>
             </div>
 
-        </AdaptableCard >
+        </div>
     )
 }
 

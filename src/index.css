@@ -4162,6 +4162,14 @@ hr{
         margin-top: 1.25rem;
         margin-bottom: 1.25rem;
 }
+.mx-6{
+        margin-left: 1.5rem;
+        margin-right: 1.5rem;
+}
+.my-6{
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
+}
 .mb-0{
         margin-bottom: 0px;
 }
@@ -4417,6 +4425,12 @@ hr{
 }
 .max-h-\[140px\]{
         max-height: 140px;
+}
+.max-h-\[7640px\]{
+        max-height: 7640px;
+}
+.max-h-\[640px\]{
+        max-height: 640px;
 }
 .min-h-fit{
         min-height: -moz-fit-content;
@@ -4702,6 +4716,9 @@ hr{
 }
 .\!justify-start{
         justify-content: flex-start !important;
+}
+.justify-end{
+        justify-content: flex-end;
 }
 .justify-center{
         justify-content: center;
@@ -6590,6 +6607,10 @@ hr{
 .px-0{
         padding-left: 0px;
         padding-right: 0px;
+}
+.px-10{
+        padding-left: 2.5rem;
+        padding-right: 2.5rem;
 }
 .px-3{
         padding-left: 0.75rem;
@@ -20405,5 +20426,8 @@ hr{
 @media (min-width: 1280px){
         .xl\:grid-cols-3{
                 grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+        .xl\:grid-cols-4{
+                grid-template-columns: repeat(4, minmax(0, 1fr));
         }
 }

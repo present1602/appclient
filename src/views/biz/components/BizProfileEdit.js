@@ -10,15 +10,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { apiGetBizInfo } from 'services/BizService'
 import { setBizInfo } from '../store/dataSlice'
 import { setMode } from 'store/theme/themeSlice'
+import { useNavigate } from 'react-router-dom'
 
 
-export const categories = [
-  { label: 'Bags', value: 'bags' },
-  { label: 'Cloths', value: 'cloths' },
-  { label: 'Devices', value: 'devices' },
-  { label: 'Shoes', value: 'shoes' },
-  { label: 'Watches', value: 'watches' },
-]
 {/* <FormContainer>
     <FormItem
         label="상호"
@@ -38,6 +32,8 @@ const BizProfileEdit = (props) => {
   // const BizProfileEdit = (props) => {
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+
   const bizData = useSelector((state) => state.bizData1.data.biz_info)
   const bizSession = useSelector((state) => state.auth.session.bizKeyInfo)
 
@@ -75,6 +71,10 @@ const BizProfileEdit = (props) => {
   //     }
   //     // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, [])
+
+  const cancleEdit = () => {
+    navigate('/biz/profile')
+  }
 
   const fetchData = async () => {
     if (bizSession.bizId) {
@@ -217,7 +217,7 @@ const BizProfileEdit = (props) => {
           <Button
             size="sm"
             className="ltr:mr-3 rtl:ml-3"
-            onClick={() => { }}
+            onClick={cancleEdit}
             type="button"
 
           >
