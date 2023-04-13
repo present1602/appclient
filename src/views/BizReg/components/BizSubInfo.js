@@ -115,7 +115,7 @@ const BizSubInfo = ({
         const params = {
           'original_filename': bizFile1.name,
           'biz_reg_id': persistData.id,
-          'path': resData1.location,
+          'full_path': resData1.location,
           'filename': getFilename,
           'type': '10'
         }

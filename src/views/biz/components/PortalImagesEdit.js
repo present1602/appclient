@@ -27,7 +27,7 @@ const PortlImagesEdit = () => {
     const file = e.target.files[0]
 
     const response = await directUploadFile(file, 'biz/portal')
-    debugger;
+
     const newFileElement = {
       'full_path': response.location,
       'filename': `${bizId}_${Math.random()}_${file.name}`,
