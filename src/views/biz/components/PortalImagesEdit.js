@@ -1,18 +1,21 @@
 import { Button, CloseButton } from 'components/ui';
 import React, { useRef, useState } from 'react';
 import { HiEye } from 'react-icons/hi';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { injectReducer } from 'store';
 import { directUploadFile } from 'utils/uploadFile';
 import reducer from '../store';
+import { setPortalImages } from '../store/dataSlice';
 
 injectReducer('bizPersistData', reducer)
 const PortlImagesEdit = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+
   const persistImages = useSelector((state) => state.bizPersistData.data.portal_images)
 
-  const [fileListData, setFileListData] = useState(persistImages)
+  // const [fileListData, setFileListData] = useState(persistImages)
 
   const bizKeyInfo = useSelector((state) => state.auth.session.bizKeyInfo)
 
@@ -32,9 +35,11 @@ const PortlImagesEdit = () => {
       'full_path': response.location,
       'filename': `${bizId}_${Math.random()}_${file.name}`,
       'original_filename': file.name,
+      'order': persistImages.length
     }
     debugger;
-    setFileListData([...fileListData, newFileElement])
+    // setFileListData([...fileListData, newFileElement])
+    dispatch(setPortalImages([...persistImages, newFileElement]))
 
   }
 
@@ -50,7 +55,7 @@ const PortlImagesEdit = () => {
         <Button onClick={() => { }} className='mx-1'>저장</Button>
       </div>
       {/* {persistImages.map((img, index) => ( */}
-      {fileListData.map((img, index) => (
+      {persistImages.map((img, index) => (
         <div className='upload-file w-full h-[120px] py-1 px-1'>
           <div className='flex w-full h-full'>
             <div className='h-full flex justify-center w-[180px]'>

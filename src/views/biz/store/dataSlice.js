@@ -62,7 +62,7 @@ const dataSlice = createSlice({
       })
   },
 })
-export const { setBizInfo, setCompanyInfo, setPlaceImages, resetBizInfo } = dataSlice.actions
+export const { setBizInfo, setCompanyInfo, setPlaceImages, resetBizInfo, setPortalImages } = dataSlice.actions
 
 export default dataSlice.reducer
 
