@@ -22,7 +22,8 @@ const PortlImagesEdit = () => {
   const fileRef = useRef()
 
   const removeFile = (index) => {
-
+    const newArr = persistImages.filter((el, idx) => idx != index)
+    dispatch(setPortalImages(newArr))
   }
 
   const handleFileUpload = async (e) => {
@@ -35,7 +36,6 @@ const PortlImagesEdit = () => {
       'full_path': response.location,
       'filename': `${bizId}_${Math.random()}_${file.name}`,
       'original_filename': file.name,
-      'order': persistImages.length
     }
     debugger;
     // setFileListData([...fileListData, newFileElement])
