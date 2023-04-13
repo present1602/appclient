@@ -4150,6 +4150,10 @@ hr{
 .col-span-3{
         grid-column: span 3 / span 3;
 }
+.mx-1{
+        margin-left: 0.25rem;
+        margin-right: 0.25rem;
+}
 .mx-2{
         margin-left: 0.5rem;
         margin-right: 0.5rem;
@@ -4158,6 +4162,10 @@ hr{
         margin-left: auto;
         margin-right: auto;
 }
+.my-1{
+        margin-top: 0.25rem;
+        margin-bottom: 0.25rem;
+}
 .my-5{
         margin-top: 1.25rem;
         margin-bottom: 1.25rem;
@@ -4165,14 +4173,6 @@ hr{
 .my-6{
         margin-top: 1.5rem;
         margin-bottom: 1.5rem;
-}
-.mx-1{
-        margin-left: 0.25rem;
-        margin-right: 0.25rem;
-}
-.my-1{
-        margin-top: 0.25rem;
-        margin-bottom: 0.25rem;
 }
 .mb-0{
         margin-bottom: 0px;
@@ -4405,6 +4405,9 @@ hr{
 .h-\[100vh\]{
         height: 100vh;
 }
+.h-\[120px\]{
+        height: 120px;
+}
 .h-auto{
         height: auto;
 }
@@ -4426,9 +4429,6 @@ hr{
 }
 .h-screen{
         height: 100vh;
-}
-.h-\[120px\]{
-        height: 120px;
 }
 .max-h-\[140px\]{
         max-height: 140px;
@@ -4626,6 +4626,9 @@ hr{
 .w-\[120px\]{
         width: 120px;
 }
+.w-\[180px\]{
+        width: 180px;
+}
 .w-\[320px\]{
         width: 320px;
 }
@@ -4650,9 +4653,6 @@ hr{
 }
 .w-screen{
         width: 100vw;
-}
-.w-\[180px\]{
-        width: 180px;
 }
 .min-w-0{
         min-width: 0px;
@@ -6614,9 +6614,19 @@ hr{
 .p-8{
         padding: 2rem;
 }
+.p-3{
+        padding: 0.75rem;
+}
+.p-5{
+        padding: 1.25rem;
+}
 .px-0{
         padding-left: 0px;
         padding-right: 0px;
+}
+.px-1{
+        padding-left: 0.25rem;
+        padding-right: 0.25rem;
 }
 .px-10{
         padding-left: 2.5rem;
@@ -6653,10 +6663,6 @@ hr{
 .py-4{
         padding-top: 1rem;
         padding-bottom: 1rem;
-}
-.px-1{
-        padding-left: 0.25rem;
-        padding-right: 0.25rem;
 }
 .pb-0{
         padding-bottom: 0px;

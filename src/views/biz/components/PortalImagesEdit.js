@@ -41,6 +41,18 @@ const PortlImagesEdit = () => {
 
       ))}
 
+      <div className='upload-file w-full h-[120px] py-1 px-1'>
+        <div className='flex w-full h-full' onClick={() => { }}>
+          <div className='h-full flex justify-center w-[180px] p-5'>
+            <img src='/img/others/upload.png' className='h-full' />
+          </div>
+          <div className="upload-file-info">
+
+            <h6 className="upload-file-name">이미지 추가</h6>
+          </div>
+        </div>
+      </div>
+
       {/* {persistImages.map((img) => (
         <div
           className="group relative rounded border p-2 flex"
