@@ -34,8 +34,7 @@ const initData = {
   company_info: {
 
   },
-  portal_images: [img1]
-
+  portal_images: []
 }
 
 const dataSlice = createSlice({

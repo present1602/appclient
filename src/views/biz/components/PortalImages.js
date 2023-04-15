@@ -14,7 +14,7 @@ const PortlImages = () => {
   const persistImages = useSelector((state) => state.bizPersistData.data.portal_images)
   const bizKeyInfo = useSelector((state) => state.auth.session.bizKeyInfo)
 
-  const [selectedImg, setSelectedImg] = useState(persistImages.length > 0 ? persistImages[0] : {})
+  const [selectedImg, setSelectedImg] = useState((persistImages && persistImages.length > 0) ? persistImages[0] : {})
   const [viewOpen, setViewOpen] = useState(false)
 
   const onViewOpen = (img) => {

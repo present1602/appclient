@@ -13,7 +13,6 @@ export function directUploadFile(file, dirName) {
     secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
   }
 
-  debugger;
   const ReactS3Client = new S3(s3_config);
   return new Promise(resolve => {
     ReactS3Client

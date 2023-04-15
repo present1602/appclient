@@ -65,6 +65,8 @@ const PortlImagesEdit = () => {
       const newIndex = persistImages.findIndex(item => item.id === over.id)
 
       const newArr = arrayMove(persistImages, oldIndex, newIndex)
+
+
       dispatch(setPortalImages(newArr))
     }
   }
@@ -85,7 +87,6 @@ const PortlImagesEdit = () => {
       'filename': `${bizId}_${Math.random()}_${file.name}`,
       'original_filename': file.name,
     }
-    debugger;
     // setFileListData([...fileListData, newFileElement])
     dispatch(setPortalImages([...persistImages, newFileElement]))
 
@@ -96,7 +97,6 @@ const PortlImagesEdit = () => {
   }
 
   function handleDragEnd(e) {
-    debugger;
     console.log("Drag end called");
     const { active, over } = e;
     console.log("ACTIVE: " + active.id);
@@ -135,6 +135,7 @@ const PortlImagesEdit = () => {
           {
             persistImages.map(
               item => <SortableItem {...item} key={item.id} removeFile={removeFile} />
+              // item => <SortableItem data={item} key={item.id} removeFile={removeFile} />
             )
           }
         </SortableContext>
