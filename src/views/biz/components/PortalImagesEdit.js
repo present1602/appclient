@@ -7,46 +7,9 @@ import { injectReducer } from 'store';
 import { directUploadFile } from 'utils/uploadFile';
 import reducer from '../store';
 import { setPortalImages } from '../store/dataSlice';
-import { closestCenter, DndContext, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
-import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
-import { SortableItem } from './SortableItem';
+import SortableList, { SortableItem } from 'react-easy-sort';
 
 
-class MyPointerSensor extends PointerSensor {
-  static activators = [
-    {
-      eventName: 'onPointerDown',
-      handler: ({ nativeEvent: event }) => {
-        if (
-          event.target.classList.contains('close-btn')
-          // !event.isPrimary ||
-          // event.button !== 0 ||
-          // isInteractiveElement(event.target)
-        ) {
-          return false;
-        }
-
-        return true;
-      },
-    },
-  ];
-}
-
-function isInteractiveElement(element) {
-  const interactiveElements = [
-    'button',
-    'input',
-    'textarea',
-    'select',
-    'option',
-  ];
-
-  if (interactiveElements.includes(element.tagName.toLowerCase())) {
-    return true;
-  }
-
-  return false;
-}
 
 
 injectReducer('bizPersistData', reducer)
@@ -59,27 +22,21 @@ const PortlImagesEdit = () => {
 
   const bizKeyInfo = useSelector((state) => state.auth.session.bizKeyInfo)
 
+  const onSortEnd = (oldIndex, newIndex) => {
+
+    let newArr = persistImages
+    const targetItem = newArr[oldIndex]
+    newArr = persistImages.filter((el, idx) => idx != oldIndex)
+
+    newArr.splice(newIndex, 0, targetItem)
+
+    dispatch(setPortalImages(newArr))
+
+  }
+
+
   const fileRef = useRef()
 
-  // const sensors = [useSensor(MyPointerSensor)];
-
-  // const sensors = [useSensor(PointerSensor)];
-  const sensors = useSensors(useSensor(PointerSensor, {
-    activationConstraint: {
-      distance: 8,
-    },
-  }))
-
-  const handleDragEnd2 = ({ active, over }) => {
-    if (active.id !== over.id) {
-      const oldIndex = persistImages.findIndex(item => item.id === active.id)
-      const newIndex = persistImages.findIndex(item => item.id === over.id)
-
-      const newArr = arrayMove(persistImages, oldIndex, newIndex)
-
-      dispatch(setPortalImages(newArr))
-    }
-  }
 
   const removeFile = (index) => {
     const newArr = persistImages.filter((el, idx) => idx != index)
@@ -98,7 +55,6 @@ const PortlImagesEdit = () => {
       'filename': `${bizId}_${Math.random()}_${file.name}`,
       'original_filename': file.name,
     }
-    // setFileListData([...fileListData, newFileElement])
     dispatch(setPortalImages([...persistImages, newFileElement]))
 
   }
@@ -115,26 +71,35 @@ const PortlImagesEdit = () => {
         <Button onClick={() => { }} className='mx-1'>저장</Button>
       </div>
 
-      <DndContext
-        sensors={sensors}
-        collisionDetection={closestCenter}
-        onDragEnd={handleDragEnd2}
-      >
-        <SortableContext
-          // items={persistImages.map(item => item.id)}
-          items={persistImages}
-          strategy={verticalListSortingStrategy}
-        >
-          {
-            persistImages.map(
-              (item, index) => <SortableItem
-                id={`${index}_`}
-                {...item} key={item.original_filename} removeFile={removeFile} index={index} />
-            )
-          }
-        </SortableContext>
-      </DndContext>
+      <SortableList onSortEnd={onSortEnd} className="list" draggedItemClassName="dragged">
+        {persistImages.map((item, index) => (
+          <SortableItem key={item.filename}>
+            <div className='upload-file w-full h-[120px] py-1 px-1' >
+              <div className='flex w-full h-full'>
+                <div className='h-full flex justify-center w-[180px]'>
+                  <img src={item.full_path} className='h-full' />
+                </div>
+                <div className="upload-file-info">
+                  <h6 className="upload-file-name">{item.filename}</h6>
+                </div>
+              </div>
 
+              <div className="cursor-pointer z-50 border-red-100"
+                onClick={
+                  (e) => {
+                    removeFile(index)
+                  }
+                }
+              >
+                <CloseButton
+                  className="upload-file-remove"
+                />
+              </div>
+
+            </div>
+          </SortableItem>
+        ))}
+      </SortableList>
 
       <input type="file" ref={fileRef} onChange={handleFileUpload} className='upload-input' />
       <div className='upload-file w-full h-[120px] py-1 px-1'>

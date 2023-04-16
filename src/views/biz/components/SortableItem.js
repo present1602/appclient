@@ -26,7 +26,7 @@ export function SortableItem({ removeFile, id, filename, full_path, index }) {
   return (
     <div style={style} ref={setNodeRef} {...attributes} {...listeners}
     >
-      <div className='upload-file w-full h-[120px] py-1 px-1'>
+      <div className='upload-file w-full h-[120px] py-1 px-1' >
         <div className='flex w-full h-full'>
           <div className='h-full flex justify-center w-[180px]'>
             <img src={full_path} className='h-full' />

@@ -4081,9 +4081,6 @@ hr{
 .collapse{
         visibility: collapse;
 }
-.static{
-        position: static;
-}
 .fixed{
         position: fixed;
 }
