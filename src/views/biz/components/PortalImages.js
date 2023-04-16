@@ -1,5 +1,5 @@
 import { Button, Dialog, Upload } from 'components/ui';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { HiEye } from 'react-icons/hi';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -8,25 +8,49 @@ import reducer from 'store/auth';
 import { getPortalImageData } from '../store/dataSlice';
 
 
+
 const PortlImages = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const persistImages = useSelector((state) => state.bizPersistData.data.portal_images)
   const bizKeyInfo = useSelector((state) => state.auth.session.bizKeyInfo)
 
-  const [selectedImg, setSelectedImg] = useState((persistImages && persistImages.length > 0) ? persistImages[0] : {})
+  const [selectedImg, setSelectedImg] = useState((persistImages && persistImages.length > 0) ? persistImages[0] : null)
   const [viewOpen, setViewOpen] = useState(false)
+
+  const prevImagesRef = useRef(persistImages)
 
   const onViewOpen = (img) => {
     setSelectedImg(img)
     setViewOpen(true)
   }
 
+  function cb1() {
+    alert("cb call")
+  }
   useEffect(() => {
     if (bizKeyInfo.bizId) {
       dispatch(getPortalImageData(bizKeyInfo.bizId))
+      if (persistImages.length > 0) {
+        setSelectedImg(persistImages[0])
+      }
     }
   }, [dispatch])
+
+
+
+  useEffect(() => {
+    if (persistImages && persistImages.length > 0) {
+      setSelectedImg(persistImages[0])
+    }
+
+    // if (prevImagesRef.current.length == 0 && persistImages.length > 0) {
+    //   setSelectedImg(persistImages[0])
+    // }
+
+    // prevImagesRef.current = persistImages
+
+  }, [persistImages])
 
 
   return (
@@ -55,10 +79,12 @@ const PortlImages = () => {
             </div>))
           }
         </div>
-
-        <div className='w-full'>
-          <img src={selectedImg.full_path} className='max-h-[640px] max-w-full mx-auto' />
-        </div>
+        {selectedImg
+          &&
+          <div className='w-full'>
+            <img src={selectedImg.full_path} className='max-h-[640px] max-w-full mx-auto' />
+          </div>
+        }
 
       </div>
 

@@ -3,7 +3,7 @@ import { CSS } from "@dnd-kit/utilities";
 import { CloseButton } from 'components/ui';
 
 
-export function SortableItem({ removeFile, id, filename, full_path }) {
+export function SortableItem({ removeFile, id, filename, full_path, index }) {
   const {
     setNodeRef,
     attributes,
@@ -35,11 +35,19 @@ export function SortableItem({ removeFile, id, filename, full_path }) {
             <h6 className="upload-file-name">{filename}</h6>
           </div>
         </div>
-        <CloseButton
-          // onClick={() => removeFile(index)}
-          onClick={() => { }}
-          className="upload-file-remove"
-        />
+
+        <div className="cursor-pointer z-50 border-red-100"
+          onClick={
+            (e) => {
+              removeFile(index)
+            }
+          }
+        >
+          <CloseButton
+            className="upload-file-remove"
+          />
+        </div>
+
       </div>
     </div>
   )

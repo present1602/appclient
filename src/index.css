@@ -4081,6 +4081,9 @@ hr{
 .collapse{
         visibility: collapse;
 }
+.static{
+        position: static;
+}
 .fixed{
         position: fixed;
 }
@@ -4143,6 +4146,9 @@ hr{
 }
 .z-10{
         z-index: 10;
+}
+.z-50{
+        z-index: 50;
 }
 .col-span-2{
         grid-column: span 2 / span 2;

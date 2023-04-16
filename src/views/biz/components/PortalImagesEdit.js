@@ -7,9 +7,47 @@ import { injectReducer } from 'store';
 import { directUploadFile } from 'utils/uploadFile';
 import reducer from '../store';
 import { setPortalImages } from '../store/dataSlice';
-import { closestCenter, DndContext, PointerSensor, useSensor } from '@dnd-kit/core';
+import { closestCenter, DndContext, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { SortableItem } from './SortableItem';
+
+
+class MyPointerSensor extends PointerSensor {
+  static activators = [
+    {
+      eventName: 'onPointerDown',
+      handler: ({ nativeEvent: event }) => {
+        if (
+          event.target.classList.contains('close-btn')
+          // !event.isPrimary ||
+          // event.button !== 0 ||
+          // isInteractiveElement(event.target)
+        ) {
+          return false;
+        }
+
+        return true;
+      },
+    },
+  ];
+}
+
+function isInteractiveElement(element) {
+  const interactiveElements = [
+    'button',
+    'input',
+    'textarea',
+    'select',
+    'option',
+  ];
+
+  if (interactiveElements.includes(element.tagName.toLowerCase())) {
+    return true;
+  }
+
+  return false;
+}
+
 
 injectReducer('bizPersistData', reducer)
 const PortlImagesEdit = () => {
@@ -18,46 +56,19 @@ const PortlImagesEdit = () => {
 
   const persistImages = useSelector((state) => state.bizPersistData.data.portal_images)
 
-  const [languages, setLanguages] = useState(['css', 'js', 'python', 'node'])
-  const [sample, setSample] = useState(
-    [
-      { 'id:': 'a1', 'text:': 'css' },
-      { 'id:': 'a2', 'text:': 'node' },
-      { 'id:': 'a3', 'text:': 'js' },
-      { 'id:': 'a4', 'text:': 'typescript' },
-    ]
-    // 'js', 'python', 'node']
-  )
-  // const [fileListData, setFileListData] = useState(persistImages)
 
   const bizKeyInfo = useSelector((state) => state.auth.session.bizKeyInfo)
 
   const fileRef = useRef()
 
-  const [items, setItems] = useState([
-    {
-      id: "1",
-      name: "Manoj"
-    },
-    {
-      id: "2",
-      name: "John"
-    },
-    {
-      id: "3",
-      name: "Ronaldo"
-    },
-    {
-      id: "4",
-      name: "Harry"
-    },
-    {
-      id: "5",
-      name: "Jamie"
-    }
-  ])
+  // const sensors = [useSensor(MyPointerSensor)];
 
-  const sensors = [useSensor(PointerSensor)];
+  // const sensors = [useSensor(PointerSensor)];
+  const sensors = useSensors(useSensor(PointerSensor, {
+    activationConstraint: {
+      distance: 8,
+    },
+  }))
 
   const handleDragEnd2 = ({ active, over }) => {
     if (active.id !== over.id) {
@@ -65,7 +76,6 @@ const PortlImagesEdit = () => {
       const newIndex = persistImages.findIndex(item => item.id === over.id)
 
       const newArr = arrayMove(persistImages, oldIndex, newIndex)
-
 
       dispatch(setPortalImages(newArr))
     }
@@ -82,6 +92,7 @@ const PortlImagesEdit = () => {
 
     const response = await directUploadFile(file, 'biz/portal')
 
+    debugger;
     const newFileElement = {
       'full_path': response.location,
       'filename': `${bizId}_${Math.random()}_${file.name}`,
@@ -96,25 +107,6 @@ const PortlImagesEdit = () => {
     fileRef.current?.click()
   }
 
-  function handleDragEnd(e) {
-    console.log("Drag end called");
-    const { active, over } = e;
-    console.log("ACTIVE: " + active.id);
-    console.log("OVER :" + over.id);
-
-    if (active.id !== over.id) {
-      setLanguages((items) => {
-        const activeIndex = items.indexOf(active.id);
-        const overIndex = items.indexOf(over.id);
-        console.log(arrayMove(items, activeIndex, overIndex));
-        return arrayMove(items, activeIndex, overIndex);
-        // items: [2, 3, 1]   0  -> 2
-        // [1, 2, 3] oldIndex: 0 newIndex: 2  -> [2, 3, 1] 
-      });
-
-    }
-
-  }
   return (
     <div className='h-full w-full'>
       <h5 className='my-6'>포털 이미지 수정</h5>
@@ -129,70 +121,20 @@ const PortlImagesEdit = () => {
         onDragEnd={handleDragEnd2}
       >
         <SortableContext
-          items={persistImages.map(item => item.id)}
+          // items={persistImages.map(item => item.id)}
+          items={persistImages}
           strategy={verticalListSortingStrategy}
         >
           {
             persistImages.map(
-              item => <SortableItem {...item} key={item.id} removeFile={removeFile} />
-              // item => <SortableItem data={item} key={item.id} removeFile={removeFile} />
+              (item, index) => <SortableItem
+                id={`${index}_`}
+                {...item} key={item.original_filename} removeFile={removeFile} index={index} />
             )
           }
         </SortableContext>
       </DndContext>
 
-      {/* <DndContext
-        collisionDetection={closestCenter}
-        onDragEnd={handleDragEnd}
-      >
-        <SortableContext
-          items={persistImages}
-          strategy={verticalListSortingStrategy}
-        >
-          {persistImages.map((img, index) => <SortableItems key={img.filename} id={img.filename} img={img} />)}
-        </SortableContext>
-      </DndContext>
-
-      <DndContext
-        collisionDetection={closestCenter}
-        onDragEnd={handleDragEnd}
-      >
-        <SortableContext
-          items={persistImages}
-          strategy={verticalListSortingStrategy}
-        >
-          {persistImages.map((img, index) => {
-            return <SortableItem key={`${index}_${img.filename}`} id={`${index}_${img.filename}`} data={img} removeFile={removeFile} index={index} />
-          }
-          )}
-        </SortableContext>
-      </DndContext> */}
-
-      {/* <DndContext
-        collisionDetection={closestCenter}
-        onDragEnd={handleDragEnd}
-      >
-        <SortableContext
-          items={persistImages}
-          strategy={verticalListSortingStrategy}
-        >
-          {persistImages.map((img, index) => <SortableItem data={img} index={index} key={img.filename} id={img.filename} />)}
-        </SortableContext>
-      </DndContext> */}
-
-      {/* <DndContext
-        collisionDetection={closestCenter}
-        onDragEnd={handleDragEnd}
-      >
-        <SortableContext
-          items={persistImages}
-          strategy={verticalListSortingStrategy}
-        >
-          {persistImages.map((img, index) => (
-            <SortableItem data={img} removeFile={removeFile} id={`${index}_${img.filename}`} index={index} />
-          ))}
-        </SortableContext>
-      </DndContext> */}
 
       <input type="file" ref={fileRef} onChange={handleFileUpload} className='upload-input' />
       <div className='upload-file w-full h-[120px] py-1 px-1'>
@@ -207,31 +149,6 @@ const PortlImagesEdit = () => {
         </div>
       </div>
 
-      {/* {persistImages.map((img) => (
-        <div
-          className="group relative rounded border p-2 flex"
-          key={img.full_path}
-        >
-          <img
-            className="rounded max-h-[140px] max-w-full mx-auto"
-            src={img.full_path}
-            alt={img.filename}
-          />
-          <div className="absolute inset-2 bg-gray-900/[.7] group-hover:flex hidden text-xl items-center justify-center">
-            <span
-              onClick={() => { }}
-              className="text-gray-100 hover:text-gray-300 cursor-pointer p-1.5"
-            >
-              {img.filename}
-            </span>
-            <span
-              onClick={() => { }}
-              className="text-gray-100 hover:text-gray-300 cursor-pointer p-1.5"
-            >
-            </span>
-          </div>
-        </div>
-      ))} */}
     </div>
   );
 }
